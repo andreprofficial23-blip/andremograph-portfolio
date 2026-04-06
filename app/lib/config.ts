@@ -39,8 +39,43 @@ export const DICT = {
     btn_see_work: "Explorar Projetos", btn_back_work: "Voltar ao Portfólio", btn_watch_edits: "Ver Edições",
     btn_see_more_projects: "Explorar Projetos", btn_waiting_showreel_status: "AGUARDANDO ARQUIVO", btn_selected_reel: "Selected Reel", btn_my_visuals: "My Visuals",
   },
-  // ES e FR seguem o mesmo padrão simplificado...
+  es: {
+    lang_name: "ES",
+    nav_showreel: "Showreel", nav_work: "Proyectos", nav_pack: "Mi Pack", nav_course: "Curso", nav_about: "Sobre Mí",
+    header_commissions: "Disponible para proyectos", work_tag: "Trabajos Seleccionados", work_projects: "proyectos — clic para abrir", scroll_explore: "← desliza para explorar →",
+    modal_prev: "Anterior", modal_next: "Siguiente", modal_view: "Ver Proyecto", modal_waiting: "ESPERANDO ARCHIVO",
+    cat_ui: "Animación UI", cat_ui_desc: "Apps y Tecnología", cat_vfx: "VFX", cat_vfx_desc: "Efectos Cinematográficos", cat_3d: "Motion 3D", cat_3d_desc: "3D y Productos", cat_scene: "Composición", cat_scene_desc: "Montaje de Escenas", 
+    cat_2d: "Motion Graphics", cat_2d_desc: "Social y Tipografía", 
+    cat_color: "Color Grading", cat_color_desc: "Acabado Profesional", cat_brawl: "Brawl Stars", cat_brawl_desc: "Esports & Gaming Edits",
+    about_tag: "Perfil", about_title_1: "Editor &", about_title_2: "Motion Designer.", about_subtitle_1: "Traduciendo precisión técnica en", about_subtitle_2: "experiencias visuales de alta fidelidad.", about_body: "Forjado en entornos competitivos de alto nivel, mi enfoque está impulsado por una atención implacable a los detalles.", about_core: "Especialidades", about_arsenal: "Arsenal Técnico", about_trusted: "Socios Globales",
+    coming_dev: "Desarrollo en progreso", coming_soon: "PRÓXIMAMENTE", pack_subtitle: "Activos Digitales", course_subtitle: "Curso Premium",
+    btn_see_work: "Explorar Proyectos", btn_back_work: "Volver al Portafolio", btn_watch_edits: "Ver Ediciones",
+    btn_see_more_projects: "Explorar Proyectos", btn_waiting_showreel_status: "ESPERANDO ARCHIVO", btn_selected_reel: "Selected Reel", btn_my_visuals: "My Visuals",
+  },
+  fr: {
+    lang_name: "FR",
+    nav_showreel: "Showreel", nav_work: "Travaux", nav_pack: "Mon Pack", nav_course: "Cours", nav_about: "À Propos",
+    header_commissions: "Ouvert aux projets", work_tag: "Travaux Sélectionnés", work_projects: "projets — cliquez pour ouvrir", scroll_explore: "← glissez pour explorer →",
+    modal_prev: "Précédent", modal_next: "Suivant", modal_view: "Voir le Projet", modal_waiting: "EN ATTENTE DE FICHIER",
+    cat_ui: "Animation UI", cat_ui_desc: "Apps & Technologie", cat_vfx: "VFX", cat_vfx_desc: "Effets Cinématographiques", cat_3d: "Motion 3D", cat_3d_desc: "3D & Produits", cat_scene: "Composition", cat_scene_desc: "Montage de Scènes", 
+    cat_2d: "Motion Graphics", cat_2d_desc: "Social & Typographie", 
+    cat_color: "Color Grading", cat_color_desc: "Finition Professionnelle", cat_brawl: "Brawl Stars", cat_brawl_desc: "Esports & Gaming Edits",
+    about_tag: "Profil", about_title_1: "Monteur &", about_title_2: "Motion Designer.", about_subtitle_1: "Traduire la précision technique en", about_subtitle_2: "expériences visuelles haute fidélité.", about_body: "Forgé dans des environnements compétitifs, mon approche est motivée par une attention implacable aux détails.", about_core: "Expertise", about_arsenal: "Arsenal Technique", about_trusted: "Partenaires Mondiaux",
+    coming_dev: "Développement en cours", coming_soon: "BIENTÔT DISPONIBLE", pack_subtitle: "Actifs Numériques", course_subtitle: "Cours Premium",
+    btn_see_work: "Explorer les Projets", btn_back_work: "Retour au Portfolio", btn_watch_edits: "Voir les Éditions",
+    btn_see_more_projects: "Explorer les Projets", btn_waiting_showreel_status: "EN ATTENTE DE FICHIER", btn_selected_reel: "Selected Reel", btn_my_visuals: "My Visuals",
+  }
 } as const;
+
+export type TranslationSchema = typeof DICT.en;
+export type DictKey = keyof typeof DICT.en;
+
+export interface CategoryData {
+  key: CategoryKey;
+  emoji: string;
+  dictTitle: DictKey;
+  dictDesc: DictKey;
+}
 
 export const CATEGORIES: CategoryData[] = [
   { key: "2d", emoji: "✏️", dictTitle: "cat_2d", dictDesc: "cat_2d_desc" },
