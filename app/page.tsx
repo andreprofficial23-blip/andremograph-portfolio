@@ -90,7 +90,7 @@ export default function PortfolioPage() {
   return (
     <div className="min-h-screen bg-transparent text-white overflow-x-hidden flex flex-col font-sans selection:bg-[#C5A059]/30 relative">
       <div className="pointer-events-none fixed inset-0 z-0">
-        <video className="absolute inset-0 h-full w-full object-cover bg-video will-change-transform" src="/background/BG.mp4" autoPlay muted loop playsInline preload="auto" />
+        <video className="absolute inset-0 h-full w-full object-cover bg-video will-change-transform" src="https://ur8aht2fq4pckutd.public.blob.vercel-storage.com/BG.mp4" autoPlay muted loop playsInline preload="auto" />
         <div className="absolute inset-0 bg-gradient-to-b from-[#050506]/90 via-[#050506]/70 to-[#050506]/90" />
         <div className="absolute inset-0 vignette" />
         <div className="absolute inset-0 noise-layer" />
@@ -155,7 +155,6 @@ export default function PortfolioPage() {
           </button>
         </div>
 
-        {/* Ajustado pb-24 para pb-32 para maior respiro inferior */}
         <main className="flex-1 flex flex-col z-10 pt-32 px-8 md:px-20 pb-32 justify-center">
           <div ref={mainAreaRef} className="flex flex-col md:flex-row items-center gap-12 max-w-[1700px] mx-auto w-full min-h-[65vh]">
             <nav className="hidden md:flex flex-col gap-8 min-w-[260px] shrink-0 self-start mt-12">

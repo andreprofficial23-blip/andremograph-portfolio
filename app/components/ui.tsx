@@ -27,7 +27,8 @@ export const ProjectCard = React.memo(function ProjectCard({ p, onClick, lang, g
               {Array.from({ length: 72 }).map((_, i) => (<span key={i} className="text-2xl filter grayscale">{getEmoji(p.category)}</span>))}
             </div>
           </div>
-          <video src={`/videos/${p.id}.mp4`} poster={`/thumbnails/${p.id}.jpg`} autoPlay muted loop playsInline className="w-full h-full object-contain opacity-60 group-hover:opacity-90 transition-opacity duration-700 scale-105 group-hover:scale-100 transition-transform duration-700 relative z-10" />
+          {/* LINK INJETADO AQUI PARA RODAR NO CARD */}
+          <video src={`https://ur8aht2fq4pckutd.public.blob.vercel-storage.com/${p.id}.mp4`} poster={`/thumbnails/${p.id}.jpg`} autoPlay muted loop playsInline className="w-full h-full object-contain opacity-60 group-hover:opacity-90 transition-opacity duration-700 scale-105 group-hover:scale-100 transition-transform duration-700 relative z-10" />
           <div className="absolute top-4 left-4 right-4 flex justify-between items-center z-20">
             <span className="text-[9px] tracking-[0.3em] uppercase text-[#C5A059] font-bold bg-black/60 backdrop-blur-md px-3 py-1.5 rounded-full border border-[#C5A059]/20">{translatedCat}</span>
             <span className="text-[10px] text-white/40 tracking-widest font-medium">{p.year}</span>
@@ -89,7 +90,8 @@ export function ProjectModal({ project, allInCategory, onClose, onNext, onPrev, 
         <motion.div key={project.id} className="relative z-10 w-full max-w-5xl mx-4 md:mx-8 grid md:grid-cols-[1fr_380px] gap-0 rounded-[24px] overflow-hidden border border-white/10" initial={{ opacity: 0, scale: 0.96, y: 20 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.97, y: -10 }} transition={{ duration: 0.35 }}>
           <div className="absolute inset-0 z-0 pointer-events-none rounded-[24px] border border-white/20 blur-[1px]" />
           <div className="relative bg-[#050506] aspect-video md:aspect-auto md:h-[580px] flex items-center justify-center overflow-hidden">
-            <video src={`/videos/${project.id}.mp4`} poster={`/thumbnails/${project.id}.jpg`} controls playsInline className="w-full h-full object-contain z-10 relative" />
+            {/* LINK INJETADO AQUI PARA RODAR NO MODAL QUANDO O CLIENTE CLICA */}
+            <video src={`https://ur8aht2fq4pckutd.public.blob.vercel-storage.com/${project.id}.mp4`} poster={`/thumbnails/${project.id}.jpg`} controls playsInline className="w-full h-full object-contain z-10 relative" />
           </div>
           <div className="relative bg-black/50 backdrop-blur-lg border-l border-white/5 p-8 flex flex-col justify-between h-full">
             <div>
