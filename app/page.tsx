@@ -119,7 +119,7 @@ export default function PortfolioPage() {
             </button>
             <AnimatePresence>{isLangOpen && <Dropdown type="lang" onClose={() => setIsLangOpen(false)} currentLang={lang} setLang={setLang} lang={lang} />}</AnimatePresence>
 
-            <button onClick={() => { setIsMenuOpen(!isMenuOpen); setIsLangOpen(false); }} className="flex items-center justify-center w-10 h-10 md:w-11 md:h-11 rounded-full border border-white/20 bg-white/5 backdrop-blur-md">
+            <button aria-label={isMenuOpen ? "Fechar Menu" : "Abrir Menu"} onClick={() => { setIsMenuOpen(!isMenuOpen); setIsLangOpen(false); }} className="flex items-center justify-center w-10 h-10 md:w-11 md:h-11 rounded-full border border-white/20 bg-white/5 backdrop-blur-md">
               {isMenuOpen ? <CloseIcon size={16} /> : <Menu size={16} />}
             </button>
             <AnimatePresence>{isMenuOpen && <Dropdown type="menu" onClose={() => setIsMenuOpen(false)} currentPanel={panel} setPanel={setPanel} lang={lang} />}</AnimatePresence>
