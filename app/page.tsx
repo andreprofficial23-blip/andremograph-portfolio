@@ -45,20 +45,20 @@ export default function PortfolioPage() {
     }
   }, [globalIndex, currentProjectsList, panel]);
 
+  // Navegação Inteligente (Mouse e Touch)
   useEffect(() => {
     const container = scrollContainerRef.current;
     if (!container || panel !== "work" || selectedProject || isMenuOpen || isLangOpen) return;
     let isThrottled = false;
 
     const handleWheel = (e: WheelEvent) => {
+      if (window.innerWidth < 768) return; // Desativa scroll vertical p/ horizontal no mobile
       const isVertical = Math.abs(e.deltaY) > Math.abs(e.deltaX);
       const hasHScroll = container.scrollWidth > container.clientWidth;
       const isAtEnd = hasHScroll ? Math.ceil(container.scrollLeft + container.clientWidth) >= container.scrollWidth - 5 : true;
       const isAtStart = hasHScroll ? container.scrollLeft <= 5 : true;
 
-      const isOverCards = container.contains(e.target as Node);
-
-      if (isOverCards && isVertical && e.deltaY !== 0 && hasHScroll) {
+      if (isVertical && e.deltaY !== 0 && hasHScroll) {
         if ((e.deltaY > 0 && !isAtEnd) || (e.deltaY < 0 && !isAtStart)) {
           e.preventDefault(); container.scrollBy({ left: e.deltaY * 1.5, behavior: 'auto' }); return; 
         }
@@ -88,12 +88,12 @@ export default function PortfolioPage() {
   const nextPanelItem = currentPanelIndex < MENU_ITEMS_KEYS.length - 1 ? MENU_ITEMS_KEYS[currentPanelIndex + 1] : MENU_ITEMS_KEYS[0];
 
   return (
-    <div className="min-h-screen bg-transparent text-white overflow-x-hidden flex flex-col font-sans selection:bg-[#C5A059]/30 relative">
+    <div className="min-h-screen bg-[#050506] text-white overflow-x-hidden flex flex-col font-sans selection:bg-[#C5A059]/30 relative">
+      {/* Background Video Fix */}
       <div className="pointer-events-none fixed inset-0 z-0">
-        <video className="absolute inset-0 h-full w-full object-cover bg-video will-change-transform" src="/background/BG.mp4" autoPlay muted loop playsInline preload="auto" />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#050506]/90 via-[#050506]/70 to-[#050506]/90" />
-        <div className="absolute inset-0 vignette" />
-        <div className="absolute inset-0 noise-layer" />
+        <video className="absolute inset-0 h-full w-full object-cover opacity-40 md:opacity-100" src="/background/BG.mp4" autoPlay muted loop playsInline preload="auto" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#050506] via-transparent to-[#050506]" />
+        <div className="absolute inset-0 noise-layer opacity-20" />
       </div>
 
       <AnimatePresence>
@@ -103,80 +103,63 @@ export default function PortfolioPage() {
       </AnimatePresence>
 
       <div className="relative z-10 flex flex-col min-h-screen">
-        <header className="fixed top-0 w-full px-8 py-6 md:px-20 md:py-8 flex justify-between items-center z-[150] mix-blend-difference pointer-events-auto">
-          <span className="text-[11px] tracking-[0.4em] uppercase font-bold text-white/90">andremograph</span>
+        {/* Header Responsivo */}
+        <header className="fixed top-0 w-full px-6 py-5 md:px-20 md:py-8 flex justify-between items-center z-[150] backdrop-blur-sm md:backdrop-blur-none pointer-events-auto">
+          <span className="text-[10px] md:text-[11px] tracking-[0.4em] uppercase font-bold text-white/90">andremograph</span>
           
-          <div className="flex items-center gap-4 md:gap-5 relative">
-            <div className="hidden md:flex flex-col items-end justify-center mr-2">
+          <div className="flex items-center gap-3 md:gap-5 relative">
+            <div className="hidden lg:flex flex-col items-end justify-center mr-2">
               <span className="text-[11px] tracking-[0.4em] uppercase font-bold text-white/90 leading-none mb-1">GMT-3 | {localTime}</span>
               <span className="text-[9px] text-[#C5A059] tracking-[0.3em] uppercase opacity-80 leading-none mt-1">{t.header_commissions}</span>
             </div>
             
-            <div className="relative">
-              <button onClick={() => { setIsLangOpen(!isLangOpen); setIsMenuOpen(false); }} className="flex items-center justify-center w-11 h-11 min-w-[44px] min-h-[44px] p-0 rounded-full border border-white/20 bg-white/5 backdrop-blur-md hover:bg-white/10 transition-colors shrink-0">
-                <div className="flex items-center justify-center gap-1">
-                  <Globe size={12} className="text-[#C5A059]" />
-                  <span className="text-[9px] font-bold leading-none mt-[1px]">{t.lang_name}</span>
-                </div>
-              </button>
-              <AnimatePresence>{isLangOpen && <Dropdown type="lang" onClose={() => setIsLangOpen(false)} currentLang={lang} setLang={setLang} lang={lang} />}</AnimatePresence>
-            </div>
+            <button onClick={() => { setIsLangOpen(!isLangOpen); setIsMenuOpen(false); }} className="flex items-center justify-center w-10 h-10 md:w-11 md:h-11 rounded-full border border-white/20 bg-white/5 backdrop-blur-md">
+              <Globe size={12} className="text-[#C5A059]" />
+              <span className="text-[9px] font-bold ml-1">{t.lang_name}</span>
+            </button>
+            <AnimatePresence>{isLangOpen && <Dropdown type="lang" onClose={() => setIsLangOpen(false)} currentLang={lang} setLang={setLang} lang={lang} />}</AnimatePresence>
 
-            <div className="relative">
-              <button onClick={() => { setIsMenuOpen(!isMenuOpen); setIsLangOpen(false); }} className="flex items-center justify-center w-11 h-11 min-w-[44px] min-h-[44px] p-0 rounded-full border border-white/20 bg-white/5 backdrop-blur-md hover:bg-white/10 transition-colors shrink-0">
-                {isMenuOpen ? <CloseIcon size={16} /> : <Menu size={16} />}
-              </button>
-              <AnimatePresence>{isMenuOpen && <Dropdown type="menu" onClose={() => setIsMenuOpen(false)} currentPanel={panel} setPanel={setPanel} lang={lang} />}</AnimatePresence>
-            </div>
+            <button onClick={() => { setIsMenuOpen(!isMenuOpen); setIsLangOpen(false); }} className="flex items-center justify-center w-10 h-10 md:w-11 md:h-11 rounded-full border border-white/20 bg-white/5 backdrop-blur-md">
+              {isMenuOpen ? <CloseIcon size={16} /> : <Menu size={16} />}
+            </button>
+            <AnimatePresence>{isMenuOpen && <Dropdown type="menu" onClose={() => setIsMenuOpen(false)} currentPanel={panel} setPanel={setPanel} lang={lang} />}</AnimatePresence>
           </div>
         </header>
 
-        <div className="fixed bottom-6 md:bottom-10 left-1/2 -translate-x-1/2 z-[100] flex items-center p-1.5 rounded-full border border-white/10 bg-[#050506]/80 backdrop-blur-xl shadow-2xl pointer-events-auto mix-blend-normal">
-          <button 
-            onClick={() => { setPanel(prevPanelItem.id); setSelectedProject(null); }} 
-            className="group flex items-center justify-center gap-3 px-5 py-2.5 md:py-3 rounded-full hover:bg-white/10 transition-all duration-300"
-          >
-            <ChevronLeft size={16} className="text-[#C5A059] group-hover:-translate-x-1 transition-transform" />
-            <span className="hidden md:block text-[10px] tracking-[0.2em] uppercase font-bold text-white/60 group-hover:text-white transition-colors mt-[1px]">
-              {(t as any)[prevPanelItem.dictKey]}
-            </span>
+        {/* Floating Dock (Ajustado p/ Mobile) */}
+        <div className="fixed bottom-6 md:bottom-10 left-1/2 -translate-x-1/2 z-[100] flex items-center p-1 rounded-full border border-white/10 bg-[#050506]/90 backdrop-blur-xl shadow-2xl">
+          <button onClick={() => setPanel(prevPanelItem.id)} className="p-3 md:px-5 md:py-3 rounded-full hover:bg-white/10 transition-all flex items-center gap-3">
+            <ChevronLeft size={16} className="text-[#C5A059]" />
+            <span className="hidden md:block text-[10px] tracking-[0.2em] uppercase font-bold text-white/60">{(t as any)[prevPanelItem.dictKey]}</span>
           </button>
-
-          <div className="w-[1px] h-5 bg-white/15 mx-1" />
-
-          <button 
-            onClick={() => { setPanel(nextPanelItem.id); setSelectedProject(null); }} 
-            className="group flex items-center justify-center gap-3 px-5 py-2.5 md:py-3 rounded-full hover:bg-white/10 transition-all duration-300"
-          >
-            <span className="hidden md:block text-[10px] tracking-[0.2em] uppercase font-bold text-white/60 group-hover:text-white transition-colors mt-[1px]">
-              {(t as any)[nextPanelItem.dictKey]}
-            </span>
-            <ChevronRight size={16} className="text-[#C5A059] group-hover:translate-x-1 transition-transform" />
+          <div className="w-[1px] h-4 bg-white/10 mx-1" />
+          <button onClick={() => setPanel(nextPanelItem.id)} className="p-3 md:px-5 md:py-3 rounded-full hover:bg-white/10 transition-all flex items-center gap-3">
+            <span className="hidden md:block text-[10px] tracking-[0.2em] uppercase font-bold text-white/60">{(t as any)[nextPanelItem.dictKey]}</span>
+            <ChevronRight size={16} className="text-[#C5A059]" />
           </button>
         </div>
 
-        <main className="flex-1 flex flex-col z-10 pt-32 px-8 md:px-20 pb-32 justify-center">
-          <div ref={mainAreaRef} className="flex flex-col md:flex-row items-center gap-12 max-w-[1700px] mx-auto w-full min-h-[65vh]">
-            <nav className="hidden md:flex flex-col gap-8 min-w-[260px] shrink-0 self-start mt-12">
-              {panel === "work" && (
-                <div className="flex flex-col gap-7">
-                  {currentCategories.map((cat) => (
-                    <button key={cat.key} onClick={() => { setActiveWork(cat.key); setSelectedProject(null); }} className="group flex flex-col text-left">
-                      <div className="flex items-center gap-4">
-                        <div className={`h-[2px] transition-all duration-500 ${activeWork === cat.key ? "w-10 bg-white" : "w-4 bg-white/10 group-hover:w-8"}`} />
-                        <span className={`text-sm tracking-[0.2em] uppercase font-bold transition-colors duration-300 ${activeWork === cat.key ? "text-white" : "text-white/30 group-hover:text-white/60"}`}>
-                          {(t as any)[cat.dictTitle]}
-                        </span>
-                      </div>
-                      <motion.span initial={false} animate={{ height: activeWork === cat.key ? "auto" : 0, opacity: activeWork === cat.key ? 1 : 0 }} className="text-[9px] text-white/40 tracking-[0.2em] uppercase ml-14 overflow-hidden block">
-                        <span className="block mt-2">{(t as any)[cat.dictDesc]}</span>
-                      </motion.span>
-                    </button>
-                  ))}
-                </div>
-              )}
+        <main className="flex-1 flex flex-col z-10 pt-28 px-6 md:px-20 pb-40 justify-center">
+          <div ref={mainAreaRef} className="flex flex-col md:flex-row items-center gap-10 md:gap-16 max-w-[1700px] mx-auto w-full min-h-[60vh]">
+            
+            {/* Sidebar (Agora aparece como menu horizontal no Mobile) */}
+            <nav className="w-full md:w-auto md:min-w-[260px] flex md:flex-col gap-4 md:gap-8 overflow-x-auto no-scrollbar md:self-start mt-4 md:mt-12 sticky top-24 md:relative z-[90]">
+              {panel === "work" && currentCategories.map((cat) => (
+                <button key={cat.key} onClick={() => { setActiveWork(cat.key); setSelectedProject(null); }} className="shrink-0 flex flex-col text-left">
+                  <div className="flex items-center gap-3 md:gap-4">
+                    <div className={`h-[2px] transition-all duration-500 ${activeWork === cat.key ? "w-6 md:w-10 bg-[#C5A059]" : "w-2 md:w-4 bg-white/10"}`} />
+                    <span className={`text-[10px] md:text-sm tracking-[0.2em] uppercase font-bold transition-all ${activeWork === cat.key ? "text-white scale-105" : "text-white/30"}`}>
+                      {(t as any)[cat.dictTitle]}
+                    </span>
+                  </div>
+                  <div className={`hidden md:block overflow-hidden transition-all duration-500 ${activeWork === cat.key ? "h-auto opacity-100" : "h-0 opacity-0"}`}>
+                    <span className="text-[9px] text-white/40 tracking-[0.2em] uppercase ml-14 block mt-2">{(t as any)[cat.dictDesc]}</span>
+                  </div>
+                </button>
+              ))}
             </nav>
 
+            {/* Projetos & Modais */}
             <div className="flex-1 w-full relative flex flex-col justify-center h-full">
               {panel === "showreel" && <ShowreelPanel lang={lang} onNavigate={setPanel} />}
               {panel === "about"    && <AboutPanel lang={lang} onNavigate={setPanel} />}
@@ -184,16 +167,14 @@ export default function PortfolioPage() {
               {panel === "course"   && <ComingSoonPanel title={t.nav_course.toUpperCase()} subtitleKey="course_subtitle" lang={lang} onNavigate={setPanel} />}
 
               {panel === "work" && (
-                <div className="flex flex-col w-full">
-                  <div className="mb-6 flex flex-col">
-                    <p className="text-[10px] tracking-[0.4em] uppercase text-[#C5A059] font-bold mb-2">
-                      {activeWork === "brawl" ? "Esports Background" : t.work_tag}
-                    </p>
-                    <h2 className="text-4xl md:text-5xl font-light tracking-tighter text-white/90">{(t as any)[currentCategories.find((c) => c.key === activeWork)?.dictTitle || ""]}</h2>
-                    <p className="text-sm text-white/40 mt-2">{filtered.length} {t.work_projects}</p>
+                <div className="flex flex-col w-full mt-4">
+                  <div className="mb-4 md:mb-6">
+                    <p className="text-[9px] md:text-[10px] tracking-[0.4em] uppercase text-[#C5A059] font-bold mb-1">{activeWork === "brawl" ? "Esports Background" : t.work_tag}</p>
+                    <h2 className="text-3xl md:text-5xl font-light tracking-tighter text-white/90">{(t as any)[currentCategories.find((c) => c.key === activeWork)?.dictTitle || ""]}</h2>
+                    <p className="text-[11px] md:text-sm text-white/30 mt-1">{filtered.length} {t.work_projects}</p>
                   </div>
 
-                  <div ref={scrollContainerRef} className="flex gap-6 overflow-x-auto no-scrollbar py-6 snap-x snap-mandatory scroll-smooth">
+                  <div ref={scrollContainerRef} className="flex gap-4 md:gap-6 overflow-x-auto no-scrollbar py-4 snap-x snap-mandatory scroll-smooth pb-10">
                     <AnimatePresence mode="popLayout">
                       {filtered.map((p) => (
                         <motion.div key={p.id} layout initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }} className="snap-start h-full">
@@ -202,27 +183,12 @@ export default function PortfolioPage() {
                       ))}
                     </AnimatePresence>
                   </div>
-                  <p className="text-[9px] tracking-[0.3em] uppercase text-white/20 mt-4 font-bold text-center">{t.scroll_explore}</p>
+                  <p className="text-[8px] md:text-[9px] tracking-[0.3em] uppercase text-white/20 mt-2 font-bold text-center">{t.scroll_explore}</p>
                 </div>
               )}
             </div>
           </div>
         </main>
-
-        <footer className="pt-16 pb-12 px-8 md:px-20 border-t border-white/5 bg-[#050506]/90 backdrop-blur-md flex flex-col items-center justify-center mt-auto w-full z-20">
-          <div className="flex items-center justify-center gap-4 mb-8">
-            <a href="https://x.com/andremograph" target="_blank" rel="noreferrer" className="p-3 text-white/30 hover:text-[#C5A059] hover:bg-white/5 rounded-full transition-all duration-300 hover:scale-110">
-              <Twitter size={18} />
-            </a>
-            <a href="https://www.instagram.com/andremograph/" target="_blank" rel="noreferrer" className="p-3 text-white/30 hover:text-[#C5A059] hover:bg-white/5 rounded-full transition-all duration-300 hover:scale-110">
-              <Instagram size={18} />
-            </a>
-            <a href="https://discord.gg/cuxrZACd" target="_blank" rel="noreferrer" className="p-3 text-white/30 hover:text-[#C5A059] hover:bg-white/5 rounded-full transition-all duration-300 hover:scale-110">
-              <DiscordIcon size={18} />
-            </a>
-          </div>
-          <p className="text-[10px] tracking-[0.4em] uppercase text-white/20 font-bold text-center m-0 p-0 leading-none">© {new Date().getFullYear()} ANDREMOGRAPH</p>
-        </footer>
       </div>
     </div>
   );
