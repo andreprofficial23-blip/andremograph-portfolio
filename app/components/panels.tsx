@@ -31,17 +31,9 @@ function MotionCTA({
   return (
     <motion.button
       onClick={onClick}
-      whileHover={{
-        y: -2,
-        scale: 1.02,
-      }}
-      whileTap={{
-        scale: 0.98,
-      }}
-      transition={{
-        duration: 0.22,
-        ease: "easeOut",
-      }}
+      whileHover={{ y: -2, scale: 1.02 }}
+      whileTap={{ scale: 0.98 }}
+      transition={{ duration: 0.22, ease: "easeOut" }}
       className={`relative overflow-hidden inline-flex items-center gap-3 px-6 py-3 rounded-full text-[10px] tracking-[0.2em] uppercase font-bold transition-all duration-300 ${baseClass}`}
     >
       <motion.div
@@ -60,16 +52,8 @@ function PanelNavigation({
   secondary,
 }: {
   onNavigate: (p: PanelKey) => void;
-  primary: {
-    label: string;
-    target: PanelKey;
-    icon: React.ReactNode;
-  };
-  secondary?: {
-    label: string;
-    target: PanelKey;
-    icon: React.ReactNode;
-  };
+  primary: { label: string; target: PanelKey; icon: React.ReactNode; };
+  secondary?: { label: string; target: PanelKey; icon: React.ReactNode; };
 }) {
   return (
     <div className="mt-10 flex flex-wrap items-center gap-4">
@@ -79,10 +63,7 @@ function PanelNavigation({
       </MotionCTA>
 
       {secondary && (
-        <MotionCTA
-          variant="secondary"
-          onClick={() => onNavigate(secondary.target)}
-        >
+        <MotionCTA variant="secondary" onClick={() => onNavigate(secondary.target)}>
           {secondary.label}
           {secondary.icon}
         </MotionCTA>
@@ -91,7 +72,6 @@ function PanelNavigation({
   );
 }
 
-// Painel de Showreel com status "Aguardando Arquivo"
 export function ShowreelWaitingPanel({
   lang,
   onNavigate,
@@ -121,12 +101,8 @@ export function ShowreelWaitingPanel({
           <Briefcase size={16} />
         </MotionCTA>
 
-        {/* Botão alterado: sobre mim -> navega para about */}
-        <MotionCTA
-          variant="secondary"
-          onClick={() => onNavigate("about")}
-        >
-          {t.nav_about_me}
+        <MotionCTA variant="secondary" onClick={() => onNavigate("about")}>
+          {t.nav_about}
           <User size={16} />
         </MotionCTA>
       </div>
@@ -188,7 +164,7 @@ export function ShowreelPanel({
           icon: <Briefcase size={16} />,
         }}
         secondary={{
-          label: t.nav_about_me.toUpperCase(), // Alinhando com a tradução solicitada
+          label: t.nav_about.toUpperCase(),
           target: "about",
           icon: <User size={16} />,
         }}
@@ -229,13 +205,7 @@ export function AboutPanel({
           <div className="absolute -inset-4 bg-gradient-to-b from-[#C5A059]/20 to-transparent opacity-0 group-hover:opacity-100 blur-2xl transition-opacity duration-700" />
 
           <div className="relative rounded-[20px] overflow-hidden border border-white/10 aspect-[3/4] bg-[#050506]">
-            {ready === null ? (
-              <div className="placeholder-panel h-full">
-                <div className="placeholder-pill">
-                  <span className="dot" /> {t.modal_waiting}
-                </div>
-              </div>
-            ) : ready === false ? (
+            {ready === null || ready === false ? (
               <div className="placeholder-panel h-full">
                 <div className="placeholder-pill">
                   <span className="dot" /> {t.modal_waiting}
