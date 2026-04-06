@@ -1,0 +1,50 @@
+@import "tailwindcss";
+
+:root {
+  --background: #050506;
+  --foreground: #ffffff;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), Arial, sans-serif;
+  overflow-x: hidden;
+  /* Remove scrollbar padrão mas mantém funcional */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(197, 160, 89, 0.3) transparent;
+}
+
+/* Scrollbar customizada no Chrome */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(197, 160, 89, 0.3);
+  border-radius: 999px;
+}
+
+/* Seleção de texto com a cor dourada do portfólio */
+::selection {
+  background: rgba(197, 160, 89, 0.25);
+}
