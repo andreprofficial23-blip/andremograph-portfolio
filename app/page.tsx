@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useMemo, useRef, useState, useEffect, useCallback } from "react";
+import React, { useMemo, useRef, useState, useEffect, useCallback, useTransition } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, Globe, Instagram, Twitter, X as CloseIcon, ChevronLeft, ChevronRight } from "lucide-react";
 
@@ -20,6 +20,8 @@ export default function PortfolioPage() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLangOpen, setIsLangOpen] = useState(false);
   
+  const [isPending, startTransition] = useTransition();
+
   const mainAreaRef = useRef<HTMLDivElement>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const localTime = useLocalTime();
@@ -69,11 +71,15 @@ export default function PortfolioPage() {
       const idx = currentCategories.findIndex((c) => c.key === activeWork);
       if (e.deltaY > 0 && isAtEnd && idx < currentCategories.length - 1) {
         e.preventDefault(); isThrottled = true;
-        setActiveWork(currentCategories[idx + 1].key);
+        startTransition(() => {
+            setActiveWork(currentCategories[idx + 1].key);
+        });
         setTimeout(() => { isThrottled = false; }, 800);
       } else if (e.deltaY < 0 && isAtStart && idx > 0) {
         e.preventDefault(); isThrottled = true;
-        setActiveWork(currentCategories[idx - 1].key);
+        startTransition(() => {
+            setActiveWork(currentCategories[idx - 1].key);
+        });
         setTimeout(() => { isThrottled = false; }, 800);
       }
     };
@@ -145,7 +151,16 @@ export default function PortfolioPage() {
             {/* Sidebar (Agora aparece como menu horizontal no Mobile) */}
             <nav className="w-full md:w-auto md:min-w-[260px] flex md:flex-col gap-4 md:gap-8 overflow-x-auto no-scrollbar md:self-start mt-4 md:mt-12 sticky top-24 md:relative z-[90]">
               {panel === "work" && currentCategories.map((cat) => (
-                <button key={cat.key} onClick={() => { setActiveWork(cat.key); setSelectedProject(null); }} className="shrink-0 flex flex-col text-left">
+                <button 
+                  key={cat.key} 
+                  onClick={() => { 
+                    startTransition(() => {
+                        setActiveWork(cat.key); 
+                        setSelectedProject(null); 
+                    });
+                  }} 
+                  className="shrink-0 flex flex-col text-left"
+                >
                   <div className="flex items-center gap-3 md:gap-4">
                     <div className={`h-[2px] transition-all duration-500 ${activeWork === cat.key ? "w-6 md:w-10 bg-[#C5A059]" : "w-2 md:w-4 bg-white/10"}`} />
                     <span className={`text-[10px] md:text-sm tracking-[0.2em] uppercase font-bold transition-all ${activeWork === cat.key ? "text-white scale-105" : "text-white/30"}`}>
