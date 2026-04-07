@@ -119,4 +119,5 @@ export const PROJECTS: Project[] = [
   { id: "brawl-s1", title: "Esports 04", subtitle: "", category: "brawl", year: "2025" },
   { id: "brawl-v1", title: "Esports 05", subtitle: "", category: "brawl", year: "2025" },
   { id: "brawl-v2", title: "Esports 06", subtitle: "", category: "brawl", year: "2025" },
+  { id: "brawl-guia-02", title: "Esports 07", subtitle: "", category: "brawl", year: "2026" },
 ];
