@@ -48,7 +48,7 @@ export const DICT = {
     cat_2d: "Motion Graphics", cat_2d_desc: "Social y Tipografía", 
     cat_color: "Color Grading", cat_color_desc: "Acabado Profesional", cat_brawl: "Brawl Stars", cat_brawl_desc: "Esports & Gaming Edits",
     about_tag: "Perfil", about_title_1: "Editor &", about_title_2: "Motion Designer.", about_subtitle_1: "Traduciendo precisión técnica en", about_subtitle_2: "experiencias visuales de alta fidelidad.", about_body: "Forjado en entornos competitivos de alto nivel, mi enfoque está impulsado por una atención implacable a los detalles.", about_core: "Especialidades", about_arsenal: "Arsenal Técnico", about_trusted: "Socios Globales",
-    coming_dev: "Desarrollo em progresso", coming_soon: "PRÓXIMAMENTE", pack_subtitle: "Activos Digitales", course_subtitle: "Curso Premium",
+    coming_dev: "Desarrollo en progreso", coming_soon: "PRÓXIMAMENTE", pack_subtitle: "Activos Digitales", course_subtitle: "Curso Premium",
     btn_see_work: "Explorar Proyectos", btn_back_work: "Volver al Portafolio", btn_watch_edits: "Ver Ediciones",
     btn_see_more_projects: "Explorar Proyectos", btn_waiting_showreel_status: "ESPERANDO ARCHIVO", btn_selected_reel: "Selected Reel", btn_my_visuals: "My Visuals",
   },
@@ -60,8 +60,8 @@ export const DICT = {
     cat_ui: "Animation UI", cat_ui_desc: "Apps & Technologie", cat_vfx: "VFX", cat_vfx_desc: "Effets Cinématographiques", cat_3d: "Motion 3D", cat_3d_desc: "3D & Produits", cat_scene: "Composition", cat_scene_desc: "Montage de Scènes", 
     cat_2d: "Motion Graphics", cat_2d_desc: "Social & Typographie", 
     cat_color: "Color Grading", cat_color_desc: "Finition Professionnelle", cat_brawl: "Brawl Stars", cat_brawl_desc: "Esports & Gaming Edits",
-    about_tag: "Profil", about_title_1: "Monteur &", about_title_2: "Motion Designer.", about_subtitle_1: "Traduire la précision technique en", about_subtitle_2: "expériences visuelles haute fidélité.", about_body: "Forgé dans des environnements compétitifs, mon approche est motivée par uma atenção implacable aux détails.", about_core: "Expertise", about_arsenal: "Arsenal Technique", about_trusted: "Partenaires Mondiaux",
-    coming_dev: "Développement en cours", coming_soon: "BIENTÔT DISPONIBLE", pack_subtitle: "Actifs Numériques", course_subtitle: "Cours Premium",
+    about_tag: "Profil", about_title_1: "Monteur &", about_title_2: "Motion Designer.", about_subtitle_1: "Traduire la précision technique em", about_subtitle_2: "expériences visuelles haute fidélité.", about_body: "Forgé dans des environnements compétitifs, mon approche est motivée por uma atenção implacable aux détails.", about_core: "Expertise", about_arsenal: "Arsenal Technique", about_trusted: "Partenaires Mondiaux",
+    coming_dev: "Développement en cours", coming_soon: "BIENTÔT DISPONIBLE", pack_subtitle: "Ativos Digitais", course_subtitle: "Curso Premium",
     btn_see_work: "Explorer les Projets", btn_back_work: "Retour au Portfolio", btn_watch_edits: "Voir les Éditions",
     btn_see_more_projects: "Explorer les Projets", btn_waiting_showreel_status: "EN ATTENTE DE FICHIER", btn_selected_reel: "Selected Reel", btn_my_visuals: "My Visuals",
   }
@@ -96,29 +96,21 @@ export const MENU_ITEMS_KEYS = [
 ];
 
 export const PROJECTS: Project[] = [
-  { id: "2d-typography", title: "Motion 01", subtitle: "", category: "2d", year: "2025" },
-  { id: "2d-motion-logo", title: "Motion 02", subtitle: "", category: "2d", year: "2025" },
+  // NOVA SEQUÊNCIA 2D SOLICITADA: AI DOPING -> DOLAR -> JORNADA CEO
+  { id: "2d-ai-doping", title: "Motion 01", subtitle: "", category: "2d", year: "2026" },
+  { id: "2d-dolar", title: "Motion 02", subtitle: "", category: "2d", year: "2026" },
   { id: "2d-jornada-ceo", title: "Motion 03", subtitle: "", category: "2d", year: "2025" },
-  { id: "2d-ai-doping", title: "Motion 04", subtitle: "", category: "2d", year: "2026" },
-  { id: "2d-1", title: "Motion 05", subtitle: "", category: "2d", year: "2025" },
+  { id: "2d-typography", title: "Motion 04", subtitle: "", category: "2d", year: "2025" },
+  { id: "2d-motion-logo", title: "Motion 05", subtitle: "", category: "2d", year: "2025" },
+  
+  // UI CATEGORY
   { id: "ui-spotify", title: "UI 01", subtitle: "", category: "ui", year: "2025" },
   { id: "ui-system-update", title: "UI 02", subtitle: "", category: "ui", year: "2026" },
-  { id: "ui-1", title: "UI 03", subtitle: "", category: "ui", year: "2025" },
-  { id: "ui-2", title: "UI 04", subtitle: "", category: "ui", year: "2025" },
-  { id: "vfx-1", title: "VFX 01", subtitle: "", category: "vfx", year: "2025" },
-  { id: "vfx-2", title: "VFX 02", subtitle: "", category: "vfx", year: "2025" },
-  { id: "3d-1", title: "3D 01", subtitle: "", category: "3d", year: "2025" },
-  { id: "3d-2", title: "3D 02", subtitle: "", category: "3d", year: "2025" },
-  { id: "scene-1", title: "Scene 01", subtitle: "", category: "scene", year: "2025" },
-  { id: "scene-2", title: "Scene 02", subtitle: "", category: "scene", year: "2025" },
-  { id: "color-1", title: "Color 01", subtitle: "", category: "color", year: "2025" },
-  { id: "color-2", title: "Color 02", subtitle: "", category: "color", year: "2025" },
+  
+  // BRAWL / ESPORTS CATEGORY (COM O NOVO VÍDEO)
   { id: "brawl-guia", title: "Esports 01", subtitle: "", category: "brawl", year: "2025" },
   { id: "brawl-lele", title: "Esports 02", subtitle: "", category: "brawl", year: "2025" },
   { id: "brawl-mundial-p2", title: "Esports 03", subtitle: "", category: "brawl", year: "2026" },
-  { id: "brawl-s1", title: "Esports 04", subtitle: "", category: "brawl", year: "2025" },
-  { id: "brawl-v1", title: "Esports 05", subtitle: "", category: "brawl", year: "2025" },
-  { id: "brawl-v2", title: "Esports 06", subtitle: "", category: "brawl", year: "2025" },
-  { id: "brawl-guia-02", title: "Esports 07", subtitle: "", category: "brawl", year: "2026" },
-  { id: "2d-dolar", title: "Motion 06", subtitle: "", category: "2d", year: "2026" },
+  { id: "brawl-guia-02", title: "Esports 04", subtitle: "", category: "brawl", year: "2026" },
+  { id: "brawl-desafio-jannet", title: "Esports 05", subtitle: "", category: "brawl", year: "2026" },
 ];
