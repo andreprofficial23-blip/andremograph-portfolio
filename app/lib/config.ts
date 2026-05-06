@@ -48,7 +48,7 @@ export const DICT = {
     cat_2d: "Motion Graphics", cat_2d_desc: "Social y Tipografía", 
     cat_color: "Color Grading", cat_color_desc: "Acabado Profesional", cat_brawl: "Brawl Stars", cat_brawl_desc: "Esports & Gaming Edits",
     about_tag: "Perfil", about_title_1: "Editor &", about_title_2: "Motion Designer.", about_subtitle_1: "Traduciendo precisión técnica en", about_subtitle_2: "experiencias visuales de alta fidelidad.", about_body: "Forjado en entornos competitivos de alto nivel, mi enfoque está impulsado por una atención implacable a los detalles.", about_core: "Especialidades", about_arsenal: "Arsenal Técnico", about_trusted: "Socios Globales",
-    coming_dev: "Desarrollo en progreso", coming_soon: "PRÓXIMAMENTE", pack_subtitle: "Activos Digitales", course_subtitle: "Curso Premium",
+    coming_dev: "Desarrollo em progresso", coming_soon: "PRÓXIMAMENTE", pack_subtitle: "Activos Digitales", course_subtitle: "Curso Premium",
     btn_see_work: "Explorar Proyectos", btn_back_work: "Volver al Portafolio", btn_watch_edits: "Ver Ediciones",
     btn_see_more_projects: "Explorar Proyectos", btn_waiting_showreel_status: "ESPERANDO ARCHIVO", btn_selected_reel: "Selected Reel", btn_my_visuals: "My Visuals",
   },
@@ -60,7 +60,7 @@ export const DICT = {
     cat_ui: "Animation UI", cat_ui_desc: "Apps & Technologie", cat_vfx: "VFX", cat_vfx_desc: "Effets Cinématographiques", cat_3d: "Motion 3D", cat_3d_desc: "3D & Produits", cat_scene: "Composition", cat_scene_desc: "Montage de Scènes", 
     cat_2d: "Motion Graphics", cat_2d_desc: "Social & Typographie", 
     cat_color: "Color Grading", cat_color_desc: "Finition Professionnelle", cat_brawl: "Brawl Stars", cat_brawl_desc: "Esports & Gaming Edits",
-    about_tag: "Profil", about_title_1: "Monteur &", about_title_2: "Motion Designer.", about_subtitle_1: "Traduire la précision technique en", about_subtitle_2: "expériences visuelles haute fidélité.", about_body: "Forgé dans des environnements compétitifs, mon approche est motivée par une attention implacable aux détails.", about_core: "Expertise", about_arsenal: "Arsenal Technique", about_trusted: "Partenaires Mondiaux",
+    about_tag: "Profil", about_title_1: "Monteur &", about_title_2: "Motion Designer.", about_subtitle_1: "Traduire la précision technique en", about_subtitle_2: "expériences visuelles haute fidélité.", about_body: "Forgé dans des environnements compétitifs, mon approche est motivée par uma atenção implacable aux détails.", about_core: "Expertise", about_arsenal: "Arsenal Technique", about_trusted: "Partenaires Mondiaux",
     coming_dev: "Développement en cours", coming_soon: "BIENTÔT DISPONIBLE", pack_subtitle: "Actifs Numériques", course_subtitle: "Cours Premium",
     btn_see_work: "Explorer les Projets", btn_back_work: "Retour au Portfolio", btn_watch_edits: "Voir les Éditions",
     btn_see_more_projects: "Explorer les Projets", btn_waiting_showreel_status: "EN ATTENTE DE FICHIER", btn_selected_reel: "Selected Reel", btn_my_visuals: "My Visuals",
@@ -120,4 +120,5 @@ export const PROJECTS: Project[] = [
   { id: "brawl-v1", title: "Esports 05", subtitle: "", category: "brawl", year: "2025" },
   { id: "brawl-v2", title: "Esports 06", subtitle: "", category: "brawl", year: "2025" },
   { id: "brawl-guia-02", title: "Esports 07", subtitle: "", category: "brawl", year: "2026" },
+  { id: "2d-dolar", title: "Motion 06", subtitle: "", category: "2d", year: "2026" },
 ];
