@@ -2,9 +2,9 @@
 
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Globe, ArrowDown, Instagram, Mail, ArrowUpRight, X } from "lucide-react";
+import { Globe, ArrowUpRight, Instagram, Mail, X, Play } from "lucide-react";
 
-// --- DADOS TÉCNICOS (DENTRO DO ARQUIVO PARA NÃO DAR ERRO DE CAMINHO) ---
+// --- CONFIGURAÇÃO ---
 type CategoryKey = "ui" | "vfx" | "3d" | "2d" | "brawl";
 type Language = "en" | "pt";
 
@@ -19,24 +19,20 @@ interface Project {
 const DICT = {
   en: {
     header_title: "andremograph",
-    hero_title: "Motion Designer &",
+    hero_title: "Motion Designer",
     hero_subtitle: "Visual Strategist",
-    hero_desc: "Translating technical precision into high-fidelity visual experiences for global brands.",
+    hero_desc: "Translating technical precision into high-fidelity visual experiences.",
     section_work: "Selected Works",
-    section_about: "Profile",
-    section_contact: "Contact",
-    btn_view: "Explore Experience",
+    btn_view: "Explore",
     lang_name: "EN"
   },
   pt: {
     header_title: "andremograph",
-    hero_title: "Motion Designer &",
+    hero_title: "Motion Designer",
     hero_subtitle: "Estrategista Visual",
-    hero_desc: "Traduzindo precisão técnica em experiências visuais de alta fidelidade para marcas globais.",
+    hero_desc: "Traduzindo precisão técnica em experiências visuais de alta fidelidade.",
     section_work: "Trabalhos Selecionados",
-    section_about: "Perfil",
-    section_contact: "Contato",
-    btn_view: "Explorar Experiência",
+    btn_view: "Explorar",
     lang_name: "PT"
   }
 };
@@ -64,26 +60,25 @@ const PROJECTS: Project[] = [
 function ProjectCard({ p, onClick, lang }: { p: Project; onClick: (p: Project) => void; lang: Language }) {
   const t = DICT[lang];
   return (
-    <div className="group cursor-pointer" onClick={() => onClick(p)}>
-      <div className="relative aspect-video rounded-3xl overflow-hidden bg-white/5 border border-white/10 mb-8 transition-all duration-700 group-hover:border-[#C5A059]/30">
+    <div className="group cursor-pointer w-full mb-12" onClick={() => onClick(p)}>
+      <div className="relative aspect-video rounded-xl overflow-hidden bg-[#0A0A0B] border border-white/5 transition-all duration-500 group-hover:border-[#C5A059]/30">
         <img 
           src={`/thumbnails/${p.id}.jpg`} 
           alt={p.title} 
-          className="w-full h-full object-cover grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-1000 scale-110 group-hover:scale-100"
+          className="w-full h-full object-cover grayscale opacity-20 group-hover:grayscale-0 group-hover:opacity-60 transition-all duration-700"
         />
-        <div className="absolute inset-0 bg-black/40 group-hover:bg-transparent transition-colors duration-700" />
-        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-4 group-hover:translate-y-0">
-          <div className="bg-[#C5A059] text-black px-8 py-4 rounded-full flex items-center gap-3 font-bold text-[10px] tracking-widest uppercase shadow-2xl">
-            {t.btn_view} <ArrowUpRight size={16} />
-          </div>
+        <div className="absolute inset-0 flex items-center justify-center">
+            <div className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center backdrop-blur-sm group-hover:bg-[#C5A059] group-hover:border-[#C5A059] transition-all duration-300">
+                <Play size={16} className="text-white group-hover:text-black transition-colors ml-1" />
+            </div>
+        </div>
+        <div className="absolute bottom-4 left-4">
+             <span className="text-[8px] tracking-[0.3em] uppercase text-[#C5A059] font-bold">{p.category}</span>
         </div>
       </div>
-      <div className="flex justify-between items-end px-4">
-        <div>
-          <span className="text-[9px] tracking-[0.4em] uppercase text-[#C5A059] font-bold block mb-2 opacity-50">{p.category}</span>
-          <h3 className="text-3xl font-light tracking-tighter text-white/90">{p.title}</h3>
-        </div>
-        <span className="text-[10px] text-white/20 font-bold tracking-widest mb-1">{p.year}</span>
+      <div className="mt-4 flex justify-between items-center">
+        <h3 className="text-lg font-light tracking-tight text-white/90 group-hover:text-white transition-colors">{p.title}</h3>
+        <span className="text-[10px] text-white/20 font-medium tracking-widest uppercase">{p.year}</span>
       </div>
     </div>
   );
@@ -92,93 +87,80 @@ function ProjectCard({ p, onClick, lang }: { p: Project; onClick: (p: Project) =
 function ProjectModal({ project, onClose }: { project: Project; onClose: () => void }) {
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-[200] flex items-center justify-center p-4 md:p-12">
-      <div className="absolute inset-0 bg-[#050506]/98 backdrop-blur-2xl" onClick={onClose} />
-      <button onClick={onClose} className="absolute top-10 right-10 text-white/30 hover:text-white z-[210]">
-        <X size={32} />
+      <div className="absolute inset-0 bg-black/95 backdrop-blur-xl" onClick={onClose} />
+      <button onClick={onClose} className="absolute top-8 right-8 text-white/30 hover:text-white z-[210] transition-colors">
+        <X size={28} />
       </button>
-      <div className="relative w-full max-w-6xl aspect-video rounded-3xl overflow-hidden border border-white/5 bg-black z-10 shadow-2xl">
+      <div className="relative w-full max-w-5xl aspect-video rounded-2xl overflow-hidden bg-black z-10 shadow-2xl border border-white/5">
         <iframe
-          src={`https://www.youtube.com/embed/${project.youtubeId}?autoplay=1&rel=0&modestbranding=1&showinfo=0&controls=1&color=white`}
+          src={`https://www.youtube.com/embed/${project.youtubeId}?autoplay=1&rel=0&modestbranding=1&controls=1`}
           className="absolute inset-0 w-full h-full"
           allow="autoplay; encrypted-media; fullscreen"
           allowFullScreen
-          title={project.title}
         ></iframe>
       </div>
     </motion.div>
   );
 }
 
+// --- PÁGINA PRINCIPAL ---
 export default function PortfolioPage() {
   const [lang, setLang] = useState<Language>("en");
   const t = DICT[lang];
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
   return (
-    <div className="min-h-screen bg-[#050506] text-white selection:bg-[#C5A059]/30 font-sans">
-      <nav className="fixed top-0 w-full px-8 py-6 flex justify-between items-center z-[100] backdrop-blur-md">
-        <span className="text-[11px] tracking-[0.5em] uppercase font-bold">{t.header_title}</span>
-        <div className="flex items-center gap-8">
-           <button onClick={() => setLang(lang === "en" ? "pt" : "en")} className="text-[10px] font-bold tracking-widest uppercase hover:text-[#C5A059] transition-colors">
+    <div className="min-h-screen bg-[#050506] text-white selection:bg-[#C5A059]/30 font-sans antialiased overflow-x-hidden">
+      {/* NAV */}
+      <nav className="fixed top-0 w-full px-6 md:px-12 py-8 flex justify-between items-center z-[100]">
+        <span className="text-[10px] tracking-[0.5em] uppercase font-black text-white">{t.header_title}</span>
+        <div className="flex items-center gap-6">
+           <button onClick={() => setLang(lang === "en" ? "pt" : "en")} className="text-[9px] font-bold tracking-[0.2em] uppercase text-white/40 hover:text-white transition-colors">
              {t.lang_name}
            </button>
-           <a href="mailto:hello@andremograph.com" className="bg-white text-black px-5 py-2 rounded-full text-[10px] font-bold tracking-widest uppercase hover:bg-[#C5A059] transition-all">
-             {t.section_contact}
+           <div className="h-4 w-[1px] bg-white/10" />
+           <a href="mailto:hello@andremograph.com" className="text-[9px] font-bold tracking-[0.2em] uppercase text-white/40 hover:text-[#C5A059] transition-colors">
+             Contact
            </a>
         </div>
       </nav>
 
-      <main>
-        <section className="h-screen flex flex-col justify-center px-8 md:px-24">
-          <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1 }}>
-            <p className="text-[#C5A059] text-[10px] tracking-[0.4em] uppercase font-bold mb-6">Maceió, AL (GMT-3)</p>
-            <h1 className="text-5xl md:text-[130px] font-light leading-[0.85] tracking-tighter mb-8">
+      <main className="max-w-[1400px] mx-auto">
+        {/* HERO */}
+        <section className="h-[85vh] flex flex-col justify-center px-6 md:px-12">
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}>
+            <p className="text-[#C5A059] text-[9px] tracking-[0.5em] uppercase font-bold mb-8">Based in Brazil</p>
+            <h1 className="text-5xl md:text-8xl font-medium tracking-tighter leading-[0.9] mb-6">
               {t.hero_title} <br />
-              <span className="text-white/30 italic font-serif">{t.hero_subtitle}</span>
+              <span className="text-white/20 italic font-serif font-light">{t.hero_subtitle}</span>
             </h1>
-            <p className="max-w-md text-white/40 text-sm md:text-lg font-light leading-relaxed">
+            <p className="max-w-sm text-white/40 text-xs md:text-sm font-light leading-relaxed tracking-wide">
               {t.hero_desc}
             </p>
           </motion.div>
         </section>
 
-        <section className="px-8 md:px-24 pb-40">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-32">
+        {/* PROJECTS GRID - REFINADO */}
+        <section className="px-6 md:px-12 pb-32">
+          <div className="mb-20 flex items-center gap-4">
+            <span className="text-[9px] tracking-[0.4em] uppercase font-bold text-white/20">{t.section_work}</span>
+            <div className="h-[1px] flex-1 bg-white/5" />
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-4">
             {PROJECTS.map((project, idx) => (
               <motion.div 
                 key={project.id}
-                initial={{ opacity: 0, y: 60 }}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.8, delay: idx % 2 * 0.15 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: (idx % 3) * 0.1 }}
               >
                 <ProjectCard p={project} onClick={setSelectedProject} lang={lang} />
               </motion.div>
             ))}
           </div>
         </section>
-
-        <footer className="px-8 md:px-24 py-40 border-t border-white/5">
-           <div className="grid md:grid-cols-2 gap-24">
-              <div>
-                <span className="text-[#C5A059] text-[10px] tracking-[0.4em] uppercase font-bold block mb-8">{t.section_about}</span>
-                <p className="text-2xl md:text-4xl font-light leading-snug text-white/80 tracking-tight">
-                  Creative Director & Motion Designer building clean, high-fidelity visual experiences for the global market.
-                </p>
-              </div>
-              <div className="flex flex-col justify-end">
-                <h3 className="text-6xl md:text-8xl font-light tracking-tighter mb-12">Let's build.</h3>
-                <div className="flex flex-wrap gap-8">
-                  <a href="#" className="group flex items-center gap-2 text-[11px] tracking-widest uppercase font-bold">
-                    <Instagram size={14} className="group-hover:text-[#C5A059] transition-colors" /> Instagram
-                  </a>
-                  <a href="#" className="group flex items-center gap-2 text-[11px] tracking-widest uppercase font-bold text-[#C5A059]">
-                    <Mail size={14} /> hello@andremograph.com
-                  </a>
-                </div>
-              </div>
-           </div>
-        </footer>
       </main>
 
       <AnimatePresence>
