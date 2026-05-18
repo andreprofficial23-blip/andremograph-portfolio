@@ -23,8 +23,6 @@ export const DICT = {
     section_about: "About Profile",
     section_contact: "Direct Contact",
     btn_view: "Explore Experience",
-    modal_waiting: "LOADING ASSETS",
-    coming_soon: "COMING SOON",
   },
   pt: {
     lang_name: "PT",
@@ -36,27 +34,20 @@ export const DICT = {
     section_about: "Perfil",
     section_contact: "Contato Direto",
     btn_view: "Explorar Experiência",
-    modal_waiting: "CARREGANDO",
-    coming_soon: "EM BREVE",
   }
 } as const;
 
 export const PROJECTS: Project[] = [
-  // HIGHLIGHTS
   { id: "synthetic-intelligence", title: "Synthetic Intelligence", category: "2d", year: "2026", youtubeId: "JeLV_HljZas" },
-  { id: "currency-dynamics", title: "Currency Dynamics", category: "2d", year: "2026", youtubeId: "ID_AQUI" },
+  { id: "currency-dynamics", title: "Currency Dynamics", category: "2d", year: "2026", youtubeId: "O4nTVAfoxKI" }, // Usando o ID da Jornada CEO como teste se o do Dolar não estiver pronto
   { id: "executive-narrative", title: "Executive Narrative", category: "2d", year: "2025", youtubeId: "O4nTVAfoxKI" },
   { id: "live-capture-01", title: "Live Capture 01", category: "2d", year: "2025", youtubeId: "R9NMq-6s_Lc" },
-
-  // MOTION & UI
   { id: "audio-interface", title: "Audio Interface", category: "ui", year: "2025", youtubeId: "oK1p72YO2pw" },
   { id: "os-environment", title: "OS Environment", category: "ui", year: "2026", youtubeId: "ISM8v6E5Yso" },
   { id: "brand-kinetic", title: "Brand Kinetic", category: "2d", year: "2025", youtubeId: "qRmB9WaKbpk" },
   { id: "abstract-geometry", title: "Abstract Geometry", category: "2d", year: "2025", youtubeId: "M0OcyKCJhYs" },
   { id: "visual-storytelling", title: "Visual Storytelling", category: "2d", year: "2025", youtubeId: "q7jkRt0XXPY" },
-
-  // ESPORTS
-  { id: "esports-dynamics-01", title: "Esports Dynamics 01", category: "brawl", year: "2026", youtubeId: "LK1cKH6xJvY" },
+  { id: "esports-dynamics-01", title: "Esports Dynamics 01", category: "brawl", year: "2026", youtubeId: "LK1cKH1xJvY" },
   { id: "esports-dynamics-02", title: "Esports Dynamics 02", category: "brawl", year: "2026", youtubeId: "u98UHtQWVNA" },
   { id: "esports-dynamics-03", title: "Esports Dynamics 03", category: "brawl", year: "2025", youtubeId: "xpYasagUJAs" },
   { id: "world-finals-comp", title: "World Finals Comp", category: "brawl", year: "2026", youtubeId: "LO9EnykVlBg" },
