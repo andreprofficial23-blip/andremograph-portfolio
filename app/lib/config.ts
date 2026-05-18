@@ -1,6 +1,8 @@
 import { Film, Briefcase, Package, GraduationCap, User } from "lucide-react";
 
 export type CategoryKey = "ui" | "vfx" | "3d" | "2d" | "brawl";
+// Adicionando PanelKey de volta para o build passar:
+export type PanelKey = "showreel" | "work" | "about" | "pack" | "course";
 export type Language = "en" | "pt";
 
 export interface Project {
@@ -13,6 +15,7 @@ export interface Project {
 
 export const DICT = {
   en: {
+    lang_name: "EN",
     header_title: "andremograph",
     hero_title: "Motion Designer &",
     hero_subtitle: "Visual Strategist",
@@ -21,9 +24,18 @@ export const DICT = {
     section_about: "About Profile",
     section_contact: "Direct Contact",
     btn_view: "Explore",
-    lang_name: "EN"
+    modal_waiting: "LOADING ASSETS",
+    coming_soon: "COMING SOON",
+    btn_see_work: "See My Work",
+    nav_about: "About Me",
+    nav_showreel: "Showreel",
+    btn_selected_reel: "Featured",
+    btn_my_visuals: "Visuals",
+    btn_waiting_showreel_status: "PROCESSING",
+    btn_see_more_projects: "More Projects"
   },
   pt: {
+    lang_name: "PT",
     header_title: "andremograph",
     hero_title: "Motion Designer &",
     hero_subtitle: "Estrategista Visual",
@@ -32,18 +44,23 @@ export const DICT = {
     section_about: "Perfil",
     section_contact: "Contato Direto",
     btn_view: "Explorar",
-    lang_name: "PT"
+    modal_waiting: "CARREGANDO",
+    coming_soon: "EM BREVE",
+    btn_see_work: "Ver Trabalhos",
+    nav_about: "Sobre Mim",
+    nav_showreel: "Showreel",
+    btn_selected_reel: "Destaque",
+    btn_my_visuals: "Visuals",
+    btn_waiting_showreel_status: "PROCESSANDO",
+    btn_see_more_projects: "Mais Projetos"
   }
 } as const;
 
 export const PROJECTS: Project[] = [
-  // HIGHLIGHTS
   { id: "synthetic-intelligence", title: "Synthetic Intelligence", category: "2d", year: "2026", youtubeId: "JeLV_HljZas" },
   { id: "currency-dynamics", title: "Currency Dynamics", category: "2d", year: "2026", youtubeId: "COLOQUE_O_ID_AQUI" },
   { id: "executive-narrative", title: "Executive Narrative", category: "2d", year: "2025", youtubeId: "O4nTVAfoxKI" },
   { id: "live-capture-01", title: "Live Capture 01", category: "2d", year: "2025", youtubeId: "R9NMq-6s_Lc" },
-
-  // MOTION & UI
   { id: "audio-interface", title: "Audio Interface", category: "ui", year: "2025", youtubeId: "oK1p72YO2pw" },
   { id: "os-environment", title: "OS Environment", category: "ui", year: "2026", youtubeId: "ISM8v6E5Yso" },
   { id: "brand-kinetic", title: "Brand Kinetic", category: "2d", year: "2025", youtubeId: "qRmB9WaKbpk" },
@@ -51,8 +68,6 @@ export const PROJECTS: Project[] = [
   { id: "visual-storytelling", title: "Visual Storytelling", category: "2d", year: "2025", youtubeId: "q7jkRt0XXPY" },
   { id: "conceptual-ad", title: "Conceptual Ad", category: "2d", year: "2026", youtubeId: "COLOQUE_O_ID_AQUI" },
   { id: "complex-composition", title: "Complex Composition", category: "2d", year: "2026", youtubeId: "COLOQUE_O_ID_AQUI" },
-
-  // ESPORTS DYNAMICS
   { id: "esports-dynamics-01", title: "Esports Dynamics 01", category: "brawl", year: "2026", youtubeId: "LK1cKH1xJvY" },
   { id: "esports-dynamics-02", title: "Esports Dynamics 02", category: "brawl", year: "2026", youtubeId: "u98UHtQWVNA" },
   { id: "esports-dynamics-03", title: "Esports Dynamics 03", category: "brawl", year: "2025", youtubeId: "xpYasagUJAs" },
