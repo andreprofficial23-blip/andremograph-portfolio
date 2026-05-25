@@ -1,3 +1,4 @@
+// v2.0 - Layout Restaurado
 "use client";
 
 import React, { useState } from "react";
