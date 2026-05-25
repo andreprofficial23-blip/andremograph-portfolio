@@ -200,7 +200,7 @@ export default function PortfolioPage() {
                   initial={{ opacity: 0, scale: 0.97 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 1 }}
-                  className="w-full flex flex-col items-center lg:items-end"
+                  className="w-full flex flex-col items-center"
                 >
 
                   {/* PROFILE IMAGE */}
@@ -216,7 +216,7 @@ export default function PortfolioPage() {
 
                   {/* CONTACT ICONS */}
 
-                  <div className="flex items-center gap-4 mt-8">
+                  <div className="flex items-center justify-center gap-4 mt-8 w-full">
 
                     {CONTACTS.map((contact, index) => {
                       const Icon = contact.icon;
@@ -232,11 +232,11 @@ export default function PortfolioPage() {
 
                           {/* TOOLTIP */}
 
-                          <div className="absolute left-1/2 -translate-x-1/2 bottom-[78px] opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 z-50">
+                          <div className="absolute left-1/2 -translate-x-1/2 bottom-[84px] opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 z-50">
 
-                            <div className="px-5 py-3 rounded-2xl border border-white/20 bg-black/65 backdrop-blur-2xl shadow-[0_20px_60px_rgba(0,0,0,0.65)] whitespace-nowrap">
+                            <div className="px-6 py-4 rounded-[18px] border border-[#C5A059]/20 bg-[#C5A059]/10 backdrop-blur-2xl shadow-[0_20px_60px_rgba(0,0,0,0.65)] whitespace-nowrap min-w-[190px] text-center">
 
-                              <span className="text-[12px] text-white tracking-wide font-medium">
+                              <span className="text-[12px] text-[#f3dfb0] tracking-wide font-medium">
                                 {contact.label}
                               </span>
                             </div>
@@ -244,7 +244,7 @@ export default function PortfolioPage() {
 
                           {/* ICON */}
 
-                          <div className="w-14 h-14 rounded-2xl border border-white/10 bg-white/[0.05] backdrop-blur-xl flex items-center justify-center text-white/70 group-hover:text-white group-hover:border-white/25 group-hover:bg-white/[0.12] transition-all duration-300 group-hover:scale-105">
+                          <div className="w-14 h-14 rounded-2xl border border-white/10 bg-white/[0.05] backdrop-blur-xl flex items-center justify-center text-white/70 group-hover:text-[#f3dfb0] group-hover:border-[#C5A059]/30 group-hover:bg-[#C5A059]/10 transition-all duration-300 group-hover:scale-105">
 
                             <Icon size={22} />
                           </div>
