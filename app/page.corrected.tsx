@@ -75,13 +75,12 @@ export default function PortfolioPage() {
               >
                 <div className="absolute inset-0 bg-[#C5A059]/20 blur-[50px] rounded-full" />
                 <div className="relative w-full h-full rounded-full overflow-hidden border border-white/10 bg-white/5">
-                  {/* COLOQUE SUA FOTO NA PASTA PUBLIC COM O NOME 'perfil.jpg' */}
-                  <img 
-                    src="/perfil.jpg" 
-                    alt="André" 
-                    className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
-                    onError={(e) => { e.currentTarget.src = "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop"; }} // Imagem placeholder caso não ache a sua
-                  />
+                   <img 
+                     src="/perfil.jpg" 
+                     alt="André" 
+                     className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                     onError={(e) => { e.currentTarget.src = "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop"; }}
+                   />
                 </div>
               </motion.div>
 
@@ -141,7 +140,8 @@ export default function PortfolioPage() {
                   <div className="relative aspect-video rounded-xl overflow-hidden bg-[#0A0A0B] border border-white/5 mb-5 transition-all duration-500 group-hover:border-[#C5A059]/40 group-hover:shadow-[0_10px_40px_rgba(197,160,89,0.1)]">
                     <img 
                       src={`https://img.youtube.com/vi/${p.youtubeId}/maxresdefault.jpg`} 
-                      onError={(e) => { e.currentTarget.src = `https://img.youtube.com/vi/${p.youtubeId}/hqdefault.jpg`; }}
+                      data-youtube-id={p.youtubeId}
+                      onError={handleImageError}
                       alt={p.title} 
                       className="w-full h-full object-cover grayscale opacity-50 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700 group-hover:scale-105"
                     />
