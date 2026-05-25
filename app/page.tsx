@@ -9,6 +9,7 @@ interface Video {
   title: string;
   category: string;
   youtubeId: string;
+  description: string;
 }
 
 const VIDEOS: Video[] = [
@@ -16,50 +17,46 @@ const VIDEOS: Video[] = [
     id: "hero-1",
     title: "Adapta",
     category: "Commercial Motion",
-    youtubeId: "q7jkRt0XXPY"
+    youtubeId: "JeLV_HljZas",
+    description:
+      "Cinematic commercial motion design focused on rhythm, modern transitions and premium visual identity."
   },
   {
     id: "hero-2",
-    title: "Executive Narrative",
+    title: "Jornada CEO",
     category: "Visual Storytelling",
-    youtubeId: "LK1cKH6xJvY"
+    youtubeId: "O4nTVAfoxKI",
+    description:
+      "Narrative-driven editing crafted with emotional pacing and cinematic composition."
   },
 
   {
     id: "v1",
     title: "Live Capture 01",
     category: "VFX",
-    youtubeId: "LO9EnykVlBg"
+    youtubeId: "LO9EnykVlBg",
+    description: ""
   },
   {
     id: "v2",
     title: "OS Environment",
     category: "UI Motion",
-    youtubeId: "oK1p72YO2pw"
+    youtubeId: "oK1p72YO2pw",
+    description: ""
   },
   {
     id: "v3",
     title: "World Finals Comp",
     category: "Esports",
-    youtubeId: "M0OcyKCJhYs"
+    youtubeId: "M0OcyKCJhYs",
+    description: ""
   },
   {
     id: "v4",
     title: "Project One",
     category: "Motion",
-    youtubeId: "xpYasagUJAs"
-  },
-  {
-    id: "v5",
-    title: "Project Two",
-    category: "Motion",
-    youtubeId: "u98UHtQWVNA"
-  },
-  {
-    id: "v6",
-    title: "Project Three",
-    category: "Motion",
-    youtubeId: "n2OiJBRhzOU"
+    youtubeId: "xpYasagUJAs",
+    description: ""
   }
 ];
 
@@ -93,89 +90,91 @@ export default function PortfolioPage() {
 
         {/* NAVBAR */}
 
-        <nav className="fixed top-0 left-0 w-full z-50 px-6 md:px-12 py-8 flex items-center justify-between mix-blend-difference">
-          <span className="text-[11px] uppercase tracking-[0.3em] font-semibold">
+        <nav className="fixed top-0 left-0 w-full z-50 px-6 md:px-10 py-7 flex items-center justify-between mix-blend-difference">
+
+          <span className="text-[11px] uppercase tracking-[0.35em] font-semibold">
             ANDREMOGRAPH
           </span>
 
           <a
             href="#contact"
-            className="text-[11px] uppercase tracking-[0.3em] text-white/50 hover:text-white transition-colors"
+            className="text-[11px] uppercase tracking-[0.35em] text-white/50 hover:text-white transition-colors"
           >
             Contact
           </a>
         </nav>
 
-        <main className="max-w-[1400px] mx-auto px-6 md:px-10">
+        <main className="max-w-[1240px] mx-auto px-6 md:px-8">
 
           {/* HERO */}
 
-          <section className="min-h-screen flex items-center pt-32 pb-20">
+          <section className="min-h-screen flex items-center py-24">
 
-            <div className="grid lg:grid-cols-[1fr_500px] gap-20 items-center w-full">
+            <div className="grid lg:grid-cols-[0.95fr_0.8fr] gap-16 xl:gap-24 items-center w-full">
 
               {/* TEXT */}
 
               <motion.div
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 40 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1 }}
               >
-                <span className="text-[11px] uppercase tracking-[0.35em] text-white/40 block mb-10">
+                <span className="text-[11px] uppercase tracking-[0.35em] text-white/35 block mb-8">
                   Motion Designer — Brazil
                 </span>
 
-                <h1 className="text-[52px] md:text-[82px] leading-[0.95] tracking-[-0.04em] font-medium">
+                <h1 className="text-[48px] md:text-[72px] leading-[0.92] tracking-[-0.06em] font-medium">
                   Cinematic
                   <br />
                   Motion Design
                   <br />
-                  <span className="text-white/35">
+                  <span className="text-white/30">
                     For Modern Brands
                   </span>
                 </h1>
 
-                <p className="mt-10 max-w-xl text-white/45 text-[15px] leading-relaxed">
-                  Focused on creating high-end visual storytelling,
-                  cinematic motion graphics and premium digital experiences
-                  for creators, brands and global projects.
+                <p className="mt-8 max-w-md text-white/45 text-[15px] leading-relaxed">
+                  Focused on creating high-end motion graphics,
+                  visual storytelling and cinematic digital experiences
+                  for creators and modern brands.
                 </p>
               </motion.div>
 
               {/* PHOTO */}
 
               <motion.div
-                initial={{ opacity: 0, scale: 0.96 }}
+                initial={{ opacity: 0, scale: 0.97 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 1 }}
                 className="relative"
               >
-                <div className="absolute inset-0 bg-white/5 rounded-[40px] blur-3xl scale-95 opacity-30" />
+                <div className="relative max-w-[420px] ml-auto aspect-[4/5] rounded-[40px] overflow-hidden border border-white/10">
 
-                <div className="relative aspect-[4/5] rounded-[40px] overflow-hidden border border-white/10">
                   <img
                     src="/about/perfil.jpg"
                     alt="Andre"
-                    className="w-full h-full object-cover grayscale-[8%]"
+                    className="w-full h-full object-cover grayscale-[5%]"
                   />
                 </div>
               </motion.div>
             </div>
           </section>
 
-          {/* HERO VIDEOS */}
+          {/* FEATURED VIDEOS */}
 
-          <section className="pb-32 space-y-32">
+          <section className="pb-36 space-y-32">
 
             {VIDEOS.slice(0, 2).map((video, index) => (
               <motion.div
                 key={video.id}
-                initial={{ opacity: 0, y: 60 }}
+                initial={{ opacity: 0, y: 70 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.9 }}
                 className={`
-                  grid lg:grid-cols-2 gap-12 items-center
+                  grid lg:grid-cols-[1.1fr_0.8fr]
+                  gap-14
+                  items-center
                   ${index % 2 !== 0 ? "lg:[&>*:first-child]:order-2" : ""}
                 `}
               >
@@ -184,21 +183,21 @@ export default function PortfolioPage() {
 
                 <div
                   onClick={() => setSelectedVideo(video)}
-                  className="group relative aspect-video rounded-[32px] overflow-hidden cursor-pointer bg-[#0A0A0A]"
+                  className="group relative aspect-video rounded-[34px] overflow-hidden cursor-pointer bg-[#0B0B0B]"
                 >
                   <img
                     src={`https://img.youtube.com/vi/${video.youtubeId}/maxresdefault.jpg`}
+                    alt={video.title}
                     onError={(e) => {
                       e.currentTarget.src = `https://img.youtube.com/vi/${video.youtubeId}/hqdefault.jpg`;
                     }}
-                    alt={video.title}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
+                    className="w-full h-full object-cover transition-all duration-700 group-hover:scale-[1.02]"
                   />
 
                   <div className="absolute inset-0 bg-black/25" />
 
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500">
-                    <div className="w-20 h-20 rounded-full bg-black/50 backdrop-blur-xl border border-white/20 flex items-center justify-center">
+                    <div className="w-20 h-20 rounded-full bg-black/50 backdrop-blur-xl border border-white/15 flex items-center justify-center">
                       <Play
                         size={26}
                         fill="white"
@@ -208,21 +207,19 @@ export default function PortfolioPage() {
                   </div>
                 </div>
 
-                {/* INFO */}
+                {/* TEXT */}
 
                 <div>
                   <span className="text-[11px] uppercase tracking-[0.35em] text-white/35 block mb-5">
                     {video.category}
                   </span>
 
-                  <h2 className="text-4xl md:text-6xl tracking-[-0.04em] leading-[0.95] font-medium">
+                  <h2 className="text-4xl md:text-6xl leading-[0.95] tracking-[-0.05em] font-medium">
                     {video.title}
                   </h2>
 
-                  <p className="mt-8 text-white/45 leading-relaxed max-w-md text-[15px]">
-                    High-end motion graphics crafted with cinematic pacing,
-                    refined transitions and visual storytelling focused on
-                    impact and clarity.
+                  <p className="mt-7 text-white/45 leading-relaxed max-w-md text-[15px]">
+                    {video.description}
                   </p>
                 </div>
               </motion.div>
@@ -233,7 +230,7 @@ export default function PortfolioPage() {
 
           <section className="pb-40">
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
 
               {VIDEOS.slice(2).map((video) => (
                 <motion.div
@@ -245,22 +242,22 @@ export default function PortfolioPage() {
                   onClick={() => setSelectedVideo(video)}
                   className="group cursor-pointer"
                 >
-                  <div className="relative aspect-[4/3] rounded-[28px] overflow-hidden bg-[#0A0A0A]">
+                  <div className="relative aspect-[16/10] rounded-[30px] overflow-hidden bg-[#0A0A0A]">
 
                     <img
                       src={`https://img.youtube.com/vi/${video.youtubeId}/hqdefault.jpg`}
                       alt={video.title}
-                      className="w-full h-full object-cover grayscale-[10%] opacity-80 transition-all duration-700 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-[1.02]"
+                      className="w-full h-full object-cover grayscale-[8%] opacity-85 transition-all duration-700 group-hover:scale-[1.02] group-hover:opacity-100"
                     />
 
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
 
-                    <div className="absolute bottom-6 left-6">
-                      <span className="text-[10px] uppercase tracking-[0.3em] text-white/40 block mb-2">
+                    <div className="absolute bottom-7 left-7">
+                      <span className="text-[10px] uppercase tracking-[0.3em] text-white/35 block mb-2">
                         {video.category}
                       </span>
 
-                      <h3 className="text-2xl tracking-tight font-medium">
+                      <h3 className="text-[30px] tracking-[-0.04em] font-medium">
                         {video.title}
                       </h3>
                     </div>
