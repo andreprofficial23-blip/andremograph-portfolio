@@ -176,7 +176,7 @@ export default function PortfolioPage() {
           </footer>
         </main>
 
-        {/* MODAL DE VÍDEO DO YOUTUBE */}
+        {/* MODAL DE VÍDEO DO YOUTUBE (ATUALIZADO COM NO-COOKIE) */}
         <AnimatePresence>
           {selectedProject && (
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-[200] flex items-center justify-center p-4 md:p-8">
@@ -186,9 +186,9 @@ export default function PortfolioPage() {
               </button>
               <div className="relative w-full max-w-5xl aspect-video rounded-2xl overflow-hidden border border-white/10 bg-black z-10 shadow-2xl">
                 <iframe
-                  src={`https://www.youtube.com/embed/${selectedProject.youtubeId}?autoplay=1&rel=0&modestbranding=1`}
+                  src={`https://www.youtube-nocookie.com/embed/${selectedProject.youtubeId}?autoplay=1&rel=0&modestbranding=1`}
                   className="absolute inset-0 w-full h-full"
-                  allow="autoplay; fullscreen"
+                  allow="autoplay; fullscreen; picture-in-picture"
                   allowFullScreen
                 ></iframe>
               </div>
