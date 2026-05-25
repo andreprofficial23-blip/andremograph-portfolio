@@ -50,15 +50,15 @@ const FEATURED_VIDEOS: Video[] = [
 const GRID_VIDEOS: Video[] = [
   {
     id: "v1",
-    title: "Motion — Interface",
-    category: "UI Motion",
+    title: "Motion — Gaming",
+    category: "Gaming Motion",
     youtubeId: "oK1p72YO2pw",
     description: ""
   },
   {
     id: "v2",
-    title: "Visuals — Performance",
-    category: "Broadcast",
+    title: "Visuals — Competitive",
+    category: "Gaming Edit",
     youtubeId: "M0OcyKCJhYs",
     description: ""
   },
@@ -71,8 +71,8 @@ const GRID_VIDEOS: Video[] = [
   },
   {
     id: "v4",
-    title: "Motion — Narrative",
-    category: "Explainer",
+    title: "Motion — Competitive",
+    category: "Gaming Motion",
     youtubeId: "q7jkRt0XXPY",
     description: ""
   },
@@ -248,8 +248,6 @@ export default function PortfolioPage() {
                   className="w-full flex flex-col items-center"
                 >
 
-                  {/* PROFILE */}
-
                   <div className="w-full max-w-[400px] aspect-[4/5] rounded-[36px] overflow-hidden border border-white/10 bg-black/30 backdrop-blur-sm">
 
                     <img
@@ -259,11 +257,12 @@ export default function PortfolioPage() {
                     />
                   </div>
 
-                  {/* CONTACT AREA */}
+                  {/* CONTACTS */}
 
-                  <div className="flex items-center justify-center gap-6 mt-8">
-
-                    {/* TEXT + ARROW */}
+                  <div
+                    id="contact"
+                    className="flex items-center justify-center gap-6 mt-8"
+                  >
 
                     <div className="flex items-center gap-3">
 
@@ -288,8 +287,6 @@ export default function PortfolioPage() {
                         />
                       </motion.div>
                     </div>
-
-                    {/* ICONS */}
 
                     <div className="flex items-center justify-center gap-4">
 
