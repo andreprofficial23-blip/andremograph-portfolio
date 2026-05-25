@@ -8,6 +8,8 @@ import {
   Instagram,
   Mail,
   MessageCircle,
+  ChevronDown,
+  ChevronUp,
 } from "lucide-react";
 import { FaDiscord } from "react-icons/fa";
 
@@ -19,7 +21,7 @@ interface Video {
   description: string;
 }
 
-const VIDEOS: Video[] = [
+const FEATURED_VIDEOS: Video[] = [
   {
     id: "hero-1",
     title: "Adapta",
@@ -35,12 +37,14 @@ const VIDEOS: Video[] = [
     youtubeId: "O4nTVAfoxKI",
     description:
       "Cinematic edit built around emotional rhythm and premium composition."
-  },
+  }
+];
 
+const MAIN_GRID: Video[] = [
   {
     id: "v1",
-    title: "Live Capture",
-    category: "Esports",
+    title: "Ranked Guide — July",
+    category: "Gaming Edit",
     youtubeId: "LO9EnykVlBg",
     description: ""
   },
@@ -63,6 +67,51 @@ const VIDEOS: Video[] = [
     title: "Gameplay Motion",
     category: "Shortform",
     youtubeId: "xpYasagUJAs",
+    description: ""
+  }
+];
+
+const EXTRA_VIDEOS: Video[] = [
+  {
+    id: "v5",
+    title: "Currency Dynamics",
+    category: "Explainer",
+    youtubeId: "q7jkRt0XXPY",
+    description: ""
+  },
+  {
+    id: "v6",
+    title: "Project Two",
+    category: "Shortform",
+    youtubeId: "u98UHtQWVNA",
+    description: ""
+  },
+  {
+    id: "v7",
+    title: "Project Three",
+    category: "Gaming",
+    youtubeId: "n2OiJBRhzOU",
+    description: ""
+  },
+  {
+    id: "v8",
+    title: "Project Four",
+    category: "Motion",
+    youtubeId: "LK1cKH6xJvY",
+    description: ""
+  },
+  {
+    id: "v9",
+    title: "Project Five",
+    category: "Social Edit",
+    youtubeId: "AKuQB0DLdoY",
+    description: ""
+  },
+  {
+    id: "v10",
+    title: "Ad Campaign",
+    category: "Commercial",
+    youtubeId: "3KPQzNRwH9Q",
     description: ""
   }
 ];
@@ -92,6 +141,7 @@ const CONTACTS = [
 
 export default function PortfolioPage() {
   const [selectedVideo, setSelectedVideo] = useState<Video | null>(null);
+  const [showMore, setShowMore] = useState(false);
 
   return (
     <>
@@ -203,8 +253,6 @@ export default function PortfolioPage() {
                   className="w-full flex flex-col items-center"
                 >
 
-                  {/* PROFILE IMAGE */}
-
                   <div className="w-full max-w-[400px] aspect-[4/5] rounded-[36px] overflow-hidden border border-white/10 bg-black/30 backdrop-blur-sm">
 
                     <img
@@ -214,7 +262,7 @@ export default function PortfolioPage() {
                     />
                   </div>
 
-                  {/* CONTACT ICONS */}
+                  {/* ICONS */}
 
                   <div className="flex items-center justify-center gap-4 mt-8 w-full">
 
@@ -260,7 +308,7 @@ export default function PortfolioPage() {
 
             <section className="w-full max-w-[1280px] px-6 md:px-10 pb-36 space-y-28">
 
-              {VIDEOS.slice(0, 2).map((video, index) => (
+              {FEATURED_VIDEOS.map((video, index) => (
                 <motion.div
                   key={video.id}
                   initial={{ opacity: 0, y: 70 }}
@@ -300,11 +348,7 @@ export default function PortfolioPage() {
 
                     <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500">
                       <div className="w-20 h-20 rounded-full bg-black/50 backdrop-blur-xl border border-white/15 flex items-center justify-center">
-                        <Play
-                          size={26}
-                          fill="white"
-                          className="ml-1"
-                        />
+                        <Play size={26} fill="white" className="ml-1" />
                       </div>
                     </div>
                   </div>
@@ -328,13 +372,13 @@ export default function PortfolioPage() {
               ))}
             </section>
 
-            {/* GRID */}
+            {/* MAIN GRID */}
 
-            <section className="w-full max-w-[1280px] px-6 md:px-10 pb-40">
+            <section className="w-full max-w-[1280px] px-6 md:px-10 pb-20">
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
 
-                {VIDEOS.slice(2).map((video) => (
+                {MAIN_GRID.map((video) => (
                   <motion.div
                     key={video.id}
                     initial={{ opacity: 0, y: 40 }}
@@ -367,31 +411,86 @@ export default function PortfolioPage() {
                   </motion.div>
                 ))}
               </div>
-            </section>
 
-            {/* CONTACT */}
+              {/* SHOW MORE BUTTON */}
 
-            <section
-              id="contact"
-              className="w-full max-w-[1280px] px-6 md:px-10 border-t border-white/10 py-32"
-            >
-              <div className="max-w-[760px]">
+              <div className="flex justify-center mt-16">
 
-                <span className="text-[11px] uppercase tracking-[0.35em] text-white/35 block mb-8">
-                  Contact
-                </span>
+                <button
+                  onClick={() => setShowMore(!showMore)}
+                  className="group flex items-center gap-3 px-7 py-4 rounded-2xl border border-white/10 bg-white/[0.04] backdrop-blur-xl hover:bg-[#C5A059]/10 hover:border-[#C5A059]/20 transition-all duration-300"
+                >
+                  <span className="text-[11px] uppercase tracking-[0.3em] text-white/70 group-hover:text-[#f3dfb0] transition-colors">
+                    {showMore ? "Hide Projects" : "Other Projects"}
+                  </span>
 
-                <h2 className="text-5xl md:text-7xl tracking-[-0.05em] leading-[0.95] font-medium">
-                  Available For
-                  <br />
-                  Selected Projects
-                </h2>
+                  {showMore ? (
+                    <ChevronUp
+                      size={16}
+                      className="text-white/50 group-hover:text-[#f3dfb0]"
+                    />
+                  ) : (
+                    <ChevronDown
+                      size={16}
+                      className="text-white/50 group-hover:text-[#f3dfb0]"
+                    />
+                  )}
+                </button>
               </div>
             </section>
+
+            {/* EXTRA VIDEOS */}
+
+            <AnimatePresence>
+              {showMore && (
+                <motion.section
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: "auto" }}
+                  exit={{ opacity: 0, height: 0 }}
+                  transition={{ duration: 0.6 }}
+                  className="w-full max-w-[1280px] px-6 md:px-10 overflow-hidden pb-40"
+                >
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+                    {EXTRA_VIDEOS.map((video) => (
+                      <motion.div
+                        key={video.id}
+                        initial={{ opacity: 0, y: 30 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5 }}
+                        onClick={() => setSelectedVideo(video)}
+                        className="group cursor-pointer"
+                      >
+                        <div className="relative aspect-[16/10] rounded-[30px] overflow-hidden bg-[#0A0A0A]">
+
+                          <img
+                            src={`https://img.youtube.com/vi/${video.youtubeId}/hqdefault.jpg`}
+                            alt={video.title}
+                            className="w-full h-full object-cover grayscale-[10%] opacity-75 transition-all duration-700 group-hover:scale-[1.02] group-hover:opacity-100"
+                          />
+
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
+
+                          <div className="absolute bottom-7 left-7">
+                            <span className="text-[10px] uppercase tracking-[0.3em] text-white/35 block mb-2">
+                              {video.category}
+                            </span>
+
+                            <h3 className="text-[28px] tracking-[-0.04em] font-medium">
+                              {video.title}
+                            </h3>
+                          </div>
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
+                </motion.section>
+              )}
+            </AnimatePresence>
           </main>
         </div>
 
-        {/* VIDEO MODAL */}
+        {/* MODAL */}
 
         <AnimatePresence>
           {selectedVideo && (
