@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Instagram, Mail, X, Play, ArrowDownRight } from "lucide-react";
+import { X, Play, ArrowDownRight } from "lucide-react";
 
 interface Video {
   id: string;
@@ -29,17 +29,11 @@ const VIDEOS: Video[] = [
 export default function PortfolioPage() {
   const [selectedProject, setSelectedProject] = useState<Video | null>(null);
 
-  const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>) => {
-    const target = e.currentTarget;
-    const youtubeId = target.getAttribute("data-youtube-id");
-    if (youtubeId) {
-      target.src = `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg`;
-    }
-  };
+
 
   const fadeUp = {
     hidden: { opacity: 0, y: 40 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } }
+    visible: { opacity: 1, y: 0, transition: { duration: 0.8 } }
   };
 
   return (
@@ -51,7 +45,6 @@ export default function PortfolioPage() {
 
       <div className="min-h-screen relative selection:bg-[#C5A059]/30 antialiased font-light flex flex-col items-center">
         
-        {/* NAVEGAÇÃO */}
         <nav className="fixed top-0 w-full px-8 py-6 flex justify-between items-center z-[100] mix-blend-difference">
           <span className="text-[11px] uppercase tracking-wide font-bold">@andremograph</span>
           <a href="#contact" className="text-[10px] uppercase tracking-wider font-medium text-white/50 hover:text-white transition-colors">
@@ -61,11 +54,9 @@ export default function PortfolioPage() {
 
         <main className="w-full max-w-[1200px] mx-auto px-6">
           
-          {/* SEÇÃO 1: SOBRE MIM (APRESENTAÇÃO) */}
           <section className="min-h-screen flex flex-col justify-center pt-32 pb-10">
             <div className="flex flex-col md:flex-row items-center gap-16 md:gap-24">
               
-              {/* Foto de Perfil com Glow */}
               <motion.div 
                 initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}
                 className="relative w-48 h-48 md:w-72 md:h-72 flex-shrink-0"
@@ -82,7 +73,6 @@ export default function PortfolioPage() {
                 </div>
               </motion.div>
 
-              {/* Textos */}
               <motion.div 
                 initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}
                 className="flex flex-col items-center md:items-start text-center md:text-left"
@@ -96,7 +86,6 @@ export default function PortfolioPage() {
                   Focado em traduzir conceitos complexos em experiências visuais de alta fidelidade para o mercado internacional. Opero com alta performance para garantir que cada frame tenha precisão e propósito.
                 </p>
                 
-                {/* Ferramentas / Skills */}
                 <div className="flex flex-wrap justify-center md:justify-start gap-3">
                   {["After Effects", "Premiere Pro", "DaVinci Resolve", "Blender", "Color Grading"].map((skill) => (
                     <span key={skill} className="px-4 py-2 rounded-full border border-white/10 text-[10px] uppercase tracking-widest text-white/40">
@@ -107,7 +96,6 @@ export default function PortfolioPage() {
               </motion.div>
             </div>
 
-            {/* Scroll Indicator */}
             <motion.div 
               initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1, duration: 1 }}
               className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-30"
@@ -117,7 +105,6 @@ export default function PortfolioPage() {
             </motion.div>
           </section>
 
-          {/* SEÇÃO 2: PORTFÓLIO DE VÍDEOS */}
           <section className="py-32 w-full">
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={fadeUp} className="mb-20">
                <h2 className="text-3xl md:text-5xl font-medium tracking-tight">Selected Works</h2>
@@ -140,6 +127,7 @@ export default function PortfolioPage() {
                       src={`https://img.youtube.com/vi/${p.youtubeId}/maxresdefault.jpg`} 
                       onError={(e) => { e.currentTarget.src = `https://img.youtube.com/vi/${p.youtubeId}/hqdefault.jpg`; }}
                       alt={p.title} 
+                      loading="lazy"
                       className="w-full h-full object-cover grayscale opacity-50 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700 group-hover:scale-105"
                     />
                     
@@ -161,10 +149,9 @@ export default function PortfolioPage() {
             </div>
           </section>
 
-          {/* SEÇÃO 3: CONTATO (DIRETO AO PONTO) */}
           <section id="contact" className="py-40 w-full border-t border-white/10 flex flex-col items-center text-center">
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}>
-              <span className="text-[#C5A059] text-[10px] uppercase tracking-[0.4em] font-bold mb-8 block">Next Steps</span>
+              <span className="text-[#C5A059] text-[10px] uppercase tracking-wide font-bold mb-8 block">Next Steps</span>
               <h2 className="text-5xl md:text-8xl font-medium tracking-tighter leading-none mb-12">
                 Let's <br /> <span className="italic font-serif text-white/40">Work.</span>
               </h2>
@@ -182,7 +169,6 @@ export default function PortfolioPage() {
           
         </main>
 
-        {/* MODAL DE VÍDEO DO YOUTUBE (ANTI-BLOQUEIO) */}
         <AnimatePresence>
           {selectedProject && (
             <motion.div 
@@ -200,7 +186,7 @@ export default function PortfolioPage() {
                 initial={{ scale: 0.95, opacity: 0, y: 20 }}
                 animate={{ scale: 1, opacity: 1, y: 0 }}
                 exit={{ scale: 0.95, opacity: 0, y: 20 }}
-                transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                transition={{ duration: 0.4 }}
                 className="relative w-full max-w-6xl aspect-video rounded-2xl overflow-hidden border border-white/10 bg-black z-10 shadow-2xl"
               >
                 <iframe
