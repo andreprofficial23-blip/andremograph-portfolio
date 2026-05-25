@@ -2,7 +2,14 @@
 
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Play, X } from "lucide-react";
+import {
+  Play,
+  X,
+  Instagram,
+  Mail,
+  MessageCircle,
+} from "lucide-react";
+import { FaDiscord } from "react-icons/fa";
 
 interface Video {
   id: string;
@@ -16,47 +23,70 @@ const VIDEOS: Video[] = [
   {
     id: "hero-1",
     title: "Adapta",
-    category: "Commercial Motion",
+    category: "Brand Motion",
     youtubeId: "JeLV_HljZas",
     description:
-      "Cinematic commercial motion design focused on rhythm, modern transitions and premium visual identity."
+      "Motion system focused on pacing, clarity and modern visual storytelling."
   },
   {
     id: "hero-2",
     title: "Jornada CEO",
-    category: "Visual Storytelling",
+    category: "Narrative Editing",
     youtubeId: "O4nTVAfoxKI",
     description:
-      "Narrative-driven editing crafted with emotional pacing and cinematic composition."
+      "Cinematic edit built around emotional rhythm and premium composition."
   },
 
   {
     id: "v1",
-    title: "Live Capture 01",
-    category: "VFX",
+    title: "Live Capture",
+    category: "Esports",
     youtubeId: "LO9EnykVlBg",
     description: ""
   },
   {
     id: "v2",
-    title: "OS Environment",
+    title: "OS Interface",
     category: "UI Motion",
     youtubeId: "oK1p72YO2pw",
     description: ""
   },
   {
     id: "v3",
-    title: "World Finals Comp",
-    category: "Esports",
+    title: "World Finals",
+    category: "Broadcast",
     youtubeId: "M0OcyKCJhYs",
     description: ""
   },
   {
     id: "v4",
-    title: "Project One",
-    category: "Motion",
+    title: "Gameplay Motion",
+    category: "Shortform",
     youtubeId: "xpYasagUJAs",
     description: ""
+  }
+];
+
+const CONTACTS = [
+  {
+    icon: Instagram,
+    label: "@andremograph",
+    href: "https://www.instagram.com/andremograph/"
+  },
+  {
+    icon: FaDiscord,
+    label: "Discord Server",
+    href: "https://discord.gg/zu6bWjCXb"
+  },
+  {
+    icon: Mail,
+    label: "andre.pr.official23@gmail.com",
+    href: "mailto:andre.pr.official23@gmail.com"
+  },
+  {
+    icon: MessageCircle,
+    label: "+55 82 99174-8333",
+    href: "https://wa.me/558299174833"
   }
 ];
 
@@ -102,11 +132,7 @@ export default function PortfolioPage() {
             <source src="/background/BG.mp4" type="video/mp4" />
           </video>
 
-          {/* DARK OVERLAY */}
-
           <div className="absolute inset-0 bg-black/55" />
-
-          {/* VIGNETTE */}
 
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_20%,#050505_100%)]" />
         </div>
@@ -115,7 +141,7 @@ export default function PortfolioPage() {
 
         <div className="relative z-10">
 
-          {/* NAVBAR */}
+          {/* NAV */}
 
           <nav className="fixed top-0 left-0 w-full z-50 px-6 md:px-10 py-7 flex items-center justify-between mix-blend-difference">
 
@@ -164,10 +190,46 @@ export default function PortfolioPage() {
                   </h1>
 
                   <p className="mt-8 max-w-[520px] text-white/45 text-[15px] leading-relaxed">
-                    Focused on creating high-end motion graphics,
-                    visual storytelling and cinematic digital experiences
-                    for creators and modern brands.
+                    High-end motion graphics, visual storytelling and cinematic editing crafted for brands, creators and premium digital experiences.
                   </p>
+
+                  {/* CONTACT ICONS */}
+
+                  <div className="flex items-center gap-4 mt-12">
+
+                    {CONTACTS.map((contact, index) => {
+                      const Icon = contact.icon;
+
+                      return (
+                        <a
+                          key={index}
+                          href={contact.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="group relative"
+                        >
+                          {/* LIQUID GLASS TOOLTIP */}
+
+                          <div className="absolute left-1/2 -translate-x-1/2 bottom-16 opacity-0 pointer-events-none group-hover:opacity-100 transition-all duration-300">
+
+                            <div className="px-4 py-3 rounded-2xl border border-white/10 bg-white/[0.08] backdrop-blur-xl shadow-[0_10px_40px_rgba(0,0,0,0.45)] whitespace-nowrap">
+
+                              <span className="text-[12px] text-white/85 tracking-wide">
+                                {contact.label}
+                              </span>
+                            </div>
+                          </div>
+
+                          {/* ICON */}
+
+                          <div className="w-14 h-14 rounded-2xl border border-white/10 bg-white/[0.04] backdrop-blur-xl flex items-center justify-center text-white/70 group-hover:text-white group-hover:border-white/20 group-hover:bg-white/[0.08] transition-all duration-300">
+
+                            <Icon size={22} />
+                          </div>
+                        </a>
+                      );
+                    })}
+                  </div>
                 </motion.div>
 
                 {/* RIGHT */}
@@ -320,25 +382,6 @@ export default function PortfolioPage() {
                   <br />
                   Selected Projects
                 </h2>
-
-                <div className="mt-14 flex flex-col md:flex-row gap-5">
-
-                  <a
-                    href="mailto:hello@andremograph.com"
-                    className="px-8 py-5 rounded-full bg-white text-black text-[11px] uppercase tracking-[0.25em] font-semibold hover:bg-white/90 transition w-fit"
-                  >
-                    hello@andremograph.com
-                  </a>
-
-                  <a
-                    href="https://instagram.com/andremograph"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="px-8 py-5 rounded-full border border-white/15 text-[11px] uppercase tracking-[0.25em] text-white/70 hover:text-white hover:border-white/40 transition w-fit"
-                  >
-                    Instagram
-                  </a>
-                </div>
               </div>
             </section>
           </main>
