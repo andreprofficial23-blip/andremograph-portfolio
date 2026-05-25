@@ -29,6 +29,8 @@ const VIDEOS: Video[] = [
 export default function PortfolioPage() {
   const [selectedProject, setSelectedProject] = useState<Video | null>(null);
 
+
+
   const fadeUp = {
     hidden: { opacity: 0, y: 40 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.8 } }
@@ -124,7 +126,7 @@ export default function PortfolioPage() {
                     <img 
                       src={`https://img.youtube.com/vi/${p.youtubeId}/maxresdefault.jpg`} 
                       data-youtube-id={p.youtubeId}
-                      onError={(e) => { e.currentTarget.src = `https://img.youtube.com/vi/${p.youtubeId}/hqdefault.jpg`; }}
+                      onError={handleImageError}
                       alt={p.title} 
                       loading="lazy"
                       className="w-full h-full object-cover grayscale opacity-50 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700 group-hover:scale-105"
