@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Andre | Motion Designer",
     description: "High-fidelity motion for brands that demand excellence.",
-    url: "https://seusite.com", // troque pela URL do GitHub Pages depois
+    url: "https://andremograph-portfolio.vercel.app",
     siteName: "Andre Motion",
     locale: "pt_BR",
     type: "website",
