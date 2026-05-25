@@ -24,7 +24,7 @@ const FEATURED_VIDEOS: Video[] = [
   {
     id: "hero-1",
     title: "Visuals — Brand",
-    category: "Motion Design",
+    category: "Brand",
     youtubeId: "JeLV_HljZas",
     description:
       "Direção visual construída com foco em ritmo, presença e identidade estética."
@@ -32,15 +32,15 @@ const FEATURED_VIDEOS: Video[] = [
   {
     id: "hero-2",
     title: "Edit — Narrative",
-    category: "Cinematic Edit",
+    category: "Cinematic",
     youtubeId: "O4nTVAfoxKI",
     description:
       "Narrativa visual cinematográfica guiada por atmosfera e composição."
   },
   {
     id: "hero-3",
-    title: "Motion — Competitive",
-    category: "Gaming Motion",
+    title: "Edit — Competitive",
+    category: "Gaming",
     youtubeId: "LO9EnykVlBg",
     description:
       "Edição competitiva construída para intensidade, impacto e retenção."
@@ -50,64 +50,64 @@ const FEATURED_VIDEOS: Video[] = [
 const GRID_VIDEOS: Video[] = [
   {
     id: "v1",
-    title: "Motion — Gaming",
-    category: "Gaming Motion",
+    title: "Visuals — Atmosphere",
+    category: "Motion",
     youtubeId: "oK1p72YO2pw",
     description: ""
   },
   {
     id: "v2",
-    title: "Visuals — Competitive",
-    category: "Gaming Edit",
+    title: "Motion — Typography",
+    category: "Motion",
     youtubeId: "M0OcyKCJhYs",
     description: ""
   },
   {
     id: "v3",
-    title: "Edit — Atmosphere",
-    category: "Shortform",
+    title: "Edit — Narrative",
+    category: "Cinematic",
     youtubeId: "xpYasagUJAs",
     description: ""
   },
   {
     id: "v4",
-    title: "Motion — Competitive",
-    category: "Gaming Motion",
+    title: "Motion — Minimal",
+    category: "Motion",
     youtubeId: "q7jkRt0XXPY",
     description: ""
   },
   {
     id: "v5",
-    title: "Visuals — Gaming",
-    category: "Gaming Edit",
+    title: "Visuals — Competitive",
+    category: "Gaming",
     youtubeId: "u98UHtQWVNA",
     description: ""
   },
   {
     id: "v6",
-    title: "Edit — Cinematic",
-    category: "Shortform",
+    title: "Edit — Competitive",
+    category: "Gaming",
     youtubeId: "n2OiJBRhzOU",
     description: ""
   },
   {
     id: "v7",
-    title: "Motion — Atmosphere",
-    category: "Visual Motion",
+    title: "Motion — Competitive",
+    category: "Gaming",
     youtubeId: "LK1cKH6xJvY",
     description: ""
   },
   {
     id: "v8",
-    title: "Visuals — Competitive",
-    category: "Gaming Motion",
+    title: "Visuals — Gaming",
+    category: "Gaming",
     youtubeId: "AKuQB0DLdoY",
     description: ""
   },
   {
     id: "v9",
-    title: "Edit — Performance",
-    category: "Commercial",
+    title: "Intro — Performance",
+    category: "Gaming",
     youtubeId: "3KPQzNRwH9Q",
     description: ""
   }
