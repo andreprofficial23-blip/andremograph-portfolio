@@ -86,12 +86,11 @@ export default function PortfolioPage() {
         }
       `}</style>
 
-      <div className="min-h-screen bg-[#050505] text-white">
+      <div className="min-h-screen bg-[#050505] text-white overflow-hidden">
 
         {/* NAVBAR */}
 
         <nav className="fixed top-0 left-0 w-full z-50 px-6 md:px-10 py-7 flex items-center justify-between mix-blend-difference">
-
           <span className="text-[11px] uppercase tracking-[0.35em] font-semibold">
             ANDREMOGRAPH
           </span>
@@ -104,52 +103,54 @@ export default function PortfolioPage() {
           </a>
         </nav>
 
-        <main className="max-w-[1240px] mx-auto px-6 md:px-8">
+        {/* MAIN */}
+
+        <main className="w-full flex flex-col items-center">
 
           {/* HERO */}
 
-          <section className="min-h-screen flex items-center py-24">
+          <section className="w-full max-w-[1280px] px-6 md:px-10 min-h-screen flex items-center">
 
-            <div className="grid lg:grid-cols-[0.95fr_0.8fr] gap-16 xl:gap-24 items-center w-full">
+            <div className="w-full grid lg:grid-cols-[1fr_420px] items-center gap-16">
 
-              {/* TEXT */}
+              {/* LEFT */}
 
               <motion.div
                 initial={{ opacity: 0, y: 40 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1 }}
+                className="max-w-[720px]"
               >
                 <span className="text-[11px] uppercase tracking-[0.35em] text-white/35 block mb-8">
                   Motion Designer — Brazil
                 </span>
 
-                <h1 className="text-[48px] md:text-[72px] leading-[0.92] tracking-[-0.06em] font-medium">
+                <h1 className="text-[54px] md:text-[82px] leading-[0.9] tracking-[-0.07em] font-medium">
                   Cinematic
                   <br />
                   Motion Design
                   <br />
-                  <span className="text-white/30">
+                  <span className="text-white/25">
                     For Modern Brands
                   </span>
                 </h1>
 
-                <p className="mt-8 max-w-md text-white/45 text-[15px] leading-relaxed">
+                <p className="mt-8 max-w-[520px] text-white/45 text-[15px] leading-relaxed">
                   Focused on creating high-end motion graphics,
                   visual storytelling and cinematic digital experiences
                   for creators and modern brands.
                 </p>
               </motion.div>
 
-              {/* PHOTO */}
+              {/* RIGHT */}
 
               <motion.div
                 initial={{ opacity: 0, scale: 0.97 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 1 }}
-                className="relative"
+                className="w-full flex justify-center lg:justify-end"
               >
-                <div className="relative max-w-[420px] ml-auto aspect-[4/5] rounded-[40px] overflow-hidden border border-white/10">
-
+                <div className="w-full max-w-[400px] aspect-[4/5] rounded-[36px] overflow-hidden border border-white/10">
                   <img
                     src="/about/perfil.jpg"
                     alt="Andre"
@@ -160,9 +161,9 @@ export default function PortfolioPage() {
             </div>
           </section>
 
-          {/* FEATURED VIDEOS */}
+          {/* FEATURED */}
 
-          <section className="pb-36 space-y-32">
+          <section className="w-full max-w-[1280px] px-6 md:px-10 pb-36 space-y-28">
 
             {VIDEOS.slice(0, 2).map((video, index) => (
               <motion.div
@@ -172,10 +173,16 @@ export default function PortfolioPage() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.9 }}
                 className={`
-                  grid lg:grid-cols-[1.1fr_0.8fr]
+                  w-full
+                  grid
+                  lg:grid-cols-[1fr_420px]
                   gap-14
                   items-center
-                  ${index % 2 !== 0 ? "lg:[&>*:first-child]:order-2" : ""}
+                  ${
+                    index % 2 !== 0
+                      ? "lg:[&>*:first-child]:order-2"
+                      : ""
+                  }
                 `}
               >
 
@@ -183,7 +190,7 @@ export default function PortfolioPage() {
 
                 <div
                   onClick={() => setSelectedVideo(video)}
-                  className="group relative aspect-video rounded-[34px] overflow-hidden cursor-pointer bg-[#0B0B0B]"
+                  className="group relative w-full aspect-video rounded-[34px] overflow-hidden cursor-pointer bg-[#0B0B0B]"
                 >
                   <img
                     src={`https://img.youtube.com/vi/${video.youtubeId}/maxresdefault.jpg`}
@@ -194,7 +201,7 @@ export default function PortfolioPage() {
                     className="w-full h-full object-cover transition-all duration-700 group-hover:scale-[1.02]"
                   />
 
-                  <div className="absolute inset-0 bg-black/25" />
+                  <div className="absolute inset-0 bg-black/20" />
 
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500">
                     <div className="w-20 h-20 rounded-full bg-black/50 backdrop-blur-xl border border-white/15 flex items-center justify-center">
@@ -209,7 +216,7 @@ export default function PortfolioPage() {
 
                 {/* TEXT */}
 
-                <div>
+                <div className="max-w-[420px]">
                   <span className="text-[11px] uppercase tracking-[0.35em] text-white/35 block mb-5">
                     {video.category}
                   </span>
@@ -218,7 +225,7 @@ export default function PortfolioPage() {
                     {video.title}
                   </h2>
 
-                  <p className="mt-7 text-white/45 leading-relaxed max-w-md text-[15px]">
+                  <p className="mt-7 text-white/45 leading-relaxed text-[15px]">
                     {video.description}
                   </p>
                 </div>
@@ -226,9 +233,9 @@ export default function PortfolioPage() {
             ))}
           </section>
 
-          {/* SECONDARY GRID */}
+          {/* GRID */}
 
-          <section className="pb-40">
+          <section className="w-full max-w-[1280px] px-6 md:px-10 pb-40">
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
 
@@ -271,9 +278,9 @@ export default function PortfolioPage() {
 
           <section
             id="contact"
-            className="border-t border-white/10 py-32"
+            className="w-full max-w-[1280px] px-6 md:px-10 border-t border-white/10 py-32"
           >
-            <div className="max-w-3xl">
+            <div className="max-w-[760px]">
 
               <span className="text-[11px] uppercase tracking-[0.35em] text-white/35 block mb-8">
                 Contact
@@ -289,7 +296,7 @@ export default function PortfolioPage() {
 
                 <a
                   href="mailto:hello@andremograph.com"
-                  className="px-8 py-5 rounded-full bg-white text-black text-[11px] uppercase tracking-[0.25em] font-semibold hover:bg-white/90 transition"
+                  className="px-8 py-5 rounded-full bg-white text-black text-[11px] uppercase tracking-[0.25em] font-semibold hover:bg-white/90 transition w-fit"
                 >
                   hello@andremograph.com
                 </a>
@@ -298,7 +305,7 @@ export default function PortfolioPage() {
                   href="https://instagram.com/andremograph"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-8 py-5 rounded-full border border-white/15 text-[11px] uppercase tracking-[0.25em] text-white/70 hover:text-white hover:border-white/40 transition"
+                  className="px-8 py-5 rounded-full border border-white/15 text-[11px] uppercase tracking-[0.25em] text-white/70 hover:text-white hover:border-white/40 transition w-fit"
                 >
                   Instagram
                 </a>
@@ -307,7 +314,7 @@ export default function PortfolioPage() {
           </section>
         </main>
 
-        {/* VIDEO MODAL */}
+        {/* MODAL */}
 
         <AnimatePresence>
           {selectedVideo && (
