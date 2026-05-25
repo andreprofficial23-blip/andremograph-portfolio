@@ -1,4 +1,3 @@
-// v2.0 - Layout Restaurado
 "use client";
 
 import React, { useState } from "react";
@@ -50,9 +49,11 @@ function ProjectCard({ p, onClick, lang }: { p: any; onClick: any; lang: Languag
   return (
     <div className="group cursor-pointer" onClick={() => onClick(p)}>
       <div className="relative aspect-video rounded-3xl overflow-hidden bg-white/5 border border-white/10 mb-8 transition-all duration-700 group-hover:border-[#C5A059]/30">
+        {/* MAGICA DA THUMBNAIL AQUI */}
         <img 
-          src={`/thumbnails/${p.id}.jpg`} 
+          src={`https://img.youtube.com/vi/${p.youtubeId}/maxresdefault.jpg`} 
           alt={p.title} 
+          onError={(e) => { e.currentTarget.src = `https://img.youtube.com/vi/${p.youtubeId}/hqdefault.jpg`; }}
           className="w-full h-full object-cover grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-1000 scale-110 group-hover:scale-100"
         />
         <div className="absolute inset-0 bg-black/40 group-hover:bg-transparent transition-colors duration-700" />
@@ -81,7 +82,6 @@ export default function PortfolioPage() {
 
   return (
     <div className="min-h-screen bg-[#050506] text-white selection:bg-[#C5A059]/30 font-sans">
-      {/* NAVBAR */}
       <nav className="fixed top-0 w-full px-8 py-6 flex justify-between items-center z-[100] backdrop-blur-md">
         <span className="text-[11px] tracking-[0.5em] uppercase font-bold">{t.header_title}</span>
         <div className="flex items-center gap-8">
@@ -95,7 +95,6 @@ export default function PortfolioPage() {
       </nav>
 
       <main>
-        {/* 1. HERO (FONTE ORIGINAL) */}
         <section className="h-screen flex flex-col justify-center px-8 md:px-24 relative">
           <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}>
             <p className="text-[#C5A059] text-[10px] tracking-[0.4em] uppercase font-bold mb-6">Maceió, AL (GMT-3)</p>
@@ -114,7 +113,6 @@ export default function PortfolioPage() {
           </div>
         </section>
 
-        {/* 2. PROJETOS (GRID SIMPLES 2 COLUNAS) */}
         <section className="px-8 md:px-24 pb-40">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-32">
             {PROJECTS.map((project, idx) => (
@@ -131,7 +129,6 @@ export default function PortfolioPage() {
           </div>
         </section>
 
-        {/* 3. SOBRE & CONTATO (RODAPÉ ESCURO E LIMPO) */}
         <footer className="px-8 md:px-24 py-40 border-t border-white/5 bg-gradient-to-b from-transparent to-white/[0.02]">
            <div className="grid md:grid-cols-2 gap-24">
               <div>
@@ -155,7 +152,6 @@ export default function PortfolioPage() {
         </footer>
       </main>
 
-      {/* MODAL DO YOUTUBE */}
       <AnimatePresence>
         {selectedProject && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-[200] flex items-center justify-center p-4 md:p-12">
