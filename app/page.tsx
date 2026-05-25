@@ -108,7 +108,7 @@ export default function PortfolioPage() {
 
       <div className="min-h-screen relative antialiased font-light flex flex-col items-center selection:bg-[#C5A059]/30">
 
-        {/* BACKGROUND GLOW */}
+        {/* BACKGROUND */}
 
         <div className="fixed inset-0 -z-10 overflow-hidden">
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[900px] bg-[#C5A059]/10 blur-[180px] rounded-full opacity-40" />
@@ -149,14 +149,10 @@ export default function PortfolioPage() {
 
                 <div className="relative w-64 h-64 md:w-[360px] md:h-[360px] rounded-full overflow-hidden border border-white/10 bg-white/5">
                   <img
-                    src="/perfil.jpg"
+                    src="/about/perfil.jpg"
                     alt="André Motion Designer"
-                    className="w-full h-full object-cover grayscale-[15%] hover:grayscale-0 transition-all duration-700"
+                    className="w-full h-full object-cover grayscale-[10%] hover:grayscale-0 transition-all duration-700"
                     loading="lazy"
-                    onError={(e) => {
-                      e.currentTarget.src =
-                        "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=1200&auto=format&fit=crop";
-                    }}
                   />
                 </div>
               </motion.div>
