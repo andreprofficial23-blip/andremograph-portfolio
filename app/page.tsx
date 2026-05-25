@@ -23,89 +23,90 @@ interface Video {
 const FEATURED_VIDEOS: Video[] = [
   {
     id: "hero-1",
-    title: "Adapta",
-    category: "Brand Motion",
+    title: "Visuals — Brand",
+    category: "Motion Design",
     youtubeId: "JeLV_HljZas",
     description:
-      "Motion system focused on pacing, clarity and modern visual storytelling."
+      "Direção visual construída com foco em ritmo, presença e identidade estética."
   },
   {
     id: "hero-2",
-    title: "Jornada CEO",
-    category: "Narrative Editing",
+    title: "Edit — Narrative",
+    category: "Cinematic Edit",
     youtubeId: "O4nTVAfoxKI",
     description:
-      "Cinematic edit built around emotional rhythm and premium composition."
+      "Narrativa visual cinematográfica guiada por atmosfera e composição."
+  },
+  {
+    id: "hero-3",
+    title: "Motion — Competitive",
+    category: "Gaming Motion",
+    youtubeId: "LO9EnykVlBg",
+    description:
+      "Edição competitiva construída para intensidade, impacto e retenção."
   }
 ];
 
 const GRID_VIDEOS: Video[] = [
   {
     id: "v1",
-    title: "Ranked Guide — July",
-    category: "Gaming Edit",
-    youtubeId: "LO9EnykVlBg",
-    description: ""
-  },
-  {
-    id: "v2",
-    title: "OS Interface",
+    title: "Motion — Interface",
     category: "UI Motion",
     youtubeId: "oK1p72YO2pw",
     description: ""
   },
   {
-    id: "v3",
-    title: "World Finals",
+    id: "v2",
+    title: "Visuals — Performance",
     category: "Broadcast",
     youtubeId: "M0OcyKCJhYs",
     description: ""
   },
   {
-    id: "v4",
-    title: "Gameplay Motion",
+    id: "v3",
+    title: "Edit — Atmosphere",
     category: "Shortform",
     youtubeId: "xpYasagUJAs",
     description: ""
   },
   {
-    id: "v5",
-    title: "Currency Dynamics",
+    id: "v4",
+    title: "Motion — Narrative",
     category: "Explainer",
     youtubeId: "q7jkRt0XXPY",
     description: ""
   },
   {
-    id: "v6",
-    title: "Project Two",
-    category: "Shortform",
+    id: "v5",
+    title: "Visuals — Gaming",
+    category: "Gaming Edit",
     youtubeId: "u98UHtQWVNA",
     description: ""
   },
   {
-    id: "v7",
-    title: "Project Three",
-    category: "Gaming",
+    id: "v6",
+    title: "Edit — Cinematic",
+    category: "Shortform",
     youtubeId: "n2OiJBRhzOU",
     description: ""
   },
   {
-    id: "v8",
-    title: "Project Four",
-    category: "Motion",
+    id: "v7",
+    title: "Motion — Atmosphere",
+    category: "Visual Motion",
     youtubeId: "LK1cKH6xJvY",
     description: ""
   },
   {
-    id: "v9",
-    title: "Project Five",
-    category: "Social Edit",
+    id: "v8",
+    title: "Visuals — Competitive",
+    category: "Gaming Motion",
     youtubeId: "AKuQB0DLdoY",
     description: ""
   },
   {
-    id: "v10",
-    title: "Ad Campaign",
+    id: "v9",
+    title: "Edit — Performance",
     category: "Commercial",
     youtubeId: "3KPQzNRwH9Q",
     description: ""
