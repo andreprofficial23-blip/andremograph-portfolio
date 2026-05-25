@@ -192,10 +192,31 @@ export default function PortfolioPage() {
                   <p className="mt-8 max-w-[520px] text-white/45 text-[15px] leading-relaxed">
                     High-end motion graphics, visual storytelling and cinematic editing crafted for brands, creators and premium digital experiences.
                   </p>
+                </motion.div>
+
+                {/* RIGHT */}
+
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.97 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 1 }}
+                  className="w-full flex flex-col items-center lg:items-end"
+                >
+
+                  {/* PROFILE IMAGE */}
+
+                  <div className="w-full max-w-[400px] aspect-[4/5] rounded-[36px] overflow-hidden border border-white/10 bg-black/30 backdrop-blur-sm">
+
+                    <img
+                      src="/about/perfil.jpg"
+                      alt="Andre"
+                      className="w-full h-full object-cover grayscale-[5%]"
+                    />
+                  </div>
 
                   {/* CONTACT ICONS */}
 
-                  <div className="flex items-center gap-4 mt-12">
+                  <div className="flex items-center gap-4 mt-8">
 
                     {CONTACTS.map((contact, index) => {
                       const Icon = contact.icon;
@@ -208,13 +229,14 @@ export default function PortfolioPage() {
                           rel="noopener noreferrer"
                           className="group relative"
                         >
-                          {/* LIQUID GLASS TOOLTIP */}
 
-                          <div className="absolute left-1/2 -translate-x-1/2 bottom-16 opacity-0 pointer-events-none group-hover:opacity-100 transition-all duration-300">
+                          {/* TOOLTIP */}
 
-                            <div className="px-4 py-3 rounded-2xl border border-white/10 bg-white/[0.08] backdrop-blur-xl shadow-[0_10px_40px_rgba(0,0,0,0.45)] whitespace-nowrap">
+                          <div className="absolute left-1/2 -translate-x-1/2 bottom-[78px] opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 z-50">
 
-                              <span className="text-[12px] text-white/85 tracking-wide">
+                            <div className="px-5 py-3 rounded-2xl border border-white/20 bg-black/65 backdrop-blur-2xl shadow-[0_20px_60px_rgba(0,0,0,0.65)] whitespace-nowrap">
+
+                              <span className="text-[12px] text-white tracking-wide font-medium">
                                 {contact.label}
                               </span>
                             </div>
@@ -222,31 +244,13 @@ export default function PortfolioPage() {
 
                           {/* ICON */}
 
-                          <div className="w-14 h-14 rounded-2xl border border-white/10 bg-white/[0.04] backdrop-blur-xl flex items-center justify-center text-white/70 group-hover:text-white group-hover:border-white/20 group-hover:bg-white/[0.08] transition-all duration-300">
+                          <div className="w-14 h-14 rounded-2xl border border-white/10 bg-white/[0.05] backdrop-blur-xl flex items-center justify-center text-white/70 group-hover:text-white group-hover:border-white/25 group-hover:bg-white/[0.12] transition-all duration-300 group-hover:scale-105">
 
                             <Icon size={22} />
                           </div>
                         </a>
                       );
                     })}
-                  </div>
-                </motion.div>
-
-                {/* RIGHT */}
-
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.97 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 1 }}
-                  className="w-full flex justify-center lg:justify-end"
-                >
-                  <div className="w-full max-w-[400px] aspect-[4/5] rounded-[36px] overflow-hidden border border-white/10 bg-black/30 backdrop-blur-sm">
-
-                    <img
-                      src="/about/perfil.jpg"
-                      alt="Andre"
-                      className="w-full h-full object-cover grayscale-[5%]"
-                    />
                   </div>
                 </motion.div>
               </div>
