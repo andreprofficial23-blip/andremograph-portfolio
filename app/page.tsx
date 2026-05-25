@@ -225,17 +225,16 @@ export default function PortfolioPage() {
                   </span>
 
                   <h1 className="text-[54px] md:text-[82px] leading-[0.9] tracking-[-0.07em] font-medium">
-                    Cinematic
-                    <br />
                     Motion Design
                     <br />
-                    <span className="text-white/25">
-                      For Modern Brands
+                    <span className="text-white/30">
+                      & Direção Visual
                     </span>
                   </h1>
 
                   <p className="mt-8 max-w-[520px] text-white/45 text-[15px] leading-relaxed">
-                    High-end motion graphics, visual storytelling and cinematic editing crafted for brands, creators and premium digital experiences.
+                    Motion design e edição cinematográfica
+                    com foco em atmosfera, ritmo e presença visual.
                   </p>
                 </motion.div>
 
