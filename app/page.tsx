@@ -88,7 +88,7 @@ export default function PortfolioPage() {
 
       <div className="min-h-screen bg-[#050505] text-white overflow-hidden relative">
 
-        {/* BG VIDEO */}
+        {/* BACKGROUND VIDEO */}
 
         <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
 
@@ -97,14 +97,18 @@ export default function PortfolioPage() {
             muted
             loop
             playsInline
-            className="w-full h-full object-cover opacity-[0.14] scale-110"
+            className="absolute inset-0 w-full h-full object-cover opacity-30"
           >
             <source src="/background/BG.mp4" type="video/mp4" />
           </video>
 
-          <div className="absolute inset-0 bg-black/75" />
+          {/* DARK OVERLAY */}
 
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,#050505_80%)]" />
+          <div className="absolute inset-0 bg-black/55" />
+
+          {/* VIGNETTE */}
+
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_20%,#050505_100%)]" />
         </div>
 
         {/* CONTENT */}
@@ -340,7 +344,7 @@ export default function PortfolioPage() {
           </main>
         </div>
 
-        {/* MODAL */}
+        {/* VIDEO MODAL */}
 
         <AnimatePresence>
           {selectedVideo && (
