@@ -30,9 +30,9 @@ const FEATURED_VIDEOS: Video[] = [
       "Direção visual construída com foco em ritmo, presença e identidade estética.",
   },
 
-  // ✅ NOVO: DÓLAR ABAIXO DO BRAND
+  // NOVO HERO ADICIONADO
   {
-    id: "hero-1-1",
+    id: "hero-2",
     title: "Motion — Currency (Dollar Visual)",
     category: "Motion",
     youtubeId: "iOSwIbBcSE0",
@@ -41,7 +41,7 @@ const FEATURED_VIDEOS: Video[] = [
   },
 
   {
-    id: "hero-2",
+    id: "hero-3",
     title: "Edit — Narrative",
     category: "Cinematic",
     youtubeId: "O4nTVAfoxKI",
