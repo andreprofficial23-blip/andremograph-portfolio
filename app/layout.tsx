@@ -13,20 +13,31 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Andre | Motion Designer",
-  description: "Motion Designer especializado em UI Animation, VFX, 3D Motion e Color Grading. Open to international commissions.",
+  title: "ANDREMOGRAPH",
+  description:
+    "Motion design e direção visual com foco em atmosfera, ritmo e presença visual.",
+
+  icons: {
+    icon: "/favicon.png",
+    shortcut: "/favicon.png",
+    apple: "/apple-touch-icon.png",
+  },
+
   openGraph: {
-    title: "Andre | Motion Designer",
-    description: "High-fidelity motion for brands that demand excellence.",
+    title: "ANDREMOGRAPH",
+    description:
+      "Motion design e direção visual com foco em atmosfera, ritmo e presença visual.",
     url: "https://andremograph-portfolio.vercel.app",
-    siteName: "Andre Motion",
+    siteName: "ANDREMOGRAPH",
     locale: "pt_BR",
     type: "website",
   },
+
   twitter: {
     card: "summary_large_image",
-    title: "Andre | Motion Designer",
-    description: "High-fidelity motion for brands that demand excellence.",
+    title: "ANDREMOGRAPH",
+    description:
+      "Motion design e direção visual com foco em atmosfera, ritmo e presença visual.",
     creator: "@andremograph",
   },
 };
