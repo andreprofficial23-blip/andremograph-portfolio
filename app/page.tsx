@@ -30,10 +30,10 @@ interface Video {
 // ─── DATA ─────────────────────────────────────────────────────────────────────
 
 const FEATURED_VIDEOS: Video[] = [
-  { id: "hero-1",   title: "Visuals — Brand",                  category: "Brand",     youtubeId: "JeLV_HljZas", description: "Direção visual construída com foco em ritmo, presença e identidade estética." },
+  { id: "hero-1",   title: "Visuals — Brand",                   category: "Brand",     youtubeId: "JeLV_HljZas", description: "Direção visual construída com foco em ritmo, presença e identidade estética." },
   { id: "hero-1-1", title: "Motion — Currency (Dollar Visual)", category: "Motion",    youtubeId: "iOSwIbBcSE0", description: "Motion design explorando narrativa financeira, ritmo e impacto visual." },
-  { id: "hero-2",   title: "Edit — Narrative",                 category: "Cinematic", youtubeId: "O4nTVAfoxKI", description: "Narrativa visual cinematográfica guiada por atmosfera e composição." },
-  { id: "hero-3",   title: "Edit — Competitive",               category: "Gaming",    youtubeId: "LO9EnykVlBg", description: "Edição competitiva construída para intensidade, impacto e retenção." },
+  { id: "hero-2",   title: "Edit — Narrative",                  category: "Cinematic", youtubeId: "O4nTVAfoxKI", description: "Narrativa visual cinematográfica guiada por atmosfera e composição." },
+  { id: "hero-3",   title: "Edit — Competitive",                category: "Gaming",    youtubeId: "LO9EnykVlBg", description: "Edição competitiva construída para intensidade, impacto e retenção." },
 ];
 
 const GRID_VIDEOS: Video[] = [
@@ -49,10 +49,10 @@ const GRID_VIDEOS: Video[] = [
 ];
 
 const CONTACTS = [
-  { icon: Instagram,      label: "@andremograph",               href: "https://www.instagram.com/andremograph/" },
-  { icon: FaDiscord,      label: "Discord Server",              href: "https://discord.gg/zu6bWjCXb" },
-  { icon: Mail,           label: "andre.pr.official23@gmail.com", href: "mailto:andre.pr.official23@gmail.com" },
-  { icon: MessageCircle,  label: "+55 82 99174-8333",           href: "https://wa.me/558299174833" },
+  { icon: Instagram,     label: "@andremograph",                href: "https://www.instagram.com/andremograph/" },
+  { icon: FaDiscord,     label: "Discord Server",               href: "https://discord.gg/zu6bWjCXb" },
+  { icon: Mail,          label: "andre.pr.official23@gmail.com", href: "mailto:andre.pr.official23@gmail.com" },
+  { icon: MessageCircle, label: "+55 82 99174-8333",            href: "https://wa.me/558299174833" },
 ];
 
 const PROCESS_STEPS = [
@@ -63,30 +63,25 @@ const PROCESS_STEPS = [
 ];
 
 const STATS = [
-  { value: 50,  suffix: "+",  label: "Projetos Entregues" },
+  { value: 200, suffix: "+",  label: "Projetos Entregues" },
   { value: 5,   suffix: "+",  label: "Anos de Experiência" },
   { value: 2,   suffix: "M+", label: "Visualizações" },
 ];
 
 const CATEGORIES = ["Todos", "Motion", "Cinematic", "Gaming", "Brand"];
 
-// ─── CLIENTS ─────────────────────────────────────────────────────────────────
-// Divididos em duas categorias: empresas e influencers/criadores
+// ─── CLIENTS DATA ─────────────────────────────────────────────────────────────
 
-const BRANDS = [
-  { name: "Fiat",      type: "brand" },
-  { name: "Itaú",     type: "brand" },
-  { name: "Litorânea", type: "brand" },
-  { name: "Adapta",   type: "brand" },
+const BRANDS_ROW: string[] = [
+  "Fiat", "Itaú", "Litorânea", "Adapta",
+  "Fiat", "Itaú", "Litorânea", "Adapta",
+  "Fiat", "Itaú", "Litorânea", "Adapta",
 ];
 
-const CREATORS = [
-  { name: "FireCrow",   type: "creator" },
-  { name: "Lele",       type: "creator" },
-  { name: "Acee",       type: "creator" },
-  { name: "TOM",        type: "creator" },
-  { name: "OG",         type: "creator" },
-  { name: "CryingMan",  type: "creator" },
+const CREATORS_ROW: string[] = [
+  "FireCrow", "Lele", "Acee", "TOM", "OG", "CryingMan",
+  "FireCrow", "Lele", "Acee", "TOM", "OG", "CryingMan",
+  "FireCrow", "Lele", "Acee", "TOM", "OG", "CryingMan",
 ];
 
 // ─── SUB-COMPONENTS ───────────────────────────────────────────────────────────
@@ -158,87 +153,6 @@ function Thumbnail({ video }: { video: Video }) {
         style={{ opacity: loaded ? 1 : 0 }}
       />
     </div>
-  );
-}
-
-// ─── CLIENTS MARQUEE ─────────────────────────────────────────────────────────
-
-function ClientsMarquee() {
-  // Duplicamos para loop contínuo
-  const allBrands   = [...BRANDS,   ...BRANDS];
-  const allCreators = [...CREATORS, ...CREATORS];
-
-  return (
-    <section className="w-full py-20 overflow-hidden">
-      {/* Divider */}
-      <div className="h-px w-full bg-gradient-to-r from-transparent via-white/8 to-transparent mb-16" />
-
-      <div className="max-w-[1280px] mx-auto px-6 md:px-10 mb-10">
-        <div className="flex items-center gap-4">
-          <div className="h-px w-14 bg-gradient-to-r from-violet-500/30 to-transparent" />
-          <span className="badge">Clientes &amp; Criadores</span>
-        </div>
-        <p className="mt-4 text-white/28 text-[13px] tracking-wide">
-          Marcas e criadores com quem já trabalhei
-        </p>
-      </div>
-
-      {/* Row 1 — Brands (scroll left) */}
-      <div className="relative mb-5">
-        <div className="flex gap-4 marquee-track">
-          {allBrands.map((b, i) => (
-            <div
-              key={i}
-              className="flex-shrink-0 px-7 py-3 rounded-2xl flex items-center gap-3"
-              style={{
-                background: "rgba(255,255,255,0.03)",
-                border: "1px solid rgba(255,255,255,0.07)",
-              }}
-            >
-              {/* Small dot accent */}
-              <span className="w-1.5 h-1.5 rounded-full bg-violet-500/60 flex-shrink-0" />
-              <span
-                className="text-[13px] font-semibold tracking-wide text-white/55 whitespace-nowrap"
-                style={{ fontFamily: "Syne, sans-serif" }}
-              >
-                {b.name}
-              </span>
-            </div>
-          ))}
-        </div>
-        {/* Fade edges */}
-        <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-[#090a0c] to-transparent pointer-events-none z-10" />
-        <div className="absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-[#090a0c] to-transparent pointer-events-none z-10" />
-      </div>
-
-      {/* Row 2 — Creators (scroll right) */}
-      <div className="relative">
-        <div className="flex gap-4 marquee-track-reverse">
-          {allCreators.map((c, i) => (
-            <div
-              key={i}
-              className="flex-shrink-0 px-7 py-3 rounded-2xl flex items-center gap-3"
-              style={{
-                background: "rgba(139,92,246,0.05)",
-                border: "1px solid rgba(139,92,246,0.14)",
-              }}
-            >
-              <span className="w-1.5 h-1.5 rounded-full bg-violet-400/70 flex-shrink-0" />
-              <span
-                className="text-[13px] font-semibold tracking-wide text-white/45 whitespace-nowrap"
-                style={{ fontFamily: "Syne, sans-serif" }}
-              >
-                {c.name}
-              </span>
-            </div>
-          ))}
-        </div>
-        <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-[#090a0c] to-transparent pointer-events-none z-10" />
-        <div className="absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-[#090a0c] to-transparent pointer-events-none z-10" />
-      </div>
-
-      <div className="h-px w-full bg-gradient-to-r from-transparent via-white/8 to-transparent mt-16" />
-    </section>
   );
 }
 
@@ -318,40 +232,30 @@ export default function PortfolioPage() {
           100% { background-position:  200% 0; }
         }
 
-        @keyframes marquee {
+        @keyframes marquee-left {
           0%   { transform: translateX(0); }
           100% { transform: translateX(-50%); }
         }
-        @keyframes marquee-reverse {
+        @keyframes marquee-right {
           0%   { transform: translateX(-50%); }
           100% { transform: translateX(0); }
         }
 
-        .marquee-track {
-          animation: marquee 22s linear infinite;
-          width: max-content;
-        }
-        .marquee-track-reverse {
-          animation: marquee-reverse 26s linear infinite;
-          width: max-content;
-        }
-        .marquee-track:hover,
-        .marquee-track-reverse:hover {
-          animation-play-state: paused;
-        }
+        .marquee-left  { animation: marquee-left  24s linear infinite; }
+        .marquee-right { animation: marquee-right 30s linear infinite; }
+        .marquee-left:hover,
+        .marquee-right:hover { animation-play-state: paused; }
 
         .dot-grid {
           background-image: radial-gradient(circle, rgba(255,255,255,0.048) 1px, transparent 1px);
           background-size: 28px 28px;
         }
-
         .glass {
           background: rgba(255,255,255,0.03);
           border: 1px solid rgba(255,255,255,0.07);
           backdrop-filter: blur(12px);
           -webkit-backdrop-filter: blur(12px);
         }
-
         .card-hover {
           transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.5s cubic-bezier(.25,.46,.45,.94);
         }
@@ -360,7 +264,6 @@ export default function PortfolioPage() {
           box-shadow: 0 0 40px rgba(109,40,217,0.22) !important;
           transform: translateY(-4px);
         }
-
         .badge {
           background: rgba(139,92,246,0.12);
           border: 1px solid rgba(139,92,246,0.28);
@@ -373,14 +276,12 @@ export default function PortfolioPage() {
           font-family: "Manrope", sans-serif;
           font-weight: 500;
         }
-
         .nav-glass {
           background: rgba(9,10,12,0.78);
           border-bottom: 1px solid rgba(255,255,255,0.05);
           backdrop-filter: blur(20px);
           -webkit-backdrop-filter: blur(20px);
         }
-
         ::-webkit-scrollbar { width: 4px; }
         ::-webkit-scrollbar-track { background: #090a0c; }
         ::-webkit-scrollbar-thumb { background: rgba(139,92,246,0.3); border-radius: 2px; }
@@ -433,16 +334,12 @@ export default function PortfolioPage() {
                 style={{ background: "linear-gradient(135deg, #7C3AED, #3B82F6)", fontFamily: "Syne, sans-serif", boxShadow: "0 0 70px rgba(109,40,217,0.6)" }}
                 animate={{ boxShadow: ["0 0 70px rgba(109,40,217,0.6)", "0 0 100px rgba(109,40,217,0.9)", "0 0 70px rgba(109,40,217,0.6)"] }}
                 transition={{ duration: 1.8, repeat: Infinity }}
-              >
-                A
-              </motion.div>
+              >A</motion.div>
               <motion.span
                 className="text-[12px] uppercase tracking-[0.45em] text-white/45"
                 initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 }}
                 style={{ fontFamily: "Syne, sans-serif" }}
-              >
-                ANDREMOGRAPH
-              </motion.span>
+              >ANDREMOGRAPH</motion.span>
               <div className="w-32 h-[1px] rounded-full overflow-hidden" style={{ background: "rgba(255,255,255,0.06)" }}>
                 <motion.div
                   className="h-full rounded-full"
@@ -456,10 +353,10 @@ export default function PortfolioPage() {
         )}
       </AnimatePresence>
 
-      <div className="min-h-screen bg-[#090a0c] text-white overflow-hidden relative">
+      <div className="min-h-screen bg-[#090a0c] text-white relative" style={{ overflowX: "hidden" }}>
 
         {/* ── BACKGROUND ────────────────────────────────────────────────────── */}
-        <div className="fixed inset-0 z-0 pointer-events-none dot-grid overflow-hidden">
+        <div className="fixed inset-0 z-0 pointer-events-none dot-grid" style={{ overflow: "hidden" }}>
           <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover opacity-[0.1]">
             <source src="/background/BG.mp4" type="video/mp4" />
           </video>
@@ -471,8 +368,7 @@ export default function PortfolioPage() {
             style={{ y: orb3Y, background: "radial-gradient(circle, rgba(8,145,178,0.16) 0%, transparent 70%)" }} />
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_25%,#090a0c_85%)]" />
           <div className="absolute inset-0 bg-[#090a0c]/30" />
-          <div
-            className="absolute inset-0 mix-blend-overlay"
+          <div className="absolute inset-0 mix-blend-overlay"
             style={{
               opacity: 0.04,
               backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
@@ -487,11 +383,8 @@ export default function PortfolioPage() {
           <nav className="fixed top-0 left-0 w-full z-50 px-6 md:px-10 py-5 flex items-center justify-between nav-glass">
             <div className="flex items-center gap-3">
               <div className="w-7 h-7 rounded-lg flex items-center justify-center text-[11px] font-bold"
-                style={{ background: "linear-gradient(135deg,#7C3AED,#3B82F6)", fontFamily: "Syne,sans-serif" }}>
-                A
-              </div>
-              <span className="text-[11px] uppercase tracking-[0.3em] font-semibold text-white/75"
-                style={{ fontFamily: "Syne,sans-serif" }}>
+                style={{ background: "linear-gradient(135deg,#7C3AED,#3B82F6)", fontFamily: "Syne,sans-serif" }}>A</div>
+              <span className="text-[11px] uppercase tracking-[0.3em] font-semibold text-white/75" style={{ fontFamily: "Syne,sans-serif" }}>
                 ANDREMOGRAPH
               </span>
             </div>
@@ -508,7 +401,7 @@ export default function PortfolioPage() {
           <main className="w-full flex flex-col items-center">
 
             {/* ── HERO ──────────────────────────────────────────────────────── */}
-            <section className="w-full max-w-[1280px] px-6 md:px-10 min-h-screen flex items-center pt-20 relative overflow-hidden">
+            <section className="w-full max-w-[1280px] px-6 md:px-10 min-h-screen flex items-center pt-20 relative" style={{ overflow: "hidden" }}>
               <motion.div
                 className="absolute left-0 right-0 h-px pointer-events-none z-20"
                 style={{ background: "linear-gradient(90deg,transparent 0%,rgba(139,92,246,0.65) 30%,rgba(59,130,246,0.45) 70%,transparent 100%)" }}
@@ -519,22 +412,18 @@ export default function PortfolioPage() {
 
               <div className="w-full grid lg:grid-cols-[1fr_400px] items-center gap-16">
                 <motion.div
-                  initial={{ opacity: 0, y: 40 }}
-                  animate={{ opacity: 1, y: 0 }}
+                  initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 1, delay: 0.4, ease: [0.25,0.46,0.45,0.94] }}
                   className="max-w-[720px]"
                 >
                   <div className="badge inline-block mb-8">Motion Designer — Brazil</div>
                   <h1 className="leading-[0.88] tracking-[-0.05em] font-bold"
                     style={{ fontFamily: "Syne,sans-serif", fontSize: "clamp(50px,8vw,90px)" }}>
-                    Motion Design
-                    <br />
+                    Motion Design<br />
                     <span style={{
                       background: "linear-gradient(135deg,rgba(139,92,246,0.95) 0%,rgba(59,130,246,0.72) 50%,rgba(255,255,255,0.22) 100%)",
                       WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
-                    }}>
-                      &amp; Direção Visual
-                    </span>
+                    }}>&amp; Direção Visual</span>
                   </h1>
                   <p className="mt-8 max-w-[480px] text-white/38 text-[15px] leading-relaxed font-light">
                     Motion design e edição cinematográfica com foco em atmosfera, ritmo e presença visual.
@@ -546,15 +435,13 @@ export default function PortfolioPage() {
                 </motion.div>
 
                 <motion.div
-                  initial={{ opacity: 0, scale: 0.96 }}
-                  animate={{ opacity: 1, scale: 1 }}
+                  initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 1, delay: 0.5, ease: [0.25,0.46,0.45,0.94] }}
                   className="w-full flex flex-col items-center"
                 >
                   <div className="w-full max-w-[370px] aspect-[4/5] rounded-[28px] overflow-hidden relative"
                     style={{ border: "1px solid rgba(139,92,246,0.2)", boxShadow: "0 0 65px rgba(109,40,217,0.22),0 0 130px rgba(37,99,235,0.1)" }}>
-                    <img src="/about/perfil.jpg" alt="Andre"
-                      className="w-full h-full object-cover"
+                    <img src="/about/perfil.jpg" alt="Andre" className="w-full h-full object-cover"
                       style={{ filter: "grayscale(10%) brightness(0.9)" }} />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#090a0c]/65 via-transparent to-transparent" />
                   </div>
@@ -590,10 +477,8 @@ export default function PortfolioPage() {
             <section className="w-full max-w-[1280px] px-6 md:px-10 py-10">
               <div className="h-px w-full bg-gradient-to-r from-transparent via-white/8 to-transparent mb-20" />
               <motion.div
-                initial={{ opacity:0, y:30 }}
-                whileInView={{ opacity:1, y:0 }}
-                viewport={{ once:true }}
-                transition={{ duration:0.8 }}
+                initial={{ opacity:0, y:30 }} whileInView={{ opacity:1, y:0 }}
+                viewport={{ once:true }} transition={{ duration:0.8 }}
                 className="grid grid-cols-3 gap-8"
               >
                 {STATS.map((s, i) => (
@@ -603,8 +488,64 @@ export default function PortfolioPage() {
               <div className="h-px w-full bg-gradient-to-r from-transparent via-white/8 to-transparent mt-20" />
             </section>
 
-            {/* ── CLIENTS MARQUEE ───────────────────────────────────────────── */}
-            <ClientsMarquee />
+            {/* ── CLIENTS & CREATORS ────────────────────────────────────────── */}
+            <section className="w-full py-16">
+              {/* Header — constrained like every other section */}
+              <motion.div
+                initial={{ opacity:0, y:20 }} whileInView={{ opacity:1, y:0 }}
+                viewport={{ once:true }} transition={{ duration:0.7 }}
+                className="max-w-[1280px] mx-auto px-6 md:px-10 mb-12"
+              >
+                <div className="flex items-center gap-4 mb-3">
+                  <div className="h-px w-14 bg-gradient-to-r from-violet-500/30 to-transparent" />
+                  <span className="badge">Clientes &amp; Criadores</span>
+                </div>
+                <p className="text-white/28 text-[13px] tracking-wide ml-[calc(3.5rem+1rem)]">
+                  Marcas e criadores com quem já trabalhei
+                </p>
+              </motion.div>
+
+              {/* Row 1 — Brands, scroll left — full viewport width */}
+              <div className="relative w-full overflow-hidden mb-4">
+                <div className="flex gap-3 marquee-left" style={{ width: "max-content" }}>
+                  {BRANDS_ROW.map((name, i) => (
+                    <div key={i} className="flex-shrink-0 flex items-center gap-2.5 px-6 py-2.5 rounded-2xl"
+                      style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.07)" }}>
+                      <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: "rgba(139,92,246,0.6)" }} />
+                      <span className="text-[13px] font-semibold text-white/55 whitespace-nowrap" style={{ fontFamily: "Syne, sans-serif" }}>
+                        {name}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+                {/* Fade edges */}
+                <div className="absolute inset-y-0 left-0 w-32 pointer-events-none z-10"
+                  style={{ background: "linear-gradient(to right, #090a0c, transparent)" }} />
+                <div className="absolute inset-y-0 right-0 w-32 pointer-events-none z-10"
+                  style={{ background: "linear-gradient(to left, #090a0c, transparent)" }} />
+              </div>
+
+              {/* Row 2 — Creators, scroll right — full viewport width */}
+              <div className="relative w-full overflow-hidden">
+                <div className="flex gap-3 marquee-right" style={{ width: "max-content" }}>
+                  {CREATORS_ROW.map((name, i) => (
+                    <div key={i} className="flex-shrink-0 flex items-center gap-2.5 px-6 py-2.5 rounded-2xl"
+                      style={{ background: "rgba(139,92,246,0.05)", border: "1px solid rgba(139,92,246,0.14)" }}>
+                      <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: "rgba(167,139,250,0.7)" }} />
+                      <span className="text-[13px] font-semibold text-white/45 whitespace-nowrap" style={{ fontFamily: "Syne, sans-serif" }}>
+                        {name}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+                <div className="absolute inset-y-0 left-0 w-32 pointer-events-none z-10"
+                  style={{ background: "linear-gradient(to right, #090a0c, transparent)" }} />
+                <div className="absolute inset-y-0 right-0 w-32 pointer-events-none z-10"
+                  style={{ background: "linear-gradient(to left, #090a0c, transparent)" }} />
+              </div>
+
+              <div className="h-px w-full bg-gradient-to-r from-transparent via-white/8 to-transparent mt-16" />
+            </section>
 
             {/* ── FEATURED ──────────────────────────────────────────────────── */}
             <section id="work" className="w-full max-w-[1280px] px-6 md:px-10 pb-36 space-y-24">
@@ -616,15 +557,13 @@ export default function PortfolioPage() {
               {FEATURED_VIDEOS.map((video, index) => (
                 <motion.div
                   key={video.id}
-                  initial={{ opacity:0, y:50 }}
-                  whileInView={{ opacity:1, y:0 }}
+                  initial={{ opacity:0, y:50 }} whileInView={{ opacity:1, y:0 }}
                   viewport={{ once:true, margin:"-100px" }}
                   transition={{ duration:0.9, ease:[0.25,0.46,0.45,0.94] }}
                   className={`grid lg:grid-cols-[1fr_380px] gap-12 items-center ${index%2!==0 ? "lg:[&>*:first-child]:order-2" : ""}`}
                 >
                   <div
-                    onClick={() => setSelectedVideo(video)}
-                    data-hover
+                    onClick={() => setSelectedVideo(video)} data-hover
                     className="group relative w-full aspect-video rounded-[24px] overflow-hidden cursor-pointer card-hover"
                     style={{ background:"#0c0d10", border:"1px solid rgba(255,255,255,0.06)", boxShadow:"0 4px 40px rgba(0,0,0,0.5)" }}
                   >
@@ -665,17 +604,13 @@ export default function PortfolioPage() {
                   return (
                     <motion.div
                       key={step.number}
-                      initial={{ opacity:0, y:40 }}
-                      whileInView={{ opacity:1, y:0 }}
-                      viewport={{ once:true }}
-                      transition={{ duration:0.7, delay:i*0.1 }}
+                      initial={{ opacity:0, y:40 }} whileInView={{ opacity:1, y:0 }}
+                      viewport={{ once:true }} transition={{ duration:0.7, delay:i*0.1 }}
                       className="rounded-[20px] p-6 card-hover relative overflow-hidden"
                       style={{ background:"rgba(255,255,255,0.025)", border:"1px solid rgba(255,255,255,0.06)" }}
                     >
-                      <span
-                        className="absolute top-4 right-5 font-bold select-none"
-                        style={{ fontFamily:"Syne,sans-serif", fontSize:"52px", color:"rgba(255,255,255,0.025)", lineHeight:1 }}
-                      >
+                      <span className="absolute top-4 right-5 font-bold select-none"
+                        style={{ fontFamily:"Syne,sans-serif", fontSize:"52px", color:"rgba(255,255,255,0.025)", lineHeight:1 }}>
                         {step.number}
                       </span>
                       <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-6"
@@ -707,10 +642,7 @@ export default function PortfolioPage() {
                 </div>
                 <div className="flex items-center gap-2 flex-wrap">
                   {CATEGORIES.map((cat) => (
-                    <button
-                      key={cat}
-                      onClick={() => setActiveCategory(cat)}
-                      data-hover
+                    <button key={cat} onClick={() => setActiveCategory(cat)} data-hover
                       className="text-[10px] uppercase tracking-[0.25em] px-4 py-2 rounded-xl transition-all duration-300"
                       style={{
                         background: activeCategory === cat ? "rgba(139,92,246,0.2)" : "rgba(255,255,255,0.03)",
@@ -718,9 +650,7 @@ export default function PortfolioPage() {
                         color:      activeCategory === cat ? "#c4b5fd" : "rgba(255,255,255,0.33)",
                         boxShadow:  activeCategory === cat ? "0 0 20px rgba(109,40,217,0.2)" : "none",
                       }}
-                    >
-                      {cat}
-                    </button>
+                    >{cat}</button>
                   ))}
                 </div>
               </div>
@@ -728,33 +658,25 @@ export default function PortfolioPage() {
               <AnimatePresence mode="wait">
                 <motion.div
                   key={activeCategory}
-                  initial={{ opacity:0, y:16 }}
-                  animate={{ opacity:1, y:0 }}
-                  exit={{ opacity:0, y:-10 }}
-                  transition={{ duration:0.4 }}
+                  initial={{ opacity:0, y:16 }} animate={{ opacity:1, y:0 }}
+                  exit={{ opacity:0, y:-10 }} transition={{ duration:0.4 }}
                   className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"
                 >
                   {filteredGrid.map((video, i) => (
                     <motion.div
                       key={video.id}
-                      initial={{ opacity:0, y:30 }}
-                      animate={{ opacity:1, y:0 }}
+                      initial={{ opacity:0, y:30 }} animate={{ opacity:1, y:0 }}
                       transition={{ duration:0.5, delay:(i%3)*0.07 }}
-                      onClick={() => setSelectedVideo(video)}
-                      data-hover
+                      onClick={() => setSelectedVideo(video)} data-hover
                       className="group cursor-pointer"
                     >
-                      <div
-                        className="relative aspect-[16/10] rounded-[20px] overflow-hidden card-hover"
-                        style={{ background:"#0c0d10", border:"1px solid rgba(255,255,255,0.06)" }}
-                      >
+                      <div className="relative aspect-[16/10] rounded-[20px] overflow-hidden card-hover"
+                        style={{ background:"#0c0d10", border:"1px solid rgba(255,255,255,0.06)" }}>
                         <Thumbnail video={video} />
                         <div className="absolute inset-0 bg-gradient-to-t from-[#090a0c]/88 via-[#090a0c]/18 to-transparent" />
                         <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-400">
-                          <div
-                            className="w-12 h-12 rounded-full flex items-center justify-center border transform scale-75 group-hover:scale-100 transition-all duration-400"
-                            style={{ background:"rgba(109,40,217,0.3)", backdropFilter:"blur(10px)", borderColor:"rgba(139,92,246,0.5)" }}
-                          >
+                          <div className="w-12 h-12 rounded-full flex items-center justify-center border transform scale-75 group-hover:scale-100 transition-all duration-400"
+                            style={{ background:"rgba(109,40,217,0.3)", backdropFilter:"blur(10px)", borderColor:"rgba(139,92,246,0.5)" }}>
                             <Play size={17} fill="white" className="ml-0.5" />
                           </div>
                         </div>
@@ -774,14 +696,11 @@ export default function PortfolioPage() {
           </main>
 
           {/* ── FOOTER ────────────────────────────────────────────────────────── */}
-          <footer className="relative z-10 py-12 px-6 md:px-10"
-            style={{ borderTop:"1px solid rgba(255,255,255,0.05)" }}>
+          <footer className="relative z-10 py-12 px-6 md:px-10" style={{ borderTop:"1px solid rgba(255,255,255,0.05)" }}>
             <div className="max-w-[1280px] mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
               <div className="flex items-center gap-3">
                 <div className="w-7 h-7 rounded-lg flex items-center justify-center text-[11px] font-bold"
-                  style={{ background:"linear-gradient(135deg,#7C3AED,#3B82F6)", fontFamily:"Syne,sans-serif" }}>
-                  A
-                </div>
+                  style={{ background:"linear-gradient(135deg,#7C3AED,#3B82F6)", fontFamily:"Syne,sans-serif" }}>A</div>
                 <span className="text-[11px] uppercase tracking-[0.3em] text-white/36" style={{ fontFamily:"Syne,sans-serif" }}>
                   ANDREMOGRAPH
                 </span>
@@ -811,20 +730,14 @@ export default function PortfolioPage() {
               initial={{ opacity:0 }} animate={{ opacity:1 }} exit={{ opacity:0 }}
               transition={{ duration:0.25 }}
               className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-10"
-              onTouchStart={handleTouchStart}
-              onTouchEnd={handleTouchEnd}
+              onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}
             >
-              <div
-                className="absolute inset-0"
+              <div className="absolute inset-0"
                 style={{ background:"rgba(4,5,8,0.94)", backdropFilter:"blur(26px)" }}
-                onClick={() => setSelectedVideo(null)}
-              />
-              <button
-                onClick={() => setSelectedVideo(null)}
-                data-hover
+                onClick={() => setSelectedVideo(null)} />
+              <button onClick={() => setSelectedVideo(null)} data-hover
                 className="absolute top-6 right-6 z-20 w-10 h-10 rounded-xl flex items-center justify-center text-white/38 hover:text-white transition-all glass"
-                style={{ border:"1px solid rgba(255,255,255,0.07)" }}
-              >
+                style={{ border:"1px solid rgba(255,255,255,0.07)" }}>
                 <X size={18} />
               </button>
               <div className="absolute top-6 left-1/2 -translate-x-1/2 text-[10px] uppercase tracking-[0.25em] text-white/18 md:hidden select-none">
@@ -836,19 +749,13 @@ export default function PortfolioPage() {
                 exit={{   scale:0.94, opacity:0, y:22 }}
                 transition={{ duration:0.38, ease:[0.25,0.46,0.45,0.94] }}
                 className="relative w-full max-w-5xl aspect-video rounded-[24px] overflow-hidden"
-                style={{
-                  border:"1px solid rgba(139,92,246,0.28)",
-                  boxShadow:"0 0 90px rgba(109,40,217,0.32),0 40px 120px rgba(0,0,0,0.85)",
-                }}
+                style={{ border:"1px solid rgba(139,92,246,0.28)", boxShadow:"0 0 90px rgba(109,40,217,0.32),0 40px 120px rgba(0,0,0,0.85)" }}
               >
                 {!iframeLoaded && (
                   <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-4" style={{ background:"#0c0d10" }}>
-                    <motion.div
-                      animate={{ rotate:360 }}
-                      transition={{ duration:1, repeat:Infinity, ease:"linear" }}
+                    <motion.div animate={{ rotate:360 }} transition={{ duration:1, repeat:Infinity, ease:"linear" }}
                       className="w-9 h-9 rounded-full"
-                      style={{ border:"2px solid rgba(139,92,246,0.18)", borderTopColor:"rgba(139,92,246,0.9)" }}
-                    />
+                      style={{ border:"2px solid rgba(139,92,246,0.18)", borderTopColor:"rgba(139,92,246,0.9)" }} />
                     <span className="text-[11px] uppercase tracking-[0.3em] text-white/24">Carregando</span>
                   </div>
                 )}
