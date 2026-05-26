@@ -70,15 +70,6 @@ const STATS = [
 
 const CATEGORIES = ["Todos", "Motion", "Cinematic", "Gaming", "Brand"];
 
-// ─── CLIENTS DATA ─────────────────────────────────────────────────────────────
-
-// Duplicated enough times so the seam never shows in the viewport
-const BRANDS_BASE = ["Fiat", "Itaú", "Litorânea", "Adapta"];
-const BRANDS_ROW  = [...BRANDS_BASE, ...BRANDS_BASE, ...BRANDS_BASE, ...BRANDS_BASE, ...BRANDS_BASE, ...BRANDS_BASE];
-
-const CREATORS_BASE = ["FireCrow", "Lele", "Acee", "TOM", "OG", "CryingMan"];
-const CREATORS_ROW  = [...CREATORS_BASE, ...CREATORS_BASE, ...CREATORS_BASE, ...CREATORS_BASE, ...CREATORS_BASE, ...CREATORS_BASE];
-
 // ─── SUB-COMPONENTS ───────────────────────────────────────────────────────────
 
 function AnimatedCounter({ value, suffix, label }: { value: number; suffix: string; label: string }) {
@@ -226,20 +217,6 @@ export default function PortfolioPage() {
           0%   { background-position: -200% 0; }
           100% { background-position:  200% 0; }
         }
-
-        @keyframes marquee-left {
-          0%   { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
-        }
-        @keyframes marquee-right {
-          0%   { transform: translateX(-50%); }
-          100% { transform: translateX(0); }
-        }
-
-        .marquee-left  { animation: marquee-left  32s linear infinite; }
-        .marquee-right { animation: marquee-right 40s linear infinite; }
-        .marquee-left:hover,
-        .marquee-right:hover { animation-play-state: paused; }
 
         .dot-grid {
           background-image: radial-gradient(circle, rgba(255,255,255,0.048) 1px, transparent 1px);
@@ -481,96 +458,6 @@ export default function PortfolioPage() {
                 ))}
               </motion.div>
               <div className="h-px w-full bg-gradient-to-r from-transparent via-white/8 to-transparent mt-20" />
-            </section>
-
-            {/* ── CLIENTS & CREATORS ────────────────────────────────────────── */}
-            {/*
-              FIX: The marquee rows must be full-bleed (100vw), ignoring any parent padding.
-              We use a wrapper that breaks out of the max-w container via negative margins,
-              then re-constrain only the header text inside it.
-            */}
-            <section className="w-full py-16" style={{ overflow: "hidden" }}>
-
-              {/* Header — constrained like every other section */}
-              <motion.div
-                initial={{ opacity:0, y:20 }} whileInView={{ opacity:1, y:0 }}
-                viewport={{ once:true }} transition={{ duration:0.7 }}
-                className="max-w-[1280px] mx-auto px-6 md:px-10 mb-12"
-              >
-                <div className="flex items-center gap-4 mb-3">
-                  <div className="h-px w-14 bg-gradient-to-r from-violet-500/30 to-transparent" />
-                  <span className="badge">Clientes &amp; Criadores</span>
-                </div>
-                <p className="text-white/28 text-[13px] tracking-wide ml-[calc(3.5rem+1rem)]">
-                  Marcas e criadores com quem já trabalhei
-                </p>
-              </motion.div>
-
-              {/*
-                ── FIX APPLIED HERE ──
-                Each marquee strip is a true full-viewport-width overflow container.
-                `left: 50%` + `transform: translateX(-50%)` + `width: 100vw`
-                pulls it out of any parent padding so the strip starts flush with
-                the left edge of the screen and fades symmetrically on both sides.
-              */}
-
-              {/* Row 1 — Brands, scroll left */}
-              <div
-                style={{
-                  position: "relative",
-                  left: "50%",
-                  transform: "translateX(-50%)",
-                  width: "100vw",
-                  overflow: "hidden",
-                  marginBottom: "12px",
-                }}
-              >
-                <div className="flex gap-3 marquee-left" style={{ width: "max-content" }}>
-                  {BRANDS_ROW.map((name, i) => (
-                    <div key={i} className="flex-shrink-0 flex items-center gap-2.5 px-6 py-2.5 rounded-2xl"
-                      style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.07)" }}>
-                      <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: "rgba(139,92,246,0.6)" }} />
-                      <span className="text-[13px] font-semibold text-white/55 whitespace-nowrap" style={{ fontFamily: "Syne, sans-serif" }}>
-                        {name}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-                {/* Fade edges */}
-                <div className="absolute inset-y-0 left-0 w-32 pointer-events-none z-10"
-                  style={{ background: "linear-gradient(to right, #090a0c, transparent)" }} />
-                <div className="absolute inset-y-0 right-0 w-32 pointer-events-none z-10"
-                  style={{ background: "linear-gradient(to left, #090a0c, transparent)" }} />
-              </div>
-
-              {/* Row 2 — Creators, scroll right */}
-              <div
-                style={{
-                  position: "relative",
-                  left: "50%",
-                  transform: "translateX(-50%)",
-                  width: "100vw",
-                  overflow: "hidden",
-                }}
-              >
-                <div className="flex gap-3 marquee-right" style={{ width: "max-content" }}>
-                  {CREATORS_ROW.map((name, i) => (
-                    <div key={i} className="flex-shrink-0 flex items-center gap-2.5 px-6 py-2.5 rounded-2xl"
-                      style={{ background: "rgba(139,92,246,0.05)", border: "1px solid rgba(139,92,246,0.14)" }}>
-                      <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: "rgba(167,139,250,0.7)" }} />
-                      <span className="text-[13px] font-semibold text-white/45 whitespace-nowrap" style={{ fontFamily: "Syne, sans-serif" }}>
-                        {name}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-                <div className="absolute inset-y-0 left-0 w-32 pointer-events-none z-10"
-                  style={{ background: "linear-gradient(to right, #090a0c, transparent)" }} />
-                <div className="absolute inset-y-0 right-0 w-32 pointer-events-none z-10"
-                  style={{ background: "linear-gradient(to left, #090a0c, transparent)" }} />
-              </div>
-
-              <div className="h-px w-full bg-gradient-to-r from-transparent via-white/8 to-transparent mt-16" />
             </section>
 
             {/* ── FEATURED ──────────────────────────────────────────────────── */}
