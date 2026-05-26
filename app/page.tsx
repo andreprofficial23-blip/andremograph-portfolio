@@ -56,19 +56,38 @@ const CONTACTS = [
 ];
 
 const PROCESS_STEPS = [
-  { number: "01", title: "Briefing",       description: "Entendo o projeto, os objetivos, o tom e as referências estéticas para alinhar a visão antes de qualquer frame.", icon: Search },
+  { number: "01", title: "Briefing",        description: "Entendo o projeto, os objetivos, o tom e as referências estéticas para alinhar a visão antes de qualquer frame.", icon: Search },
   { number: "02", title: "Desenvolvimento", description: "Criação do motion, edição e composição visual. Cada frame construído com intenção, ritmo e impacto.", icon: Layers },
-  { number: "03", title: "Revisão",        description: "Ajustes colaborativos e iterativos até que o resultado esteja exatamente alinhado com a visão do cliente.", icon: RotateCcw },
-  { number: "04", title: "Entrega",        description: "Arquivo final otimizado e exportado no formato ideal para cada plataforma e uso.", icon: Send },
+  { number: "03", title: "Revisão",         description: "Ajustes colaborativos e iterativos até que o resultado esteja exatamente alinhado com a visão do cliente.", icon: RotateCcw },
+  { number: "04", title: "Entrega",         description: "Arquivo final otimizado e exportado no formato ideal para cada plataforma e uso.", icon: Send },
 ];
 
 const STATS = [
-  { value: 20, suffix: "+", label: "Projetos Entregues" },
-  { value: 3,  suffix: "+", label: "Anos de Experiência" },
-  { value: 100, suffix: "%", label: "Dedicação Total" },
+  { value: 50,  suffix: "+",  label: "Projetos Entregues" },
+  { value: 5,   suffix: "+",  label: "Anos de Experiência" },
+  { value: 2,   suffix: "M+", label: "Visualizações" },
 ];
 
 const CATEGORIES = ["Todos", "Motion", "Cinematic", "Gaming", "Brand"];
+
+// ─── CLIENTS ─────────────────────────────────────────────────────────────────
+// Divididos em duas categorias: empresas e influencers/criadores
+
+const BRANDS = [
+  { name: "Fiat",      type: "brand" },
+  { name: "Itaú",     type: "brand" },
+  { name: "Litorânea", type: "brand" },
+  { name: "Adapta",   type: "brand" },
+];
+
+const CREATORS = [
+  { name: "FireCrow",   type: "creator" },
+  { name: "Lele",       type: "creator" },
+  { name: "Acee",       type: "creator" },
+  { name: "TOM",        type: "creator" },
+  { name: "OG",         type: "creator" },
+  { name: "CryingMan",  type: "creator" },
+];
 
 // ─── SUB-COMPONENTS ───────────────────────────────────────────────────────────
 
@@ -120,8 +139,7 @@ function Thumbnail({ video }: { video: Video }) {
         <div
           className="absolute inset-0"
           style={{
-            background:
-              "linear-gradient(90deg, rgba(255,255,255,0.03) 25%, rgba(255,255,255,0.07) 50%, rgba(255,255,255,0.03) 75%)",
+            background: "linear-gradient(90deg, rgba(255,255,255,0.03) 25%, rgba(255,255,255,0.07) 50%, rgba(255,255,255,0.03) 75%)",
             backgroundSize: "200% 100%",
             animation: "shimmer 1.6s infinite",
           }}
@@ -129,9 +147,7 @@ function Thumbnail({ video }: { video: Video }) {
       )}
       <img
         src={src}
-        onError={() =>
-          setSrc(`https://img.youtube.com/vi/${video.youtubeId}/hqdefault.jpg`)
-        }
+        onError={() => setSrc(`https://img.youtube.com/vi/${video.youtubeId}/hqdefault.jpg`)}
         onLoad={() => setLoaded(true)}
         alt={video.title}
         loading="lazy"
@@ -145,69 +161,134 @@ function Thumbnail({ video }: { video: Video }) {
   );
 }
 
+// ─── CLIENTS MARQUEE ─────────────────────────────────────────────────────────
+
+function ClientsMarquee() {
+  // Duplicamos para loop contínuo
+  const allBrands   = [...BRANDS,   ...BRANDS];
+  const allCreators = [...CREATORS, ...CREATORS];
+
+  return (
+    <section className="w-full py-20 overflow-hidden">
+      {/* Divider */}
+      <div className="h-px w-full bg-gradient-to-r from-transparent via-white/8 to-transparent mb-16" />
+
+      <div className="max-w-[1280px] mx-auto px-6 md:px-10 mb-10">
+        <div className="flex items-center gap-4">
+          <div className="h-px w-14 bg-gradient-to-r from-violet-500/30 to-transparent" />
+          <span className="badge">Clientes &amp; Criadores</span>
+        </div>
+        <p className="mt-4 text-white/28 text-[13px] tracking-wide">
+          Marcas e criadores com quem já trabalhei
+        </p>
+      </div>
+
+      {/* Row 1 — Brands (scroll left) */}
+      <div className="relative mb-5">
+        <div className="flex gap-4 marquee-track">
+          {allBrands.map((b, i) => (
+            <div
+              key={i}
+              className="flex-shrink-0 px-7 py-3 rounded-2xl flex items-center gap-3"
+              style={{
+                background: "rgba(255,255,255,0.03)",
+                border: "1px solid rgba(255,255,255,0.07)",
+              }}
+            >
+              {/* Small dot accent */}
+              <span className="w-1.5 h-1.5 rounded-full bg-violet-500/60 flex-shrink-0" />
+              <span
+                className="text-[13px] font-semibold tracking-wide text-white/55 whitespace-nowrap"
+                style={{ fontFamily: "Syne, sans-serif" }}
+              >
+                {b.name}
+              </span>
+            </div>
+          ))}
+        </div>
+        {/* Fade edges */}
+        <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-[#090a0c] to-transparent pointer-events-none z-10" />
+        <div className="absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-[#090a0c] to-transparent pointer-events-none z-10" />
+      </div>
+
+      {/* Row 2 — Creators (scroll right) */}
+      <div className="relative">
+        <div className="flex gap-4 marquee-track-reverse">
+          {allCreators.map((c, i) => (
+            <div
+              key={i}
+              className="flex-shrink-0 px-7 py-3 rounded-2xl flex items-center gap-3"
+              style={{
+                background: "rgba(139,92,246,0.05)",
+                border: "1px solid rgba(139,92,246,0.14)",
+              }}
+            >
+              <span className="w-1.5 h-1.5 rounded-full bg-violet-400/70 flex-shrink-0" />
+              <span
+                className="text-[13px] font-semibold tracking-wide text-white/45 whitespace-nowrap"
+                style={{ fontFamily: "Syne, sans-serif" }}
+              >
+                {c.name}
+              </span>
+            </div>
+          ))}
+        </div>
+        <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-[#090a0c] to-transparent pointer-events-none z-10" />
+        <div className="absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-[#090a0c] to-transparent pointer-events-none z-10" />
+      </div>
+
+      <div className="h-px w-full bg-gradient-to-r from-transparent via-white/8 to-transparent mt-16" />
+    </section>
+  );
+}
+
 // ─── MAIN PAGE ────────────────────────────────────────────────────────────────
 
 export default function PortfolioPage() {
-  const [splash, setSplash]               = useState(true);
-  const [selectedVideo, setSelectedVideo] = useState<Video | null>(null);
-  const [iframeLoaded, setIframeLoaded]   = useState(false);
+  const [splash, setSplash]                 = useState(true);
+  const [selectedVideo, setSelectedVideo]   = useState<Video | null>(null);
+  const [iframeLoaded, setIframeLoaded]     = useState(false);
   const [activeCategory, setActiveCategory] = useState("Todos");
-  const [isTouch, setIsTouch]             = useState(false);
-  const [cursorHover, setCursorHover]     = useState(false);
+  const [isTouch, setIsTouch]               = useState(false);
+  const [cursorHover, setCursorHover]       = useState(false);
 
-  // Cursor
   const cursorX       = useMotionValue(-100);
   const cursorY       = useMotionValue(-100);
   const cursorXSpring = useSpring(cursorX, { damping: 28, stiffness: 700 });
   const cursorYSpring = useSpring(cursorY, { damping: 28, stiffness: 700 });
 
-  // Parallax
   const { scrollY } = useScroll();
   const orb1Y = useTransform(scrollY, [0, 2000], [0, -200]);
   const orb2Y = useTransform(scrollY, [0, 2000], [0, -110]);
   const orb3Y = useTransform(scrollY, [0, 2000], [0,  -65]);
 
-  // Touch swipe to close modal
   const touchStartY = useRef(0);
 
-  // Splash
   useEffect(() => {
     const t = setTimeout(() => setSplash(false), 2300);
     return () => clearTimeout(t);
   }, []);
 
-  // Touch detection
   useEffect(() => { setIsTouch("ontouchstart" in window); }, []);
 
-  // Cursor tracking
   useEffect(() => {
     if (isTouch) return;
-    const move = (e: MouseEvent) => {
-      cursorX.set(e.clientX - 16);
-      cursorY.set(e.clientY - 16);
-    };
-    const over = (e: MouseEvent) => {
+    const move = (e: MouseEvent) => { cursorX.set(e.clientX - 16); cursorY.set(e.clientY - 16); };
+    const over  = (e: MouseEvent) => {
       const t = e.target as HTMLElement;
-      setCursorHover(
-        ["A", "BUTTON"].includes(t.tagName) || !!t.closest("[data-hover]")
-      );
+      setCursorHover(["A", "BUTTON"].includes(t.tagName) || !!t.closest("[data-hover]"));
     };
     window.addEventListener("mousemove", move);
     window.addEventListener("mouseover", over);
-    return () => {
-      window.removeEventListener("mousemove", move);
-      window.removeEventListener("mouseover", over);
-    };
+    return () => { window.removeEventListener("mousemove", move); window.removeEventListener("mouseover", over); };
   }, [isTouch]);
 
-  // Escape to close
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setSelectedVideo(null); };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, []);
 
-  // Reset iframe on video change
   useEffect(() => { setIframeLoaded(false); }, [selectedVideo]);
 
   const handleTouchStart = (e: React.TouchEvent) => { touchStartY.current = e.touches[0].clientY; };
@@ -237,13 +318,33 @@ export default function PortfolioPage() {
           100% { background-position:  200% 0; }
         }
 
-        /* Dot grid */
+        @keyframes marquee {
+          0%   { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+        @keyframes marquee-reverse {
+          0%   { transform: translateX(-50%); }
+          100% { transform: translateX(0); }
+        }
+
+        .marquee-track {
+          animation: marquee 22s linear infinite;
+          width: max-content;
+        }
+        .marquee-track-reverse {
+          animation: marquee-reverse 26s linear infinite;
+          width: max-content;
+        }
+        .marquee-track:hover,
+        .marquee-track-reverse:hover {
+          animation-play-state: paused;
+        }
+
         .dot-grid {
           background-image: radial-gradient(circle, rgba(255,255,255,0.048) 1px, transparent 1px);
           background-size: 28px 28px;
         }
 
-        /* Glass */
         .glass {
           background: rgba(255,255,255,0.03);
           border: 1px solid rgba(255,255,255,0.07);
@@ -251,7 +352,6 @@ export default function PortfolioPage() {
           -webkit-backdrop-filter: blur(12px);
         }
 
-        /* Card hover */
         .card-hover {
           transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.5s cubic-bezier(.25,.46,.45,.94);
         }
@@ -261,7 +361,6 @@ export default function PortfolioPage() {
           transform: translateY(-4px);
         }
 
-        /* Badge */
         .badge {
           background: rgba(139,92,246,0.12);
           border: 1px solid rgba(139,92,246,0.28);
@@ -275,7 +374,6 @@ export default function PortfolioPage() {
           font-weight: 500;
         }
 
-        /* Nav */
         .nav-glass {
           background: rgba(9,10,12,0.78);
           border-bottom: 1px solid rgba(255,255,255,0.05);
@@ -291,26 +389,22 @@ export default function PortfolioPage() {
       {/* ── CUSTOM CURSOR ─────────────────────────────────────────────────────── */}
       {!isTouch && (
         <>
-          {/* Outer ring */}
           <motion.div
             className="fixed z-[200] pointer-events-none rounded-full"
             style={{
-              x: cursorXSpring,
-              y: cursorYSpring,
+              x: cursorXSpring, y: cursorYSpring,
               width:  cursorHover ? 44 : 32,
               height: cursorHover ? 44 : 32,
               background: cursorHover ? "rgba(139,92,246,0.18)" : "transparent",
-              border:  `1px solid rgba(139,92,246,${cursorHover ? 0.75 : 0.45})`,
+              border: `1px solid rgba(139,92,246,${cursorHover ? 0.75 : 0.45})`,
               boxShadow: `0 0 ${cursorHover ? 22 : 12}px rgba(109,40,217,${cursorHover ? 0.55 : 0.28})`,
               transition: "width 0.18s ease, height 0.18s ease, background 0.18s ease",
             }}
           />
-          {/* Inner dot */}
           <motion.div
             className="fixed z-[200] pointer-events-none rounded-full"
             style={{
-              x: cursorX,
-              y: cursorY,
+              x: cursorX, y: cursorY,
               width: 4, height: 4,
               marginLeft: 14, marginTop: 14,
               background: "rgba(139,92,246,0.9)",
@@ -334,37 +428,26 @@ export default function PortfolioPage() {
               transition={{ duration: 0.65, ease: [0.25, 0.46, 0.45, 0.94] }}
               className="flex flex-col items-center gap-5"
             >
-              {/* Logo mark */}
               <motion.div
                 className="w-16 h-16 rounded-2xl flex items-center justify-center text-2xl font-bold"
-                style={{
-                  background: "linear-gradient(135deg, #7C3AED, #3B82F6)",
-                  fontFamily: "Syne, sans-serif",
-                  boxShadow: "0 0 70px rgba(109,40,217,0.6)",
-                }}
+                style={{ background: "linear-gradient(135deg, #7C3AED, #3B82F6)", fontFamily: "Syne, sans-serif", boxShadow: "0 0 70px rgba(109,40,217,0.6)" }}
                 animate={{ boxShadow: ["0 0 70px rgba(109,40,217,0.6)", "0 0 100px rgba(109,40,217,0.9)", "0 0 70px rgba(109,40,217,0.6)"] }}
                 transition={{ duration: 1.8, repeat: Infinity }}
               >
                 A
               </motion.div>
-
               <motion.span
                 className="text-[12px] uppercase tracking-[0.45em] text-white/45"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.3 }}
+                initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 }}
                 style={{ fontFamily: "Syne, sans-serif" }}
               >
                 ANDREMOGRAPH
               </motion.span>
-
-              {/* Loading bar */}
               <div className="w-32 h-[1px] rounded-full overflow-hidden" style={{ background: "rgba(255,255,255,0.06)" }}>
                 <motion.div
                   className="h-full rounded-full"
                   style={{ background: "linear-gradient(90deg, #7C3AED, #3B82F6)" }}
-                  initial={{ width: "0%" }}
-                  animate={{ width: "100%" }}
+                  initial={{ width: "0%" }} animate={{ width: "100%" }}
                   transition={{ delay: 0.5, duration: 1.4, ease: "easeInOut" }}
                 />
               </div>
@@ -380,20 +463,14 @@ export default function PortfolioPage() {
           <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover opacity-[0.1]">
             <source src="/background/BG.mp4" type="video/mp4" />
           </video>
-
-          {/* Parallax orbs */}
           <motion.div className="absolute top-[-200px] left-[-150px] w-[780px] h-[780px] rounded-full"
             style={{ y: orb1Y, background: "radial-gradient(circle, rgba(109,40,217,0.32) 0%, transparent 70%)" }} />
           <motion.div className="absolute top-[15%] right-[-250px] w-[660px] h-[660px] rounded-full"
             style={{ y: orb2Y, background: "radial-gradient(circle, rgba(37,99,235,0.23) 0%, transparent 70%)" }} />
           <motion.div className="absolute bottom-[5%] left-[25%] w-[560px] h-[560px] rounded-full"
             style={{ y: orb3Y, background: "radial-gradient(circle, rgba(8,145,178,0.16) 0%, transparent 70%)" }} />
-
-          {/* Vignette */}
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_25%,#090a0c_85%)]" />
           <div className="absolute inset-0 bg-[#090a0c]/30" />
-
-          {/* Grain */}
           <div
             className="absolute inset-0 mix-blend-overlay"
             style={{
@@ -432,7 +509,6 @@ export default function PortfolioPage() {
 
             {/* ── HERO ──────────────────────────────────────────────────────── */}
             <section className="w-full max-w-[1280px] px-6 md:px-10 min-h-screen flex items-center pt-20 relative overflow-hidden">
-              {/* Scanner */}
               <motion.div
                 className="absolute left-0 right-0 h-px pointer-events-none z-20"
                 style={{ background: "linear-gradient(90deg,transparent 0%,rgba(139,92,246,0.65) 30%,rgba(59,130,246,0.45) 70%,transparent 100%)" }}
@@ -442,7 +518,6 @@ export default function PortfolioPage() {
               />
 
               <div className="w-full grid lg:grid-cols-[1fr_400px] items-center gap-16">
-                {/* LEFT */}
                 <motion.div
                   initial={{ opacity: 0, y: 40 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -450,7 +525,6 @@ export default function PortfolioPage() {
                   className="max-w-[720px]"
                 >
                   <div className="badge inline-block mb-8">Motion Designer — Brazil</div>
-
                   <h1 className="leading-[0.88] tracking-[-0.05em] font-bold"
                     style={{ fontFamily: "Syne,sans-serif", fontSize: "clamp(50px,8vw,90px)" }}>
                     Motion Design
@@ -462,18 +536,15 @@ export default function PortfolioPage() {
                       &amp; Direção Visual
                     </span>
                   </h1>
-
                   <p className="mt-8 max-w-[480px] text-white/38 text-[15px] leading-relaxed font-light">
                     Motion design e edição cinematográfica com foco em atmosfera, ritmo e presença visual.
                   </p>
-
                   <div className="mt-10 flex items-center gap-4">
                     <div className="h-px w-12 bg-gradient-to-r from-violet-500/60 to-transparent" />
                     <span className="text-[11px] uppercase tracking-[0.3em] text-white/22">Portfolio</span>
                   </div>
                 </motion.div>
 
-                {/* RIGHT */}
                 <motion.div
                   initial={{ opacity: 0, scale: 0.96 }}
                   animate={{ opacity: 1, scale: 1 }}
@@ -488,7 +559,6 @@ export default function PortfolioPage() {
                     <div className="absolute inset-0 bg-gradient-to-t from-[#090a0c]/65 via-transparent to-transparent" />
                   </div>
 
-                  {/* Contacts card */}
                   <div id="contact" className="mt-7 w-full max-w-[370px]">
                     <div className="rounded-2xl p-5"
                       style={{ background:"rgba(255,255,255,0.025)", border:"1px solid rgba(255,255,255,0.07)", backdropFilter:"blur(16px)" }}>
@@ -533,6 +603,9 @@ export default function PortfolioPage() {
               <div className="h-px w-full bg-gradient-to-r from-transparent via-white/8 to-transparent mt-20" />
             </section>
 
+            {/* ── CLIENTS MARQUEE ───────────────────────────────────────────── */}
+            <ClientsMarquee />
+
             {/* ── FEATURED ──────────────────────────────────────────────────── */}
             <section id="work" className="w-full max-w-[1280px] px-6 md:px-10 pb-36 space-y-24">
               <div className="flex items-center gap-4">
@@ -549,7 +622,6 @@ export default function PortfolioPage() {
                   transition={{ duration:0.9, ease:[0.25,0.46,0.45,0.94] }}
                   className={`grid lg:grid-cols-[1fr_380px] gap-12 items-center ${index%2!==0 ? "lg:[&>*:first-child]:order-2" : ""}`}
                 >
-                  {/* Thumbnail */}
                   <div
                     onClick={() => setSelectedVideo(video)}
                     data-hover
@@ -567,7 +639,6 @@ export default function PortfolioPage() {
                     </div>
                   </div>
 
-                  {/* Text */}
                   <div className="max-w-[380px]">
                     <span className="badge inline-block mb-5">{video.category}</span>
                     <h2 className="font-bold leading-[1.0] tracking-[-0.04em]"
@@ -584,12 +655,10 @@ export default function PortfolioPage() {
             {/* ── PROCESS ───────────────────────────────────────────────────── */}
             <section id="process" className="w-full max-w-[1280px] px-6 md:px-10 pb-36">
               <div className="h-px w-full bg-gradient-to-r from-transparent via-white/8 to-transparent mb-20" />
-
               <div className="flex items-center gap-4 mb-14">
                 <div className="h-px w-14 bg-gradient-to-r from-violet-500/30 to-transparent" />
                 <span className="badge">Processo de Criação</span>
               </div>
-
               <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
                 {PROCESS_STEPS.map((step, i) => {
                   const Icon = step.icon;
@@ -603,25 +672,20 @@ export default function PortfolioPage() {
                       className="rounded-[20px] p-6 card-hover relative overflow-hidden"
                       style={{ background:"rgba(255,255,255,0.025)", border:"1px solid rgba(255,255,255,0.06)" }}
                     >
-                      {/* Step number watermark */}
                       <span
                         className="absolute top-4 right-5 font-bold select-none"
                         style={{ fontFamily:"Syne,sans-serif", fontSize:"52px", color:"rgba(255,255,255,0.025)", lineHeight:1 }}
                       >
                         {step.number}
                       </span>
-
                       <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-6"
                         style={{ background:"rgba(139,92,246,0.12)", border:"1px solid rgba(139,92,246,0.25)" }}>
                         <Icon size={17} className="text-violet-400" />
                       </div>
-
-                      <h3 className="text-[17px] font-semibold mb-3 relative z-10"
-                        style={{ fontFamily:"Syne,sans-serif" }}>
+                      <h3 className="text-[17px] font-semibold mb-3 relative z-10" style={{ fontFamily:"Syne,sans-serif" }}>
                         {step.title}
                       </h3>
                       <p className="text-white/36 text-[13px] leading-relaxed relative z-10">{step.description}</p>
-
                       {i < PROCESS_STEPS.length - 1 && (
                         <div className="mt-5 flex items-center">
                           <div className="h-px flex-1 bg-gradient-to-r from-violet-500/20 to-transparent" />
@@ -641,8 +705,6 @@ export default function PortfolioPage() {
                   <div className="h-px w-14 bg-gradient-to-r from-violet-500/30 to-transparent" />
                   <span className="badge">Mais Projetos</span>
                 </div>
-
-                {/* Filter tabs */}
                 <div className="flex items-center gap-2 flex-wrap">
                   {CATEGORIES.map((cat) => (
                     <button
@@ -688,8 +750,6 @@ export default function PortfolioPage() {
                       >
                         <Thumbnail video={video} />
                         <div className="absolute inset-0 bg-gradient-to-t from-[#090a0c]/88 via-[#090a0c]/18 to-transparent" />
-
-                        {/* Play button */}
                         <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-400">
                           <div
                             className="w-12 h-12 rounded-full flex items-center justify-center border transform scale-75 group-hover:scale-100 transition-all duration-400"
@@ -698,11 +758,9 @@ export default function PortfolioPage() {
                             <Play size={17} fill="white" className="ml-0.5" />
                           </div>
                         </div>
-
                         <div className="absolute bottom-5 left-5 right-5">
                           <span className="text-[9px] uppercase tracking-[0.3em] text-white/28 block mb-1.5">{video.category}</span>
-                          <h3 className="text-[17px] tracking-[-0.03em] font-semibold leading-tight"
-                            style={{ fontFamily:"Syne,sans-serif" }}>
+                          <h3 className="text-[17px] tracking-[-0.03em] font-semibold leading-tight" style={{ fontFamily:"Syne,sans-serif" }}>
                             {video.title}
                           </h3>
                         </div>
@@ -724,12 +782,10 @@ export default function PortfolioPage() {
                   style={{ background:"linear-gradient(135deg,#7C3AED,#3B82F6)", fontFamily:"Syne,sans-serif" }}>
                   A
                 </div>
-                <span className="text-[11px] uppercase tracking-[0.3em] text-white/36"
-                  style={{ fontFamily:"Syne,sans-serif" }}>
+                <span className="text-[11px] uppercase tracking-[0.3em] text-white/36" style={{ fontFamily:"Syne,sans-serif" }}>
                   ANDREMOGRAPH
                 </span>
               </div>
-
               <div className="flex items-center gap-5">
                 {CONTACTS.map((c, i) => {
                   const Icon = c.icon;
@@ -741,7 +797,6 @@ export default function PortfolioPage() {
                   );
                 })}
               </div>
-
               <span className="text-[11px] text-white/18">
                 © {new Date().getFullYear()} André Rodrigues. Todos os direitos reservados.
               </span>
@@ -753,22 +808,17 @@ export default function PortfolioPage() {
         <AnimatePresence>
           {selectedVideo && (
             <motion.div
-              initial={{ opacity:0 }}
-              animate={{ opacity:1 }}
-              exit={{ opacity:0 }}
+              initial={{ opacity:0 }} animate={{ opacity:1 }} exit={{ opacity:0 }}
               transition={{ duration:0.25 }}
               className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-10"
               onTouchStart={handleTouchStart}
               onTouchEnd={handleTouchEnd}
             >
-              {/* Backdrop */}
               <div
                 className="absolute inset-0"
                 style={{ background:"rgba(4,5,8,0.94)", backdropFilter:"blur(26px)" }}
                 onClick={() => setSelectedVideo(null)}
               />
-
-              {/* Close */}
               <button
                 onClick={() => setSelectedVideo(null)}
                 data-hover
@@ -777,13 +827,9 @@ export default function PortfolioPage() {
               >
                 <X size={18} />
               </button>
-
-              {/* Mobile hint */}
               <div className="absolute top-6 left-1/2 -translate-x-1/2 text-[10px] uppercase tracking-[0.25em] text-white/18 md:hidden select-none">
                 Arraste para baixo para fechar
               </div>
-
-              {/* Player */}
               <motion.div
                 initial={{ scale:0.94, opacity:0, y:22 }}
                 animate={{ scale:1,    opacity:1, y:0 }}
@@ -795,10 +841,8 @@ export default function PortfolioPage() {
                   boxShadow:"0 0 90px rgba(109,40,217,0.32),0 40px 120px rgba(0,0,0,0.85)",
                 }}
               >
-                {/* Loading spinner */}
                 {!iframeLoaded && (
-                  <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-4"
-                    style={{ background:"#0c0d10" }}>
+                  <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-4" style={{ background:"#0c0d10" }}>
                     <motion.div
                       animate={{ rotate:360 }}
                       transition={{ duration:1, repeat:Infinity, ease:"linear" }}
@@ -808,7 +852,6 @@ export default function PortfolioPage() {
                     <span className="text-[11px] uppercase tracking-[0.3em] text-white/24">Carregando</span>
                   </div>
                 )}
-
                 <iframe
                   src={`https://www.youtube-nocookie.com/embed/${selectedVideo.youtubeId}?autoplay=1&rel=0&modestbranding=1`}
                   className="w-full h-full absolute inset-0"
