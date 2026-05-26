@@ -45,6 +45,14 @@ const FEATURED_VIDEOS: Video[] = [
     description:
       "Narrativa visual cinematográfica guiada por atmosfera e composição.",
   },
+  {
+    id: "hero-3",
+    title: "Edit — Competitive",
+    category: "Gaming",
+    youtubeId: "LO9EnykVlBg",
+    description:
+      "Edição competitiva construída para intensidade, impacto e retenção.",
+  },
 ];
 
 const GRID_VIDEOS: Video[] = [
@@ -78,9 +86,37 @@ const GRID_VIDEOS: Video[] = [
   },
   {
     id: "v5",
+    title: "Visuals — Competitive",
+    category: "Gaming",
+    youtubeId: "u98UHtQWVNA",
+    description: "",
+  },
+  {
+    id: "v6",
+    title: "Edit — Competitive",
+    category: "Gaming",
+    youtubeId: "n2OiJBRhzOU",
+    description: "",
+  },
+  {
+    id: "v7",
+    title: "Motion — Competitive",
+    category: "Gaming",
+    youtubeId: "LK1cKH6xJvY",
+    description: "",
+  },
+  {
+    id: "v8",
     title: "Visuals — Gaming",
     category: "Gaming",
     youtubeId: "AKuQB0DLdoY",
+    description: "",
+  },
+  {
+    id: "v9",
+    title: "Intro — Performance",
+    category: "Gaming",
+    youtubeId: "3KPQzNRwH9Q",
     description: "",
   },
 ];
@@ -135,7 +171,6 @@ export default function PortfolioPage() {
       `}</style>
 
       <div className="min-h-screen bg-[#050505] text-white overflow-hidden relative">
-
         {/* BACKGROUND VIDEO */}
         <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
           <video
@@ -154,7 +189,6 @@ export default function PortfolioPage() {
 
         {/* CONTENT */}
         <div className="relative z-10">
-
           {/* NAV */}
           <nav className="fixed top-0 left-0 w-full z-50 px-6 md:px-10 py-7 flex items-center justify-between mix-blend-difference">
             <span className="text-[11px] uppercase tracking-[0.35em] font-semibold">
@@ -171,12 +205,10 @@ export default function PortfolioPage() {
 
           {/* MAIN */}
           <main className="w-full flex flex-col items-center">
-
             {/* HERO */}
             <section className="w-full max-w-[1280px] px-6 md:px-10 min-h-screen flex items-center">
-
               <div className="w-full grid lg:grid-cols-[1fr_420px] items-center gap-16">
-
+                {/* LEFT */}
                 <motion.div
                   initial={{ opacity: 0, y: 40 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -190,9 +222,7 @@ export default function PortfolioPage() {
                   <h1 className="text-[54px] md:text-[82px] leading-[0.9] tracking-[-0.07em] font-medium">
                     Motion Design
                     <br />
-                    <span className="text-white/30">
-                      & Direção Visual
-                    </span>
+                    <span className="text-white/30">& Direção Visual</span>
                   </h1>
 
                   <p className="mt-8 max-w-[520px] text-white/45 text-[15px] leading-relaxed">
@@ -200,6 +230,7 @@ export default function PortfolioPage() {
                   </p>
                 </motion.div>
 
+                {/* RIGHT */}
                 <motion.div
                   initial={{ opacity: 0, scale: 0.97 }}
                   animate={{ opacity: 1, scale: 1 }}
@@ -214,6 +245,7 @@ export default function PortfolioPage() {
                     />
                   </div>
 
+                  {/* CONTACTS */}
                   <div id="contact" className="flex items-center justify-center gap-6 mt-8">
                     <div className="flex items-center gap-3">
                       <span className="text-[11px] uppercase tracking-[0.35em] text-white/40">
@@ -233,7 +265,7 @@ export default function PortfolioPage() {
                         const Icon = contact.icon;
                         return (
                           <a key={index} href={contact.href}>
-                            <div className="w-14 h-14 rounded-2xl border border-white/10 flex items-center justify-center">
+                            <div className="w-14 h-14 rounded-2xl border border-white/10 flex items-center justify-center transition-all hover:border-[#C5A059]/50 hover:text-[#C5A059]">
                               <Icon size={22} />
                             </div>
                           </a>
@@ -242,27 +274,39 @@ export default function PortfolioPage() {
                     </div>
                   </div>
                 </motion.div>
-
               </div>
             </section>
 
             {/* FEATURED */}
             <section className="w-full max-w-[1280px] px-6 md:px-10 pb-36 space-y-28">
-
-              {FEATURED_VIDEOS.map((video) => (
+              {FEATURED_VIDEOS.map((video, index) => (
                 <motion.div
                   key={video.id}
-                  className="grid lg:grid-cols-[1fr_420px] gap-14 items-center"
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  transition={{ duration: 0.8 }}
+                  className={`grid lg:grid-cols-[1fr_420px] gap-14 items-center ${
+                    index % 2 !== 0 ? "lg:[&>*:first-child]:order-2" : ""
+                  }`}
                 >
-
                   <div
                     onClick={() => setSelectedVideo(video)}
                     className="group relative w-full aspect-video rounded-[34px] overflow-hidden cursor-pointer bg-[#0B0B0B]"
                   >
                     <img
                       src={`https://img.youtube.com/vi/${video.youtubeId}/maxresdefault.jpg`}
-                      className="w-full h-full object-cover"
+                      onError={(e) => {
+                        e.currentTarget.src = `https://img.youtube.com/vi/${video.youtubeId}/hqdefault.jpg`;
+                      }}
+                      alt={video.title}
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
                     />
+                    <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-500 flex items-center justify-center">
+                      <div className="w-20 h-20 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20 opacity-0 group-hover:opacity-100 transition-all scale-90 group-hover:scale-100">
+                        <Play size={26} fill="white" className="ml-1" />
+                      </div>
+                    </div>
                   </div>
 
                   <div className="max-w-[420px]">
@@ -278,10 +322,54 @@ export default function PortfolioPage() {
                       {video.description}
                     </p>
                   </div>
-
                 </motion.div>
               ))}
+            </section>
 
+            {/* GRID DOS OUTROS VÍDEOS */}
+            <section className="w-full max-w-[1280px] px-6 md:px-10 pb-40">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {GRID_VIDEOS.map((video) => (
+                  <motion.div
+                    key={video.id}
+                    initial={{ opacity: 0, y: 40 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.7 }}
+                    onClick={() => setSelectedVideo(video)}
+                    className="group cursor-pointer"
+                  >
+                    <div className="relative aspect-[16/10] rounded-[30px] overflow-hidden bg-[#0A0A0A]">
+                      <img
+                        src={`https://img.youtube.com/vi/${video.youtubeId}/maxresdefault.jpg`}
+                        onError={(e) => {
+                          e.currentTarget.src = `https://img.youtube.com/vi/${video.youtubeId}/hqdefault.jpg`;
+                        }}
+                        alt={video.title}
+                        className="w-full h-full object-cover grayscale-[8%] opacity-85 transition-all duration-700 group-hover:scale-[1.02] group-hover:opacity-100"
+                      />
+                      
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
+                      
+                      {/* Botão Play Hover no meio */}
+                      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500">
+                        <div className="w-14 h-14 rounded-full bg-black/50 backdrop-blur-md flex items-center justify-center border border-white/20 transform scale-75 group-hover:scale-100 transition-all duration-500">
+                          <Play size={20} fill="white" className="ml-1" />
+                        </div>
+                      </div>
+
+                      <div className="absolute bottom-7 left-7">
+                        <span className="text-[10px] uppercase tracking-[0.3em] text-white/35 block mb-2">
+                          {video.category}
+                        </span>
+                        <h3 className="text-[22px] tracking-[-0.02em] font-medium">
+                          {video.title}
+                        </h3>
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
             </section>
 
           </main>
@@ -292,21 +380,34 @@ export default function PortfolioPage() {
           {selectedVideo && (
             <motion.div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-10">
               <div
-                className="absolute inset-0 bg-black/90"
+                className="absolute inset-0 bg-black/90 backdrop-blur-xl"
                 onClick={() => setSelectedVideo(null)}
               />
 
-              <motion.div className="relative w-full max-w-6xl aspect-video">
+              <button
+                onClick={() => setSelectedVideo(null)}
+                className="absolute top-6 right-6 z-20 text-white/50 hover:text-white transition"
+              >
+                <X size={34} />
+              </button>
+
+              <motion.div 
+                initial={{ scale: 0.95, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.95, opacity: 0 }}
+                transition={{ duration: 0.35 }}
+                className="relative w-full max-w-6xl aspect-video rounded-[32px] overflow-hidden bg-black border border-white/10 shadow-2xl"
+              >
                 <iframe
-                  src={`https://www.youtube-nocookie.com/embed/${selectedVideo.youtubeId}?autoplay=1`}
-                  className="w-full h-full"
-                  allow="autoplay; fullscreen"
+                  src={`https://www.youtube-nocookie.com/embed/${selectedVideo.youtubeId}?autoplay=1&rel=0&modestbranding=1`}
+                  className="w-full h-full absolute inset-0"
+                  allow="autoplay; fullscreen; picture-in-picture"
+                  allowFullScreen
                 />
               </motion.div>
             </motion.div>
           )}
         </AnimatePresence>
-
       </div>
     </>
   );
