@@ -72,17 +72,12 @@ const CATEGORIES = ["Todos", "Motion", "Cinematic", "Gaming", "Brand"];
 
 // ─── CLIENTS DATA ─────────────────────────────────────────────────────────────
 
-const BRANDS_ROW: string[] = [
-  "Fiat", "Itaú", "Litorânea", "Adapta",
-  "Fiat", "Itaú", "Litorânea", "Adapta",
-  "Fiat", "Itaú", "Litorânea", "Adapta",
-];
+// Duplicated enough times so the seam never shows in the viewport
+const BRANDS_BASE = ["Fiat", "Itaú", "Litorânea", "Adapta"];
+const BRANDS_ROW  = [...BRANDS_BASE, ...BRANDS_BASE, ...BRANDS_BASE, ...BRANDS_BASE, ...BRANDS_BASE, ...BRANDS_BASE];
 
-const CREATORS_ROW: string[] = [
-  "FireCrow", "Lele", "Acee", "TOM", "OG", "CryingMan",
-  "FireCrow", "Lele", "Acee", "TOM", "OG", "CryingMan",
-  "FireCrow", "Lele", "Acee", "TOM", "OG", "CryingMan",
-];
+const CREATORS_BASE = ["FireCrow", "Lele", "Acee", "TOM", "OG", "CryingMan"];
+const CREATORS_ROW  = [...CREATORS_BASE, ...CREATORS_BASE, ...CREATORS_BASE, ...CREATORS_BASE, ...CREATORS_BASE, ...CREATORS_BASE];
 
 // ─── SUB-COMPONENTS ───────────────────────────────────────────────────────────
 
@@ -241,8 +236,8 @@ export default function PortfolioPage() {
           100% { transform: translateX(0); }
         }
 
-        .marquee-left  { animation: marquee-left  24s linear infinite; }
-        .marquee-right { animation: marquee-right 30s linear infinite; }
+        .marquee-left  { animation: marquee-left  32s linear infinite; }
+        .marquee-right { animation: marquee-right 40s linear infinite; }
         .marquee-left:hover,
         .marquee-right:hover { animation-play-state: paused; }
 
@@ -489,7 +484,13 @@ export default function PortfolioPage() {
             </section>
 
             {/* ── CLIENTS & CREATORS ────────────────────────────────────────── */}
-            <section className="w-full py-16">
+            {/*
+              FIX: The marquee rows must be full-bleed (100vw), ignoring any parent padding.
+              We use a wrapper that breaks out of the max-w container via negative margins,
+              then re-constrain only the header text inside it.
+            */}
+            <section className="w-full py-16" style={{ overflow: "hidden" }}>
+
               {/* Header — constrained like every other section */}
               <motion.div
                 initial={{ opacity:0, y:20 }} whileInView={{ opacity:1, y:0 }}
@@ -505,8 +506,25 @@ export default function PortfolioPage() {
                 </p>
               </motion.div>
 
-              {/* Row 1 — Brands, scroll left — full viewport width */}
-              <div className="relative w-full overflow-hidden mb-4">
+              {/*
+                ── FIX APPLIED HERE ──
+                Each marquee strip is a true full-viewport-width overflow container.
+                `left: 50%` + `transform: translateX(-50%)` + `width: 100vw`
+                pulls it out of any parent padding so the strip starts flush with
+                the left edge of the screen and fades symmetrically on both sides.
+              */}
+
+              {/* Row 1 — Brands, scroll left */}
+              <div
+                style={{
+                  position: "relative",
+                  left: "50%",
+                  transform: "translateX(-50%)",
+                  width: "100vw",
+                  overflow: "hidden",
+                  marginBottom: "12px",
+                }}
+              >
                 <div className="flex gap-3 marquee-left" style={{ width: "max-content" }}>
                   {BRANDS_ROW.map((name, i) => (
                     <div key={i} className="flex-shrink-0 flex items-center gap-2.5 px-6 py-2.5 rounded-2xl"
@@ -525,8 +543,16 @@ export default function PortfolioPage() {
                   style={{ background: "linear-gradient(to left, #090a0c, transparent)" }} />
               </div>
 
-              {/* Row 2 — Creators, scroll right — full viewport width */}
-              <div className="relative w-full overflow-hidden">
+              {/* Row 2 — Creators, scroll right */}
+              <div
+                style={{
+                  position: "relative",
+                  left: "50%",
+                  transform: "translateX(-50%)",
+                  width: "100vw",
+                  overflow: "hidden",
+                }}
+              >
                 <div className="flex gap-3 marquee-right" style={{ width: "max-content" }}>
                   {CREATORS_ROW.map((name, i) => (
                     <div key={i} className="flex-shrink-0 flex items-center gap-2.5 px-6 py-2.5 rounded-2xl"
