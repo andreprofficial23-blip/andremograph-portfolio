@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
@@ -107,10 +106,16 @@ function AnimatedCounter({ value, suffix, label }: { value: number; suffix: stri
   );
 }
 
+// ─── THUMBNAIL (OPTIMIZED) ────────────────────────────────────────────────────
+
 function Thumbnail({ video }: { video: Video }) {
   const [loaded, setLoaded] = useState(false);
+  const [src, setSrc] = useState(
+    `https://img.youtube.com/vi/${video.youtubeId}/mqdefault.jpg`
+  );
+
   return (
-    <div className="relative w-full h-full">
+    <div className="relative w-full h-full bg-[#0c0d10]">
       {!loaded && (
         <div
           className="absolute inset-0"
@@ -123,10 +128,16 @@ function Thumbnail({ video }: { video: Video }) {
         />
       )}
       <img
-        src={`https://img.youtube.com/vi/${video.youtubeId}/maxresdefault.jpg`}
-        onError={(e) => { e.currentTarget.src = `https://img.youtube.com/vi/${video.youtubeId}/hqdefault.jpg`; }}
+        src={src}
+        onError={() =>
+          setSrc(`https://img.youtube.com/vi/${video.youtubeId}/hqdefault.jpg`)
+        }
         onLoad={() => setLoaded(true)}
         alt={video.title}
+        loading="lazy"
+        decoding="async"
+        width={480}
+        height={360}
         className="w-full h-full object-cover transition-all duration-700"
         style={{ opacity: loaded ? 1 : 0 }}
       />
