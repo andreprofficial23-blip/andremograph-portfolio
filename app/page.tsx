@@ -29,6 +29,17 @@ const FEATURED_VIDEOS: Video[] = [
     description:
       "Direção visual construída com foco em ritmo, presença e identidade estética.",
   },
+
+  // ✅ NOVO: DÓLAR ABAIXO DO BRAND
+  {
+    id: "hero-1-1",
+    title: "Motion — Currency (Dollar Visual)",
+    category: "Motion",
+    youtubeId: "iOSwIbBcSE0",
+    description:
+      "Motion design explorando narrativa financeira, ritmo e impacto visual.",
+  },
+
   {
     id: "hero-2",
     title: "Edit — Narrative",
@@ -36,14 +47,6 @@ const FEATURED_VIDEOS: Video[] = [
     youtubeId: "O4nTVAfoxKI",
     description:
       "Narrativa visual cinematográfica guiada por atmosfera e composição.",
-  },
-  {
-    id: "hero-3",
-    title: "Motion — Currency (Dólar)",
-    category: "Motion",
-    youtubeId: "iOSwIbBcSE0",
-    description:
-      "Motion design explorando fluxo, ritmo e narrativa visual com foco em impacto financeiro.",
   },
 ];
 
@@ -169,10 +172,12 @@ export default function PortfolioPage() {
             </a>
           </nav>
 
+          {/* MAIN */}
           <main className="w-full flex flex-col items-center">
 
             {/* HERO */}
             <section className="w-full max-w-[1280px] px-6 md:px-10 min-h-screen flex items-center">
+
               <div className="w-full grid lg:grid-cols-[1fr_420px] items-center gap-16">
 
                 <motion.div
@@ -208,11 +213,10 @@ export default function PortfolioPage() {
                     <img
                       src="/about/perfil.jpg"
                       alt="Andre"
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover grayscale-[5%]"
                     />
                   </div>
 
-                  {/* CONTACTS */}
                   <div id="contact" className="flex items-center justify-center gap-6 mt-8">
                     <div className="flex items-center gap-3">
                       <span className="text-[11px] uppercase tracking-[0.35em] text-white/40">
@@ -227,11 +231,11 @@ export default function PortfolioPage() {
                       </motion.div>
                     </div>
 
-                    <div className="flex gap-4">
-                      {CONTACTS.map((c, i) => {
-                        const Icon = c.icon;
+                    <div className="flex items-center justify-center gap-4">
+                      {CONTACTS.map((contact, index) => {
+                        const Icon = contact.icon;
                         return (
-                          <a key={i} href={c.href} target="_blank">
+                          <a key={index} href={contact.href}>
                             <div className="w-14 h-14 rounded-2xl border border-white/10 flex items-center justify-center">
                               <Icon size={22} />
                             </div>
@@ -247,21 +251,19 @@ export default function PortfolioPage() {
 
             {/* FEATURED */}
             <section className="w-full max-w-[1280px] px-6 md:px-10 pb-36 space-y-28">
-              {FEATURED_VIDEOS.map((video, index) => (
+
+              {FEATURED_VIDEOS.map((video) => (
                 <motion.div
                   key={video.id}
-                  initial={{ opacity: 0, y: 70 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.9 }}
                   className="grid lg:grid-cols-[1fr_420px] gap-14 items-center"
                 >
+
                   <div
                     onClick={() => setSelectedVideo(video)}
-                    className="cursor-pointer aspect-video rounded-[34px] overflow-hidden bg-black"
+                    className="group relative w-full aspect-video rounded-[34px] overflow-hidden cursor-pointer bg-[#0B0B0B]"
                   >
                     <img
-                      src={`https://img.youtube.com/vi/${video.youtubeId}/hqdefault.jpg`}
+                      src={`https://img.youtube.com/vi/${video.youtubeId}/maxresdefault.jpg`}
                       className="w-full h-full object-cover"
                     />
                   </div>
@@ -279,30 +281,10 @@ export default function PortfolioPage() {
                       {video.description}
                     </p>
                   </div>
+
                 </motion.div>
               ))}
-            </section>
 
-            {/* GRID */}
-            <section className="w-full max-w-[1280px] px-6 md:px-10 pb-40">
-              <div className="grid md:grid-cols-2 gap-8">
-                {GRID_VIDEOS.map((video) => (
-                  <motion.div
-                    key={video.id}
-                    onClick={() => setSelectedVideo(video)}
-                    className="cursor-pointer"
-                  >
-                    <div className="aspect-[16/10] rounded-[30px] overflow-hidden bg-black">
-                      <img
-                        src={`https://img.youtube.com/vi/${video.youtubeId}/hqdefault.jpg`}
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-
-                    <h3 className="mt-4 text-xl">{video.title}</h3>
-                  </motion.div>
-                ))}
-              </div>
             </section>
 
           </main>
@@ -311,7 +293,7 @@ export default function PortfolioPage() {
         {/* MODAL */}
         <AnimatePresence>
           {selectedVideo && (
-            <motion.div className="fixed inset-0 z-[100] flex items-center justify-center">
+            <motion.div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-10">
               <div
                 className="absolute inset-0 bg-black/90"
                 onClick={() => setSelectedVideo(null)}
@@ -321,11 +303,13 @@ export default function PortfolioPage() {
                 <iframe
                   src={`https://www.youtube-nocookie.com/embed/${selectedVideo.youtubeId}?autoplay=1`}
                   className="w-full h-full"
+                  allow="autoplay; fullscreen"
                 />
               </motion.div>
             </motion.div>
           )}
         </AnimatePresence>
+
       </div>
     </>
   );
