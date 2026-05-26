@@ -29,19 +29,16 @@ const FEATURED_VIDEOS: Video[] = [
     description:
       "Direção visual construída com foco em ritmo, presença e identidade estética.",
   },
-
-  // NOVO HERO ADICIONADO
   {
-    id: "hero-2",
+    id: "hero-1-1",
     title: "Motion — Currency (Dollar Visual)",
     category: "Motion",
     youtubeId: "iOSwIbBcSE0",
     description:
       "Motion design explorando narrativa financeira, ritmo e impacto visual.",
   },
-
   {
-    id: "hero-3",
+    id: "hero-2",
     title: "Edit — Narrative",
     category: "Cinematic",
     youtubeId: "O4nTVAfoxKI",
