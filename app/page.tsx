@@ -110,9 +110,20 @@ function AnimatedCounter({ value, suffix, label }: { value: number; suffix: stri
 
 function Thumbnail({ video }: { video: Video }) {
   const [loaded, setLoaded] = useState(false);
-  const [src, setSrc] = useState(
-    `https://img.youtube.com/vi/${video.youtubeId}/maxresdefault.jpg`
-  );
+  const fallbackIndex = useRef(0);
+  const qualities = [
+    `https://img.youtube.com/vi/${video.youtubeId}/maxresdefault.jpg`,
+    `https://img.youtube.com/vi/${video.youtubeId}/hqdefault.jpg`,
+    `https://img.youtube.com/vi/${video.youtubeId}/mqdefault.jpg`,
+  ];
+  const [src, setSrc] = useState(qualities[0]);
+
+  const handleError = () => {
+    fallbackIndex.current += 1;
+    if (fallbackIndex.current < qualities.length) {
+      setSrc(qualities[fallbackIndex.current]);
+    }
+  };
 
   return (
     <div className="relative w-full h-full bg-[#0c0d10]">
@@ -128,10 +139,7 @@ function Thumbnail({ video }: { video: Video }) {
       )}
       <img
         src={src}
-        onError={() => {
-          if (src.includes("maxresdefault")) setSrc(`https://img.youtube.com/vi/${video.youtubeId}/hqdefault.jpg`);
-          else if (src.includes("hqdefault")) setSrc(`https://img.youtube.com/vi/${video.youtubeId}/mqdefault.jpg`);
-        }}
+        onError={handleError}
         onLoad={() => setLoaded(true)}
         alt={video.title}
         loading="lazy"
@@ -550,7 +558,7 @@ export default function PortfolioPage() {
             </section>
 
             {/* ── GRID + FILTER ─────────────────────────────────────────────── */}
-            <section id="grid" className="w-full max-w-[1280px] px-6 md:px-10 pb-40">
+            <section id="grid" className="w-full max-w-[1280px] px-6 md:px-10 pb-48">
               <div className="flex items-center justify-between mb-12 flex-wrap gap-6">
                 <div className="flex items-center gap-4">
                   <div className="h-px w-14 bg-gradient-to-r from-violet-500/30 to-transparent" />
@@ -576,7 +584,7 @@ export default function PortfolioPage() {
                   key={activeCategory}
                   initial={{ opacity:0, y:16 }} animate={{ opacity:1, y:0 }}
                   exit={{ opacity:0, y:-10 }} transition={{ duration:0.4 }}
-                  className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7"
+                  className="grid grid-cols-1 md:grid-cols-2 gap-7"
                 >
                   {filteredGrid.map((video, i) => (
                     <motion.div
