@@ -111,7 +111,7 @@ function AnimatedCounter({ value, suffix, label }: { value: number; suffix: stri
 function Thumbnail({ video }: { video: Video }) {
   const [loaded, setLoaded] = useState(false);
   const [src, setSrc] = useState(
-    `https://img.youtube.com/vi/${video.youtubeId}/mqdefault.jpg`
+    `https://img.youtube.com/vi/${video.youtubeId}/maxresdefault.jpg`
   );
 
   return (
@@ -128,7 +128,10 @@ function Thumbnail({ video }: { video: Video }) {
       )}
       <img
         src={src}
-        onError={() => setSrc(`https://img.youtube.com/vi/${video.youtubeId}/hqdefault.jpg`)}
+        onError={() => {
+          if (src.includes("maxresdefault")) setSrc(`https://img.youtube.com/vi/${video.youtubeId}/hqdefault.jpg`);
+          else if (src.includes("hqdefault")) setSrc(`https://img.youtube.com/vi/${video.youtubeId}/mqdefault.jpg`);
+        }}
         onLoad={() => setLoaded(true)}
         alt={video.title}
         loading="lazy"
@@ -154,8 +157,8 @@ export default function PortfolioPage() {
 
   const cursorX       = useMotionValue(-100);
   const cursorY       = useMotionValue(-100);
-  const cursorXSpring = useSpring(cursorX, { damping: 28, stiffness: 700 });
-  const cursorYSpring = useSpring(cursorY, { damping: 28, stiffness: 700 });
+  const cursorXSpring = useSpring(cursorX, { damping: 12, stiffness: 1200 });
+  const cursorYSpring = useSpring(cursorY, { damping: 12, stiffness: 1200 });
 
   const { scrollY } = useScroll();
   const orb1Y = useTransform(scrollY, [0, 2000], [0, -200]);
@@ -573,7 +576,7 @@ export default function PortfolioPage() {
                   key={activeCategory}
                   initial={{ opacity:0, y:16 }} animate={{ opacity:1, y:0 }}
                   exit={{ opacity:0, y:-10 }} transition={{ duration:0.4 }}
-                  className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"
+                  className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7"
                 >
                   {filteredGrid.map((video, i) => (
                     <motion.div
@@ -583,7 +586,7 @@ export default function PortfolioPage() {
                       onClick={() => setSelectedVideo(video)} data-hover
                       className="group cursor-pointer"
                     >
-                      <div className="relative aspect-[16/10] rounded-[20px] overflow-hidden card-hover"
+                      <div className="relative aspect-video rounded-[20px] overflow-hidden card-hover"
                         style={{ background:"#0c0d10", border:"1px solid rgba(255,255,255,0.06)" }}>
                         <Thumbnail video={video} />
                         <div className="absolute inset-0 bg-gradient-to-t from-[#090a0c]/88 via-[#090a0c]/18 to-transparent" />
@@ -595,7 +598,7 @@ export default function PortfolioPage() {
                         </div>
                         <div className="absolute bottom-5 left-5 right-5">
                           <span className="text-[9px] uppercase tracking-[0.3em] text-white/28 block mb-1.5">{video.category}</span>
-                          <h3 className="text-[17px] tracking-[-0.03em] font-semibold leading-tight" style={{ fontFamily:"Syne,sans-serif" }}>
+                          <h3 className="text-[19px] tracking-[-0.03em] font-semibold leading-tight" style={{ fontFamily:"Syne,sans-serif" }}>
                             {video.title}
                           </h3>
                         </div>
