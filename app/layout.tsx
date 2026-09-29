@@ -1,44 +1,33 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
 export const metadata: Metadata = {
-  title: "ANDREMOGRAPH",
-  description:
-    "Motion design e direção visual com foco em atmosfera, ritmo e presença visual.",
+  metadataBase: new URL("https://andremograph.com"),
+  title: "Andremograph — Motion Designer e Editor",
+  description: "Motion design, direção visual e edição por André. Conheça os trabalhos e entre em contato para seu projeto.",
+  alternates: { canonical: "/" },
 
   icons: {
     icon: "/favicon.png",
     shortcut: "/favicon.png",
-    apple: "/apple-touch-icon.png",
   },
 
   openGraph: {
-    title: "ANDREMOGRAPH",
-    description:
-      "Motion design e direção visual com foco em atmosfera, ritmo e presença visual.",
-    url: "https://andremograph-portfolio.vercel.app",
+    title: "Andremograph — Motion Designer e Editor",
+    description: "Motion design e edição com atenção ao ritmo, à atmosfera e aos detalhes.",
+    url: "https://andremograph.com",
     siteName: "ANDREMOGRAPH",
     locale: "pt_BR",
     type: "website",
+    images: [{ url: "/background/hero-poster.jpg", width: 1280, height: 720, alt: "Andremograph — Motion Designer e Editor" }],
   },
 
   twitter: {
     card: "summary_large_image",
-    title: "ANDREMOGRAPH",
-    description:
-      "Motion design e direção visual com foco em atmosfera, ritmo e presença visual.",
+    title: "Andremograph — Motion Designer e Editor",
+    description: "Motion design e edição com atenção ao ritmo, à atmosfera e aos detalhes.",
     creator: "@andremograph",
+    images: ["/background/hero-poster.jpg"],
   },
 };
 
@@ -49,9 +38,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body>
         {children}
       </body>
     </html>

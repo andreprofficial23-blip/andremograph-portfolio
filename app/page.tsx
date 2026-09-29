@@ -1,701 +1,118 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
-import {
-  motion,
-  AnimatePresence,
-  useScroll,
-  useTransform,
-  useMotionValue,
-  useSpring,
-  useInView,
-  animate as motionAnimate,
-} from "framer-motion";
-import {
-  Play, X, Instagram, Mail, MessageCircle, ArrowRight,
-  Search, Layers, RotateCcw, Send,
-} from "lucide-react";
-import { FaDiscord } from "react-icons/fa";
+import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
+import { ArrowDownRight, ArrowUpRight, Instagram, Play, X } from "lucide-react";
 
-// ─── TYPES ────────────────────────────────────────────────────────────────────
-
-interface Video {
+type Category = "Brand" | "Motion" | "Cinematic" | "Gaming" | "UI";
+type Project = {
   id: string;
   title: string;
-  category: string;
-  youtubeId: string;
-  description: string;
+  category: Category;
+  description?: string;
+  youtubeId?: string;
+  localVideo?: string;
+  poster?: string;
+};
+
+const featured: Project[] = [
+  { id: "visuals-brand", title: "Visuals — Brand", category: "Brand", youtubeId: "JeLV_HljZas", description: "Direção visual com foco em ritmo, presença e identidade estética." },
+  { id: "dollar-visual", title: "Dollar Visual", category: "Motion", youtubeId: "iOSwIbBcSE0", description: "Motion design com narrativa financeira e tipografia em movimento." },
+  { id: "edit-narrative", title: "Edit — Narrative", category: "Cinematic", youtubeId: "O4nTVAfoxKI", description: "Edição cinematográfica guiada por atmosfera e composição." },
+  { id: "edit-competitive", title: "Edit — Competitive", category: "Gaming", youtubeId: "LO9EnykVlBg", description: "Edição competitiva construída para intensidade e impacto." },
+];
+
+const moreProjects: Project[] = [
+  { id: "2d-typography", title: "Typography in Motion", category: "Motion", localVideo: "/videos-web/2d-typography.mp4", poster: "/thumbnails/2d-typography.jpg" },
+  { id: "2d-motion-logo", title: "Logo in Motion", category: "Motion", localVideo: "/videos-web/2d-motion-logo.mp4", poster: "/thumbnails/2d-motion-logo.jpg" },
+  { id: "2d-jornada-ceo", title: "Jornada CEO", category: "Motion", localVideo: "/videos-web/2d-jornada-ceo.mp4", poster: "/thumbnails/2d-jornada-ceo.jpg" },
+  { id: "2d-ai-doping", title: "AI Doping", category: "Motion", localVideo: "/videos-web/2d-ai-doping.mp4", poster: "/thumbnails/2d-ai-doping.jpg" },
+  { id: "ui-spotify", title: "Spotify Interface", category: "UI", localVideo: "/videos-web/ui-spotify.mp4", poster: "/thumbnails/ui-spotify.jpg" },
+  { id: "ui-system-update", title: "System Update", category: "UI", localVideo: "/videos-web/ui-system-update.mp4", poster: "/thumbnails/ui-system-update.jpg" },
+  { id: "brawl-guia", title: "Brawl Stars — Guia", category: "Gaming", localVideo: "/videos-web/brawl-guia.mp4", poster: "/thumbnails/brawl-guia.jpg" },
+  { id: "brawl-mundial-p2", title: "Brawl Stars — Mundial", category: "Gaming", localVideo: "/videos-web/brawl-mundial-p2.mp4", poster: "/thumbnails/brawl-mundial-p2.jpg" },
+  { id: "visuals-atmosphere", title: "Visuals — Atmosphere", category: "Motion", youtubeId: "oK1p72YO2pw" },
+  { id: "motion-typography", title: "Motion — Typography", category: "Motion", youtubeId: "M0OcyKCJhYs" },
+  { id: "narrative-study", title: "Edit — Narrative Study", category: "Cinematic", youtubeId: "xpYasagUJAs" },
+  { id: "motion-minimal", title: "Motion — Minimal", category: "Motion", youtubeId: "q7jkRt0XXPY" },
+  { id: "visuals-competitive", title: "Visuals — Competitive", category: "Gaming", youtubeId: "u98UHtQWVNA" },
+  { id: "competitive-study", title: "Edit — Competitive Study", category: "Gaming", youtubeId: "n2OiJBRhzOU" },
+  { id: "motion-competitive", title: "Motion — Competitive", category: "Gaming", youtubeId: "LK1cKH6xJvY" },
+  { id: "visuals-gaming", title: "Visuals — Gaming", category: "Gaming", youtubeId: "AKuQB0DLdoY" },
+  { id: "intro-performance", title: "Intro — Performance", category: "Gaming", youtubeId: "3KPQzNRwH9Q" },
+];
+
+const categories = ["Todos", "Motion", "Cinematic", "Gaming", "UI"] as const;
+const instagram = "https://www.instagram.com/andremograph/";
+
+function ProjectImage({ project, priority = false }: { project: Project; priority?: boolean }) {
+  const src = project.poster ?? `https://i.ytimg.com/vi/${project.youtubeId}/hqdefault.jpg`;
+  return <Image src={src} alt="" fill sizes="(max-width: 900px) 100vw, 65vw" priority={priority} unoptimized={!!project.youtubeId} />;
 }
-
-// ─── DATA ─────────────────────────────────────────────────────────────────────
-
-const FEATURED_VIDEOS: Video[] = [
-  { id: "hero-1",   title: "Visuals — Brand",                   category: "Brand",     youtubeId: "JeLV_HljZas", description: "Direção visual construída com foco em ritmo, presença e identidade estética." },
-  { id: "hero-1-1", title: "Motion — Currency (Dollar Visual)", category: "Motion",    youtubeId: "iOSwIbBcSE0", description: "Motion design explorando narrativa financeira, ritmo e impacto visual." },
-  { id: "hero-2",   title: "Edit — Narrative",                  category: "Cinematic", youtubeId: "O4nTVAfoxKI", description: "Narrativa visual cinematográfica guiada por atmosfera e composição." },
-  { id: "hero-3",   title: "Edit — Competitive",                category: "Gaming",    youtubeId: "LO9EnykVlBg", description: "Edição competitiva construída para intensidade, impacto e retenção." },
-];
-
-const GRID_VIDEOS: Video[] = [
-  { id: "v1", title: "Visuals — Atmosphere",  category: "Motion",    youtubeId: "oK1p72YO2pw", description: "" },
-  { id: "v2", title: "Motion — Typography",   category: "Motion",    youtubeId: "M0OcyKCJhYs", description: "" },
-  { id: "v3", title: "Edit — Narrative",      category: "Cinematic", youtubeId: "xpYasagUJAs", description: "" },
-  { id: "v4", title: "Motion — Minimal",      category: "Motion",    youtubeId: "q7jkRt0XXPY", description: "" },
-  { id: "v5", title: "Visuals — Competitive", category: "Gaming",    youtubeId: "u98UHtQWVNA", description: "" },
-  { id: "v6", title: "Edit — Competitive",    category: "Gaming",    youtubeId: "n2OiJBRhzOU", description: "" },
-  { id: "v7", title: "Motion — Competitive",  category: "Gaming",    youtubeId: "LK1cKH6xJvY", description: "" },
-  { id: "v8", title: "Visuals — Gaming",      category: "Gaming",    youtubeId: "AKuQB0DLdoY", description: "" },
-  { id: "v9", title: "Intro — Performance",   category: "Gaming",    youtubeId: "3KPQzNRwH9Q", description: "" },
-];
-
-const CONTACTS = [
-  { icon: Instagram,     label: "@andremograph",                href: "https://www.instagram.com/andremograph/" },
-  { icon: FaDiscord,     label: "Discord Server",               href: "https://discord.gg/zu6bWjCXb" },
-  { icon: Mail,          label: "andre.pr.official23@gmail.com", href: "mailto:andre.pr.official23@gmail.com" },
-  { icon: MessageCircle, label: "+55 82 99174-8333",            href: "https://wa.me/558299174833" },
-];
-
-const PROCESS_STEPS = [
-  { number: "01", title: "Briefing",        description: "Entendo o projeto, os objetivos, o tom e as referências estéticas para alinhar a visão antes de qualquer frame.", icon: Search },
-  { number: "02", title: "Desenvolvimento", description: "Criação do motion, edição e composição visual. Cada frame construído com intenção, ritmo e impacto.", icon: Layers },
-  { number: "03", title: "Revisão",         description: "Ajustes colaborativos e iterativos até que o resultado esteja exatamente alinhado com a visão do cliente.", icon: RotateCcw },
-  { number: "04", title: "Entrega",         description: "Arquivo final otimizado e exportado no formato ideal para cada plataforma e uso.", icon: Send },
-];
-
-const STATS = [
-  { value: 200, suffix: "+",  label: "Projetos Entregues" },
-  { value: 5,   suffix: "+",  label: "Anos de Experiência" },
-  { value: 2,   suffix: "M+", label: "Visualizações" },
-];
-
-const CATEGORIES = ["Todos", "Motion", "Cinematic", "Gaming", "Brand"];
-
-// ─── SUB-COMPONENTS ───────────────────────────────────────────────────────────
-
-function AnimatedCounter({ value, suffix, label }: { value: number; suffix: string; label: string }) {
-  const [count, setCount] = useState(0);
-  const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-50px" });
-
-  useEffect(() => {
-    if (!inView) return;
-    const ctrl = motionAnimate(0, value, {
-      duration: 1.8,
-      ease: "easeOut",
-      onUpdate: (v) => setCount(Math.round(v)),
-    });
-    return () => ctrl.stop();
-  }, [inView, value]);
-
-  return (
-    <div ref={ref} className="flex flex-col items-center gap-3">
-      <span
-        className="font-bold tabular-nums"
-        style={{
-          fontFamily: "Syne, sans-serif",
-          fontSize: "clamp(38px, 5vw, 62px)",
-          background: "linear-gradient(135deg, #fff 40%, rgba(139,92,246,0.75))",
-          WebkitBackgroundClip: "text",
-          WebkitTextFillColor: "transparent",
-        }}
-      >
-        {count}{suffix}
-      </span>
-      <span className="text-[10px] uppercase tracking-[0.3em] text-white/28">{label}</span>
-    </div>
-  );
-}
-
-// ─── THUMBNAIL (OPTIMIZED) ────────────────────────────────────────────────────
-
-function Thumbnail({ video }: { video: Video }) {
-  const [loaded, setLoaded] = useState(false);
-  const fallbackIndex = useRef(0);
-  const qualities = [
-    `https://img.youtube.com/vi/${video.youtubeId}/maxresdefault.jpg`,
-    `https://img.youtube.com/vi/${video.youtubeId}/hqdefault.jpg`,
-    `https://img.youtube.com/vi/${video.youtubeId}/mqdefault.jpg`,
-  ];
-  const [src, setSrc] = useState(qualities[0]);
-
-  const handleError = () => {
-    fallbackIndex.current += 1;
-    if (fallbackIndex.current < qualities.length) {
-      setSrc(qualities[fallbackIndex.current]);
-    }
-  };
-
-  return (
-    <div className="relative w-full h-full bg-[#0c0d10]">
-      {!loaded && (
-        <div
-          className="absolute inset-0"
-          style={{
-            background: "linear-gradient(90deg, rgba(255,255,255,0.03) 25%, rgba(255,255,255,0.07) 50%, rgba(255,255,255,0.03) 75%)",
-            backgroundSize: "200% 100%",
-            animation: "shimmer 1.6s infinite",
-          }}
-        />
-      )}
-      <img
-        src={src}
-        onError={handleError}
-        onLoad={() => setLoaded(true)}
-        alt={video.title}
-        loading="lazy"
-        decoding="async"
-        width={480}
-        height={360}
-        className="w-full h-full object-cover transition-all duration-700"
-        style={{ opacity: loaded ? 1 : 0 }}
-      />
-    </div>
-  );
-}
-
-// ─── MAIN PAGE ────────────────────────────────────────────────────────────────
 
 export default function PortfolioPage() {
-  const [splash, setSplash]                 = useState(true);
-  const [selectedVideo, setSelectedVideo]   = useState<Video | null>(null);
-  const [iframeLoaded, setIframeLoaded]     = useState(false);
-  const [activeCategory, setActiveCategory] = useState("Todos");
-  const [isTouch, setIsTouch]               = useState(false);
-  const [cursorHover, setCursorHover]       = useState(false);
-
-  const cursorX       = useMotionValue(-100);
-  const cursorY       = useMotionValue(-100);
-  const cursorXSpring = useSpring(cursorX, { damping: 12, stiffness: 1200 });
-  const cursorYSpring = useSpring(cursorY, { damping: 12, stiffness: 1200 });
-
-  const { scrollY } = useScroll();
-  const orb1Y = useTransform(scrollY, [0, 2000], [0, -200]);
-  const orb2Y = useTransform(scrollY, [0, 2000], [0, -110]);
-  const orb3Y = useTransform(scrollY, [0, 2000], [0,  -65]);
-
-  const touchStartY = useRef(0);
+  const [category, setCategory] = useState<(typeof categories)[number]>("Todos");
+  const [showAll, setShowAll] = useState(false);
+  const [selected, setSelected] = useState<Project | null>(null);
+  const closeRef = useRef<HTMLButtonElement>(null);
+  const filtered = category === "Todos" ? moreProjects : moreProjects.filter((project) => project.category === category);
+  const shown = showAll || category !== "Todos" ? filtered : filtered.slice(0, 6);
 
   useEffect(() => {
-    const t = setTimeout(() => setSplash(false), 2300);
-    return () => clearTimeout(t);
-  }, []);
-
-  useEffect(() => { setIsTouch("ontouchstart" in window); }, []);
-
-  useEffect(() => {
-    if (isTouch) return;
-    const move = (e: MouseEvent) => { cursorX.set(e.clientX - 16); cursorY.set(e.clientY - 16); };
-    const over  = (e: MouseEvent) => {
-      const t = e.target as HTMLElement;
-      setCursorHover(["A", "BUTTON"].includes(t.tagName) || !!t.closest("[data-hover]"));
+    if (!selected) return;
+    const priorFocus = document.activeElement as HTMLElement | null;
+    const priorOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    closeRef.current?.focus();
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setSelected(null);
+      if (event.key === "Tab") {
+        const nodes = document.querySelectorAll<HTMLElement>("[data-project-modal] button, [data-project-modal] a, [data-project-modal] video[controls], [data-project-modal] iframe");
+        if (!nodes.length) return;
+        const first = nodes[0], last = nodes[nodes.length - 1];
+        if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+        if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+      }
     };
-    window.addEventListener("mousemove", move);
-    window.addEventListener("mouseover", over);
-    return () => { window.removeEventListener("mousemove", move); window.removeEventListener("mouseover", over); };
-  }, [isTouch]);
-
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setSelectedVideo(null); };
     window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, []);
-
-  useEffect(() => { setIframeLoaded(false); }, [selectedVideo]);
-
-  const handleTouchStart = (e: React.TouchEvent) => { touchStartY.current = e.touches[0].clientY; };
-  const handleTouchEnd   = (e: React.TouchEvent) => { if (e.changedTouches[0].clientY - touchStartY.current > 80) setSelectedVideo(null); };
-
-  const filteredGrid = activeCategory === "Todos" ? GRID_VIDEOS : GRID_VIDEOS.filter((v) => v.category === activeCategory);
+    return () => { document.body.style.overflow = priorOverflow; window.removeEventListener("keydown", onKey); priorFocus?.focus(); };
+  }, [selected]);
 
   return (
-    <>
-      <style jsx global>{`
-        @import url("https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Manrope:wght@300;400;500;600&display=swap");
+    <div className="site">
+      <header className="site-header">
+        <a className="brand" href="#top" aria-label="Andremograph, voltar ao início">ANDRÉ<span>MO</span>GRAPH<span className="brand-dot">.</span></a>
+        <nav aria-label="Navegação principal"><a href="#work">Trabalhos</a><a href="#about">Sobre</a><a href="#process">Processo</a><a href="#contact">Contato</a></nav>
+        <a className="header-cta" href={instagram} target="_blank" rel="noopener noreferrer">Iniciar projeto <ArrowUpRight size={16} aria-hidden="true" /></a>
+      </header>
 
-        *, *::before, *::after { box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-        body {
-          margin: 0;
-          background: #090a0c;
-          color: #fff;
-          font-family: "Manrope", sans-serif;
-          overflow-x: hidden;
-          -webkit-font-smoothing: antialiased;
-          cursor: none;
-        }
+      <main id="top">
+        <section className="hero" aria-labelledby="hero-title">
+          <div className="hero-media" aria-hidden="true"><video autoPlay muted loop playsInline preload="none" poster="/background/hero-poster.jpg"><source src="/background/hero-loop.mp4" type="video/mp4" /></video></div>
+          <div className="hero-inner page-width">
+            <p className="eyebrow"><span className="status-dot" />Motion designer e editor · Brasil</p>
+            <h1 id="hero-title">MOTION PARA<br /><em>HISTÓRIAS QUE MARCAM.</em></h1>
+            <div className="hero-bottom"><p>Motion design, direção visual e edição para marcas e criadores que querem comunicar com mais impacto.</p><div className="hero-actions"><a className="button button-gold" href="#work">Ver trabalhos <ArrowDownRight size={18} aria-hidden="true" /></a><a className="button button-outline" href={instagram} target="_blank" rel="noopener noreferrer">Solicitar orçamento <ArrowUpRight size={18} aria-hidden="true" /></a></div></div>
+          </div>
+        </section>
 
-        @keyframes shimmer {
-          0%   { background-position: -200% 0; }
-          100% { background-position:  200% 0; }
-        }
+        <section className="section page-width" id="work" aria-labelledby="work-heading">
+          <div className="section-heading"><div><p className="eyebrow">01 / Portfólio</p><h2 id="work-heading">Trabalhos selecionados<span className="brand-dot">.</span></h2></div><p>Projetos de direção visual, motion e edição. Clique para assistir.</p></div>
+          <div className="featured-list">{featured.map((project, index) => <article className="featured" key={project.id}><button type="button" className="featured-media project-button" onClick={() => setSelected(project)} aria-label={`Assistir ${project.title}`}><ProjectImage project={project} priority={index === 0} /><span className="play-icon"><Play fill="currentColor" size={22} aria-hidden="true" /></span></button><div className="featured-copy"><span className="eyebrow">{String(index + 1).padStart(2, "0")} / {project.category}</span><h3>{project.title}</h3><p>{project.description}</p><button className="text-button" type="button" onClick={() => setSelected(project)}>Assistir projeto <ArrowUpRight size={18} aria-hidden="true" /></button></div></article>)}</div>
+        </section>
 
-        .dot-grid {
-          background-image: radial-gradient(circle, rgba(255,255,255,0.048) 1px, transparent 1px);
-          background-size: 28px 28px;
-        }
-        .glass {
-          background: rgba(255,255,255,0.03);
-          border: 1px solid rgba(255,255,255,0.07);
-          backdrop-filter: blur(12px);
-          -webkit-backdrop-filter: blur(12px);
-        }
-        .card-hover {
-          transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.5s cubic-bezier(.25,.46,.45,.94);
-        }
-        .card-hover:hover {
-          border-color: rgba(139,92,246,0.42) !important;
-          box-shadow: 0 0 40px rgba(109,40,217,0.22) !important;
-          transform: translateY(-4px);
-        }
-        .badge {
-          background: rgba(139,92,246,0.12);
-          border: 1px solid rgba(139,92,246,0.28);
-          color: #c4b5fd;
-          font-size: 10px;
-          letter-spacing: 0.3em;
-          text-transform: uppercase;
-          padding: 4px 14px;
-          border-radius: 100px;
-          font-family: "Manrope", sans-serif;
-          font-weight: 500;
-        }
-        .nav-glass {
-          background: rgba(9,10,12,0.78);
-          border-bottom: 1px solid rgba(255,255,255,0.05);
-          backdrop-filter: blur(20px);
-          -webkit-backdrop-filter: blur(20px);
-        }
-        ::-webkit-scrollbar { width: 4px; }
-        ::-webkit-scrollbar-track { background: #090a0c; }
-        ::-webkit-scrollbar-thumb { background: rgba(139,92,246,0.3); border-radius: 2px; }
-      `}</style>
+        <section className="section other-section page-width" id="projects" aria-labelledby="projects-heading"><div className="section-heading"><div><p className="eyebrow">02 / Explorar</p><h2 id="projects-heading">Mais trabalhos<span className="brand-dot">.</span></h2></div><p>Uma seleção de experimentos, interfaces e edições.</p></div><div className="filters" role="group" aria-label="Filtrar projetos">{categories.map((item) => <button key={item} type="button" aria-pressed={category === item} onClick={() => setCategory(item)}>{item}</button>)}</div><div className="project-grid">{shown.map((project) => <button type="button" className="project-tile project-button" key={project.id} onClick={() => setSelected(project)} aria-label={`Assistir ${project.title}`}><span className="tile-media"><ProjectImage project={project} /><span className="tile-arrow"><ArrowUpRight size={22} aria-hidden="true" /></span></span><span className="tile-info"><span>{project.category}</span><strong>{project.title}</strong></span></button>)}</div>{category === "Todos" && !showAll && <button className="show-more" type="button" onClick={() => setShowAll(true)}>Ver todos os projetos <ArrowDownRight size={18} aria-hidden="true" /></button>}</section>
 
-      {/* ── CUSTOM CURSOR ─────────────────────────────────────────────────────── */}
-      {!isTouch && (
-        <>
-          <motion.div
-            className="fixed z-[200] pointer-events-none rounded-full"
-            style={{
-              x: cursorXSpring, y: cursorYSpring,
-              width:  cursorHover ? 44 : 32,
-              height: cursorHover ? 44 : 32,
-              background: cursorHover ? "rgba(139,92,246,0.18)" : "transparent",
-              border: `1px solid rgba(139,92,246,${cursorHover ? 0.75 : 0.45})`,
-              boxShadow: `0 0 ${cursorHover ? 22 : 12}px rgba(109,40,217,${cursorHover ? 0.55 : 0.28})`,
-              transition: "width 0.18s ease, height 0.18s ease, background 0.18s ease",
-            }}
-          />
-          <motion.div
-            className="fixed z-[200] pointer-events-none rounded-full"
-            style={{
-              x: cursorX, y: cursorY,
-              width: 4, height: 4,
-              marginLeft: 14, marginTop: 14,
-              background: "rgba(139,92,246,0.9)",
-            }}
-          />
-        </>
-      )}
+        <section className="about-section" id="about" aria-labelledby="about-heading"><div className="about-inner page-width"><div className="portrait"><Image src="/about/perfil.jpg" alt="André, motion designer" fill sizes="(max-width: 600px) 100vw, 40vw" /></div><div className="about-copy"><p className="eyebrow">03 / Sobre</p><h2 id="about-heading">Ideias em movimento<span className="brand-dot">.</span></h2><p>Sou André, motion designer e editor no Brasil. Trabalho com animação, narrativa visual e edição para dar ritmo e personalidade a cada projeto.</p><a className="text-button" href="#contact">Vamos conversar <ArrowUpRight size={18} aria-hidden="true" /></a></div></div></section>
 
-      {/* ── SPLASH ────────────────────────────────────────────────────────────── */}
-      <AnimatePresence>
-        {splash && (
-          <motion.div
-            className="fixed inset-0 z-[150] flex items-center justify-center"
-            style={{ background: "#090a0c" }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.75, ease: "easeInOut" }}
-          >
-            <motion.div
-              initial={{ opacity: 0, scale: 0.88, y: 20 }}
-              animate={{ opacity: 1, scale: 1,    y: 0 }}
-              transition={{ duration: 0.65, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className="flex flex-col items-center gap-5"
-            >
-              <motion.div
-                className="w-16 h-16 rounded-2xl flex items-center justify-center text-2xl font-bold"
-                style={{ background: "linear-gradient(135deg, #7C3AED, #3B82F6)", fontFamily: "Syne, sans-serif", boxShadow: "0 0 70px rgba(109,40,217,0.6)" }}
-                animate={{ boxShadow: ["0 0 70px rgba(109,40,217,0.6)", "0 0 100px rgba(109,40,217,0.9)", "0 0 70px rgba(109,40,217,0.6)"] }}
-                transition={{ duration: 1.8, repeat: Infinity }}
-              >A</motion.div>
-              <motion.span
-                className="text-[12px] uppercase tracking-[0.45em] text-white/45"
-                initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 }}
-                style={{ fontFamily: "Syne, sans-serif" }}
-              >ANDREMOGRAPH</motion.span>
-              <div className="w-32 h-[1px] rounded-full overflow-hidden" style={{ background: "rgba(255,255,255,0.06)" }}>
-                <motion.div
-                  className="h-full rounded-full"
-                  style={{ background: "linear-gradient(90deg, #7C3AED, #3B82F6)" }}
-                  initial={{ width: "0%" }} animate={{ width: "100%" }}
-                  transition={{ delay: 0.5, duration: 1.4, ease: "easeInOut" }}
-                />
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+        <section className="section process-section page-width" id="process" aria-labelledby="process-heading"><div className="section-heading"><div><p className="eyebrow">04 / Como trabalho</p><h2 id="process-heading">Do conceito à entrega<span className="brand-dot">.</span></h2></div></div><div className="process-grid"><article><span>01</span><h3>Briefing</h3><p>Entendo os objetivos, o tom e as referências do projeto.</p></article><article><span>02</span><h3>Criação</h3><p>Desenvolvo a animação e a edição com atenção a cada frame.</p></article><article><span>03</span><h3>Revisão</h3><p>Ajustamos juntos o resultado até chegar à direção certa.</p></article><article><span>04</span><h3>Entrega</h3><p>Preparo os arquivos finais para cada plataforma e uso.</p></article></div></section>
 
-      <div className="min-h-screen bg-[#090a0c] text-white relative" style={{ overflowX: "hidden" }}>
+        <section className="contact-section page-width" id="contact" aria-labelledby="contact-heading"><p className="eyebrow">05 / Contato</p><h2 id="contact-heading">VAMOS CRIAR<br /><em>JUNTOS.</em></h2><p>Tem um projeto em mente? Conte sua ideia pelo Instagram.</p><a className="button button-gold" href={instagram} target="_blank" rel="noopener noreferrer"><Instagram size={20} aria-hidden="true" /> Conversar pelo Instagram <ArrowUpRight size={18} aria-hidden="true" /></a></section>
+      </main>
 
-        {/* ── BACKGROUND ────────────────────────────────────────────────────── */}
-        <div className="fixed inset-0 z-0 pointer-events-none dot-grid" style={{ overflow: "hidden" }}>
-          <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover opacity-[0.1]">
-            <source src="/background/BG.mp4" type="video/mp4" />
-          </video>
-          <motion.div className="absolute top-[-200px] left-[-150px] w-[780px] h-[780px] rounded-full"
-            style={{ y: orb1Y, background: "radial-gradient(circle, rgba(109,40,217,0.32) 0%, transparent 70%)" }} />
-          <motion.div className="absolute top-[15%] right-[-250px] w-[660px] h-[660px] rounded-full"
-            style={{ y: orb2Y, background: "radial-gradient(circle, rgba(37,99,235,0.23) 0%, transparent 70%)" }} />
-          <motion.div className="absolute bottom-[5%] left-[25%] w-[560px] h-[560px] rounded-full"
-            style={{ y: orb3Y, background: "radial-gradient(circle, rgba(8,145,178,0.16) 0%, transparent 70%)" }} />
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_25%,#090a0c_85%)]" />
-          <div className="absolute inset-0 bg-[#090a0c]/30" />
-          <div className="absolute inset-0 mix-blend-overlay"
-            style={{
-              opacity: 0.04,
-              backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
-            }}
-          />
-        </div>
+      <footer className="site-footer page-width"><a className="brand" href="#top">ANDRÉ<span>MO</span>GRAPH<span className="brand-dot">.</span></a><span>© {new Date().getFullYear()} André · Motion designer, Brasil</span><a href={instagram} target="_blank" rel="noopener noreferrer">Instagram ↗</a></footer>
 
-        {/* ── CONTENT ───────────────────────────────────────────────────────── */}
-        <div className="relative z-10">
-
-          {/* ── NAV ─────────────────────────────────────────────────────────── */}
-          <nav className="fixed top-0 left-0 w-full z-50 px-6 md:px-10 py-5 flex items-center justify-between nav-glass">
-            <div className="flex items-center gap-3">
-              <div className="w-7 h-7 rounded-lg flex items-center justify-center text-[11px] font-bold"
-                style={{ background: "linear-gradient(135deg,#7C3AED,#3B82F6)", fontFamily: "Syne,sans-serif" }}>A</div>
-              <span className="text-[11px] uppercase tracking-[0.3em] font-semibold text-white/75" style={{ fontFamily: "Syne,sans-serif" }}>
-                ANDREMOGRAPH
-              </span>
-            </div>
-            <div className="hidden md:flex items-center gap-8">
-              {[["#work","Work"],["#process","Processo"],["#grid","Projetos"],["#contact","Contato"]].map(([href, label]) => (
-                <a key={href} href={href} data-hover
-                  className="text-[11px] uppercase tracking-[0.25em] text-white/32 hover:text-white/70 transition-colors duration-300">
-                  {label}
-                </a>
-              ))}
-            </div>
-          </nav>
-
-          <main className="w-full flex flex-col items-center">
-
-            {/* ── HERO ──────────────────────────────────────────────────────── */}
-            <section className="w-full max-w-[1280px] px-6 md:px-10 min-h-screen flex items-center pt-20 relative" style={{ overflow: "hidden" }}>
-              <motion.div
-                className="absolute left-0 right-0 h-px pointer-events-none z-20"
-                style={{ background: "linear-gradient(90deg,transparent 0%,rgba(139,92,246,0.65) 30%,rgba(59,130,246,0.45) 70%,transparent 100%)" }}
-                initial={{ top: "8%", opacity: 0 }}
-                animate={{ top: "96%", opacity: [0, 0.9, 0.9, 0] }}
-                transition={{ duration: 2.6, delay: 2.6, ease: "linear" }}
-              />
-
-              <div className="w-full grid lg:grid-cols-[1fr_400px] items-center gap-16">
-                <motion.div
-                  initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 1, delay: 0.4, ease: [0.25,0.46,0.45,0.94] }}
-                  className="max-w-[720px]"
-                >
-                  <div className="badge inline-block mb-8">Motion Designer — Brazil</div>
-                  <h1 className="leading-[0.88] tracking-[-0.05em] font-bold"
-                    style={{ fontFamily: "Syne,sans-serif", fontSize: "clamp(50px,8vw,90px)" }}>
-                    Motion Design<br />
-                    <span style={{
-                      background: "linear-gradient(135deg,rgba(139,92,246,0.95) 0%,rgba(59,130,246,0.72) 50%,rgba(255,255,255,0.22) 100%)",
-                      WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
-                    }}>&amp; Direção Visual</span>
-                  </h1>
-                  <p className="mt-8 max-w-[480px] text-white/38 text-[15px] leading-relaxed font-light">
-                    Motion design e edição cinematográfica com foco em atmosfera, ritmo e presença visual.
-                  </p>
-                  <div className="mt-10 flex items-center gap-4">
-                    <div className="h-px w-12 bg-gradient-to-r from-violet-500/60 to-transparent" />
-                    <span className="text-[11px] uppercase tracking-[0.3em] text-white/22">Portfolio</span>
-                  </div>
-                </motion.div>
-
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 1, delay: 0.5, ease: [0.25,0.46,0.45,0.94] }}
-                  className="w-full flex flex-col items-center"
-                >
-                  <div className="w-full max-w-[370px] aspect-[4/5] rounded-[28px] overflow-hidden relative"
-                    style={{ border: "1px solid rgba(139,92,246,0.2)", boxShadow: "0 0 65px rgba(109,40,217,0.22),0 0 130px rgba(37,99,235,0.1)" }}>
-                    <img src="/about/perfil.jpg" alt="Andre" className="w-full h-full object-cover"
-                      style={{ filter: "grayscale(10%) brightness(0.9)" }} />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#090a0c]/65 via-transparent to-transparent" />
-                  </div>
-
-                  <div id="contact" className="mt-7 w-full max-w-[370px]">
-                    <div className="rounded-2xl p-5"
-                      style={{ background:"rgba(255,255,255,0.025)", border:"1px solid rgba(255,255,255,0.07)", backdropFilter:"blur(16px)" }}>
-                      <div className="flex items-center gap-2 mb-4">
-                        <span className="text-[10px] uppercase tracking-[0.3em] text-white/28">Contato</span>
-                        <motion.div animate={{ x:[0,5,0], opacity:[0.4,1,0.4] }} transition={{ duration:2, repeat:Infinity }}>
-                          <ArrowRight size={13} className="text-violet-400" />
-                        </motion.div>
-                      </div>
-                      <div className="flex items-center gap-3">
-                        {CONTACTS.map((c, i) => {
-                          const Icon = c.icon;
-                          return (
-                            <a key={i} href={c.href} title={c.label} data-hover>
-                              <div className="w-12 h-12 rounded-xl flex items-center justify-center text-white/45 hover:text-violet-300 transition-all duration-300 glass card-hover">
-                                <Icon size={18} />
-                              </div>
-                            </a>
-                          );
-                        })}
-                      </div>
-                    </div>
-                  </div>
-                </motion.div>
-              </div>
-            </section>
-
-            {/* ── STATS ─────────────────────────────────────────────────────── */}
-            <section className="w-full max-w-[1280px] px-6 md:px-10 py-10">
-              <div className="h-px w-full bg-gradient-to-r from-transparent via-white/8 to-transparent mb-20" />
-              <motion.div
-                initial={{ opacity:0, y:30 }} whileInView={{ opacity:1, y:0 }}
-                viewport={{ once:true }} transition={{ duration:0.8 }}
-                className="grid grid-cols-3 gap-8"
-              >
-                {STATS.map((s, i) => (
-                  <AnimatedCounter key={i} value={s.value} suffix={s.suffix} label={s.label} />
-                ))}
-              </motion.div>
-              <div className="h-px w-full bg-gradient-to-r from-transparent via-white/8 to-transparent mt-20" />
-            </section>
-
-            {/* ── FEATURED ──────────────────────────────────────────────────── */}
-            <section id="work" className="w-full max-w-[1280px] px-6 md:px-10 pb-36 space-y-24">
-              <div className="flex items-center gap-4">
-                <div className="h-px w-14 bg-gradient-to-r from-violet-500/30 to-transparent" />
-                <span className="badge">Trabalhos em Destaque</span>
-              </div>
-
-              {FEATURED_VIDEOS.map((video, index) => (
-                <motion.div
-                  key={video.id}
-                  initial={{ opacity:0, y:50 }} whileInView={{ opacity:1, y:0 }}
-                  viewport={{ once:true, margin:"-100px" }}
-                  transition={{ duration:0.9, ease:[0.25,0.46,0.45,0.94] }}
-                  className={`grid lg:grid-cols-[1fr_380px] gap-12 items-center ${index%2!==0 ? "lg:[&>*:first-child]:order-2" : ""}`}
-                >
-                  <div
-                    onClick={() => setSelectedVideo(video)} data-hover
-                    className="group relative w-full aspect-video rounded-[24px] overflow-hidden cursor-pointer card-hover"
-                    style={{ background:"#0c0d10", border:"1px solid rgba(255,255,255,0.06)", boxShadow:"0 4px 40px rgba(0,0,0,0.5)" }}
-                  >
-                    <Thumbnail video={video} />
-                    <div className="absolute inset-0 bg-black/15 group-hover:bg-black/5 transition-colors duration-500 flex items-center justify-center">
-                      <div
-                        className="w-[70px] h-[70px] rounded-full flex items-center justify-center border opacity-0 group-hover:opacity-100 transition-all scale-90 group-hover:scale-100 duration-400"
-                        style={{ background:"rgba(109,40,217,0.25)", backdropFilter:"blur(12px)", borderColor:"rgba(139,92,246,0.5)", boxShadow:"0 0 32px rgba(109,40,217,0.45)" }}
-                      >
-                        <Play size={24} fill="white" className="ml-1" />
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="max-w-[380px]">
-                    <span className="badge inline-block mb-5">{video.category}</span>
-                    <h2 className="font-bold leading-[1.0] tracking-[-0.04em]"
-                      style={{ fontFamily:"Syne,sans-serif", fontSize:"clamp(30px,4vw,50px)" }}>
-                      {video.title}
-                    </h2>
-                    <div className="mt-4 h-px w-10 bg-gradient-to-r from-violet-500/60 to-transparent" />
-                    <p className="mt-5 text-white/36 text-[14px] leading-relaxed">{video.description}</p>
-                  </div>
-                </motion.div>
-              ))}
-            </section>
-
-            {/* ── PROCESS ───────────────────────────────────────────────────── */}
-            <section id="process" className="w-full max-w-[1280px] px-6 md:px-10 pb-36">
-              <div className="h-px w-full bg-gradient-to-r from-transparent via-white/8 to-transparent mb-20" />
-              <div className="flex items-center gap-4 mb-14">
-                <div className="h-px w-14 bg-gradient-to-r from-violet-500/30 to-transparent" />
-                <span className="badge">Processo de Criação</span>
-              </div>
-              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-                {PROCESS_STEPS.map((step, i) => {
-                  const Icon = step.icon;
-                  return (
-                    <motion.div
-                      key={step.number}
-                      initial={{ opacity:0, y:40 }} whileInView={{ opacity:1, y:0 }}
-                      viewport={{ once:true }} transition={{ duration:0.7, delay:i*0.1 }}
-                      className="rounded-[20px] p-6 card-hover relative overflow-hidden"
-                      style={{ background:"rgba(255,255,255,0.025)", border:"1px solid rgba(255,255,255,0.06)" }}
-                    >
-                      <span className="absolute top-4 right-5 font-bold select-none"
-                        style={{ fontFamily:"Syne,sans-serif", fontSize:"52px", color:"rgba(255,255,255,0.025)", lineHeight:1 }}>
-                        {step.number}
-                      </span>
-                      <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-6"
-                        style={{ background:"rgba(139,92,246,0.12)", border:"1px solid rgba(139,92,246,0.25)" }}>
-                        <Icon size={17} className="text-violet-400" />
-                      </div>
-                      <h3 className="text-[17px] font-semibold mb-3 relative z-10" style={{ fontFamily:"Syne,sans-serif" }}>
-                        {step.title}
-                      </h3>
-                      <p className="text-white/36 text-[13px] leading-relaxed relative z-10">{step.description}</p>
-                      {i < PROCESS_STEPS.length - 1 && (
-                        <div className="mt-5 flex items-center">
-                          <div className="h-px flex-1 bg-gradient-to-r from-violet-500/20 to-transparent" />
-                          <ArrowRight size={11} className="text-violet-500/30 ml-1.5" />
-                        </div>
-                      )}
-                    </motion.div>
-                  );
-                })}
-              </div>
-            </section>
-
-            {/* ── GRID + FILTER ─────────────────────────────────────────────── */}
-            <section id="grid" className="w-full max-w-[1280px] px-6 md:px-10 pb-48">
-              <div className="flex items-center justify-between mb-12 flex-wrap gap-6">
-                <div className="flex items-center gap-4">
-                  <div className="h-px w-14 bg-gradient-to-r from-violet-500/30 to-transparent" />
-                  <span className="badge">Mais Projetos</span>
-                </div>
-                <div className="flex items-center gap-2 flex-wrap">
-                  {CATEGORIES.map((cat) => (
-                    <button key={cat} onClick={() => setActiveCategory(cat)} data-hover
-                      className="text-[10px] uppercase tracking-[0.25em] px-4 py-2 rounded-xl transition-all duration-300"
-                      style={{
-                        background: activeCategory === cat ? "rgba(139,92,246,0.2)" : "rgba(255,255,255,0.03)",
-                        border:     `1px solid ${activeCategory === cat ? "rgba(139,92,246,0.5)" : "rgba(255,255,255,0.07)"}`,
-                        color:      activeCategory === cat ? "#c4b5fd" : "rgba(255,255,255,0.33)",
-                        boxShadow:  activeCategory === cat ? "0 0 20px rgba(109,40,217,0.2)" : "none",
-                      }}
-                    >{cat}</button>
-                  ))}
-                </div>
-              </div>
-
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={activeCategory}
-                  initial={{ opacity:0, y:16 }} animate={{ opacity:1, y:0 }}
-                  exit={{ opacity:0, y:-10 }} transition={{ duration:0.4 }}
-                  className="grid grid-cols-1 md:grid-cols-2 gap-7"
-                >
-                  {filteredGrid.map((video, i) => (
-                    <motion.div
-                      key={video.id}
-                      initial={{ opacity:0, y:30 }} animate={{ opacity:1, y:0 }}
-                      transition={{ duration:0.5, delay:(i%3)*0.07 }}
-                      onClick={() => setSelectedVideo(video)} data-hover
-                      className="group cursor-pointer"
-                    >
-                      <div className="relative aspect-video rounded-[20px] overflow-hidden card-hover"
-                        style={{ background:"#0c0d10", border:"1px solid rgba(255,255,255,0.06)" }}>
-                        <Thumbnail video={video} />
-                        <div className="absolute inset-0 bg-gradient-to-t from-[#090a0c]/88 via-[#090a0c]/18 to-transparent" />
-                        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-400">
-                          <div className="w-12 h-12 rounded-full flex items-center justify-center border transform scale-75 group-hover:scale-100 transition-all duration-400"
-                            style={{ background:"rgba(109,40,217,0.3)", backdropFilter:"blur(10px)", borderColor:"rgba(139,92,246,0.5)" }}>
-                            <Play size={17} fill="white" className="ml-0.5" />
-                          </div>
-                        </div>
-                        <div className="absolute bottom-5 left-5 right-5">
-                          <span className="text-[9px] uppercase tracking-[0.3em] text-white/28 block mb-1.5">{video.category}</span>
-                          <h3 className="text-[19px] tracking-[-0.03em] font-semibold leading-tight" style={{ fontFamily:"Syne,sans-serif" }}>
-                            {video.title}
-                          </h3>
-                        </div>
-                      </div>
-                    </motion.div>
-                  ))}
-                </motion.div>
-              </AnimatePresence>
-            </section>
-
-          </main>
-
-          {/* ── FOOTER ────────────────────────────────────────────────────────── */}
-          <footer className="relative z-10 py-12 px-6 md:px-10" style={{ borderTop:"1px solid rgba(255,255,255,0.05)" }}>
-            <div className="max-w-[1280px] mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
-              <div className="flex items-center gap-3">
-                <div className="w-7 h-7 rounded-lg flex items-center justify-center text-[11px] font-bold"
-                  style={{ background:"linear-gradient(135deg,#7C3AED,#3B82F6)", fontFamily:"Syne,sans-serif" }}>A</div>
-                <span className="text-[11px] uppercase tracking-[0.3em] text-white/36" style={{ fontFamily:"Syne,sans-serif" }}>
-                  ANDREMOGRAPH
-                </span>
-              </div>
-              <div className="flex items-center gap-5">
-                {CONTACTS.map((c, i) => {
-                  const Icon = c.icon;
-                  return (
-                    <a key={i} href={c.href} title={c.label} data-hover
-                      className="text-white/24 hover:text-violet-400 transition-colors duration-300">
-                      <Icon size={16} />
-                    </a>
-                  );
-                })}
-              </div>
-              <span className="text-[11px] text-white/18">
-                © {new Date().getFullYear()} André Rodrigues. Todos os direitos reservados.
-              </span>
-            </div>
-          </footer>
-        </div>
-
-        {/* ── MODAL ─────────────────────────────────────────────────────────── */}
-        <AnimatePresence>
-          {selectedVideo && (
-            <motion.div
-              initial={{ opacity:0 }} animate={{ opacity:1 }} exit={{ opacity:0 }}
-              transition={{ duration:0.25 }}
-              className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-10"
-              onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}
-            >
-              <div className="absolute inset-0"
-                style={{ background:"rgba(4,5,8,0.94)", backdropFilter:"blur(26px)" }}
-                onClick={() => setSelectedVideo(null)} />
-              <button onClick={() => setSelectedVideo(null)} data-hover
-                className="absolute top-6 right-6 z-20 w-10 h-10 rounded-xl flex items-center justify-center text-white/38 hover:text-white transition-all glass"
-                style={{ border:"1px solid rgba(255,255,255,0.07)" }}>
-                <X size={18} />
-              </button>
-              <div className="absolute top-6 left-1/2 -translate-x-1/2 text-[10px] uppercase tracking-[0.25em] text-white/18 md:hidden select-none">
-                Arraste para baixo para fechar
-              </div>
-              <motion.div
-                initial={{ scale:0.94, opacity:0, y:22 }}
-                animate={{ scale:1,    opacity:1, y:0 }}
-                exit={{   scale:0.94, opacity:0, y:22 }}
-                transition={{ duration:0.38, ease:[0.25,0.46,0.45,0.94] }}
-                className="relative w-full max-w-5xl aspect-video rounded-[24px] overflow-hidden"
-                style={{ border:"1px solid rgba(139,92,246,0.28)", boxShadow:"0 0 90px rgba(109,40,217,0.32),0 40px 120px rgba(0,0,0,0.85)" }}
-              >
-                {!iframeLoaded && (
-                  <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-4" style={{ background:"#0c0d10" }}>
-                    <motion.div animate={{ rotate:360 }} transition={{ duration:1, repeat:Infinity, ease:"linear" }}
-                      className="w-9 h-9 rounded-full"
-                      style={{ border:"2px solid rgba(139,92,246,0.18)", borderTopColor:"rgba(139,92,246,0.9)" }} />
-                    <span className="text-[11px] uppercase tracking-[0.3em] text-white/24">Carregando</span>
-                  </div>
-                )}
-                <iframe
-                  src={`https://www.youtube-nocookie.com/embed/${selectedVideo.youtubeId}?autoplay=1&rel=0&modestbranding=1`}
-                  className="w-full h-full absolute inset-0"
-                  allow="autoplay; fullscreen; picture-in-picture"
-                  allowFullScreen
-                  onLoad={() => setIframeLoaded(true)}
-                />
-              </motion.div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-      </div>
-    </>
+      {selected && <div className="modal-backdrop" data-project-modal onMouseDown={(event) => { if (event.target === event.currentTarget) setSelected(null); }}><div className="project-modal" role="dialog" aria-modal="true" aria-labelledby="modal-heading"><div className="modal-heading"><div><span className="eyebrow">{selected.category}</span><h2 id="modal-heading">{selected.title}</h2></div><button ref={closeRef} type="button" onClick={() => setSelected(null)} aria-label="Fechar vídeo"><X size={24} /></button></div>{selected.youtubeId ? <iframe key={selected.id} title={selected.title} src={`https://www.youtube-nocookie.com/embed/${selected.youtubeId}?autoplay=1&rel=0`} allow="autoplay; fullscreen; picture-in-picture" allowFullScreen /> : <video key={selected.id} src={selected.localVideo} poster={selected.poster} controls playsInline preload="metadata" aria-label={`Vídeo: ${selected.title}`} />}</div></div>}
+    </div>
   );
 }
