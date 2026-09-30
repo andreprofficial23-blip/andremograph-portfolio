@@ -216,3 +216,5 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--gold); outline-
 .color-picker button { padding: 11px 18px; border-radius: 999px; border: 1px solid #ffffff25; background: #ffffff06; color: #ffffffb0; font-size: 13px; cursor: pointer; }
 .color-picker button[aria-pressed="true"] { background: var(--gold); color: #17120c; border-color: var(--gold); }
 .color-picker button:focus-visible { outline: 2px solid var(--gold); outline-offset: 4px; }
+
+.color-preview { display: block; width: 100%; aspect-ratio: 9/16; border-radius: 16px; background: #141517; border: 1px solid #ffffff24; margin-bottom: 24px; }

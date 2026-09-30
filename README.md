@@ -32,6 +32,7 @@ O repositório GitHub é `andreprofficial23-blip/andremograph-portfolio`. A Verc
 
 ## Color grading e depoimentos
 
-`app/color-studies.ts` recebe frames antes/depois do mesmo take. A seção e o link de navegação aparecem somente quando há material; o comparador funciona com mouse, toque e teclado. `app/testimonials.ts` recebe apenas frases reais autorizadas. Não há exemplos fictícios no site.
+`app/color-studies.ts` apresenta trechos de 12 segundos das aberturas de Alice, Daiane e Bruna, com color grading e títulos animados. O seletor permite assistir um projeto por vez, com controles e sem reprodução automática. `app/testimonials.ts` recebe apenas frases reais autorizadas. Não há exemplos fictícios no site.
 
 Os créditos de pós-produção foram confirmados por André; a captação é de terceiros. Os três maiores vídeos foram reduzidos de 103,6 MB para 57,3 MB mantendo suas resoluções.
+

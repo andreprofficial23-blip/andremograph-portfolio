@@ -1,19 +1,9 @@
 "use client";
-
-import Image from "next/image";
-import { useState } from "react";
 import type { ColorStudy } from "./color-studies";
-
-export default function ColorComparison({ study }: { study: ColorStudy }) {
-  const [position, setPosition] = useState(50);
-  return <article className={"color-study " + (study.aspectRatio === "9/16" ? "color-study-portrait" : "")}>
-    <div className="color-compare" style={{ aspectRatio: study.aspectRatio ?? "16/9" }}>
-      <Image src={study.afterImage} alt={study.title + ": depois do tratamento de cor"} fill sizes="(max-width: 900px) 100vw, 70vw" />
-      <div className="color-before" style={{ clipPath: "inset(0 " + (100 - position) + "% 0 0)" }}><Image src={study.beforeImage} alt={study.title + ": imagem antes do tratamento"} fill sizes="(max-width: 900px) 100vw, 70vw" /></div>
-      <span className="compare-label before-label">Antes</span><span className="compare-label after-label">Depois</span>
-      <span className="compare-line" style={{ left: position + "%" }} aria-hidden="true"><span>↔</span></span>
-    </div>
-    <label className="compare-control">Compare o tratamento de cor<input type="range" min="0" max="100" value={position} onChange={event => setPosition(Number(event.target.value))} aria-label={"Comparar antes e depois: " + study.title} aria-valuetext={position + "% da imagem original"} /></label>
+export default function ColorStudyPlayer({ study }: { study: ColorStudy }) {
+  return <article className="color-study color-study-portrait">
+    <video className="color-preview" src={study.video} poster={study.poster} controls playsInline preload="none" aria-label={"Assistir trecho de " + study.title} />
+    <p className="eyebrow">Edição final · Color grading e motion</p>
     <h3>{study.title}</h3><p>{study.description}</p>
   </article>;
 }
