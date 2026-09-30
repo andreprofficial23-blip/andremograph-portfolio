@@ -142,3 +142,32 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--gold); outline-
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; }
   .hero-glow { display: none; }
 }
+
+.cover-copy { position: absolute; inset: auto 0 0; padding: 52px 24px 24px; display: flex; flex-direction: column; gap: 8px; background: linear-gradient(transparent, rgba(0,0,0,.83)); color: white; pointer-events: none; }
+.cover-copy small { font-size: 9px; letter-spacing: .17em; }
+.cover-copy strong { font-size: clamp(23px, 2.3vw, 36px); font-weight: 500; letter-spacing: -.045em; line-height: 1.05; }
+.featured-media .cover-copy { padding: 70px 30px 28px; }
+.featured-media .cover-copy strong { font-size: clamp(32px, 4vw, 56px); }
+.tile-arrow { top: 14px; bottom: auto; }
+.project-filters { display: flex; flex-wrap: wrap; gap: 9px; margin-bottom: 28px; }
+.project-filters button { border: 1px solid #ffffff24; background: #ffffff06; color: #ffffffad; border-radius: 99px; padding: 10px 17px; font-size: 12px; }
+.project-filters button[aria-pressed="true"] { background: var(--gold); border-color: var(--gold); color: #17120c; }
+.show-more { margin-top: 30px; }
+.social-links { display: flex; flex-wrap: wrap; gap: 25px; margin-top: 30px; }
+.social-links a { color: #ffffff9c; font-size: 13px; text-decoration: none; }
+.social-links a:hover { color: var(--gold); }
+.project-modal { max-height: calc(100dvh - 48px); overflow-y: auto; width: min(100%, 1000px); }
+.project-modal video, .project-modal video.video-portrait { width: 100%; height: min(44vh, 460px); max-height: none; aspect-ratio: auto; object-fit: contain; }
+.modal-copy { padding: 24px 8px 8px; }
+.modal-copy h2 { font-size: clamp(26px, 4vw, 40px); line-height: 1.1; letter-spacing: -.045em; margin: 12px 0; font-weight: 500; }
+.modal-copy p { max-width: 720px; font-size: 14px; line-height: 1.65; color: #ffffffa6; }
+.modal-copy .project-note { font-size: 12px; color: #c9aa74; }
+.modal-copy .button { margin-top: 20px; }
+@media (max-width: 600px) {
+ .modal-backdrop { padding: 12px; }
+ .project-modal { max-height: calc(100dvh - 24px); }
+ .modal-copy { padding-inline: 0; }
+ .portrait { aspect-ratio: 4/5; }
+ .cover-copy { padding: 45px 18px 20px; }
+ .hero h1 { font-size: clamp(44px, 11.7vw, 68px); }
+}
