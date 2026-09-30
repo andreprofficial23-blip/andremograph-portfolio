@@ -1,6 +1,6 @@
 # Próximos ajustes
 
-- A seção apresenta trechos das aberturas finais de Alice, Daiane e Bruna. Para futuros comparativos antes/depois, usar o mesmo instante e enquadramento.
+- A seção reúne antes/depois e aberturas sem react de Alice 04, Daiane 04 e Bruna 29-09. Novos comparativos devem usar o mesmo instante e enquadramento.
 - Acrescentar depoimentos somente depois de receber textos reais e autorização dos clientes.
 - Procurar a exportação final do anúncio de color grading. Por enquanto, o catálogo identifica claramente a gravação de tela como prévia.
 - Retrato em preto e branco publicado; manter a identidade visual atual.

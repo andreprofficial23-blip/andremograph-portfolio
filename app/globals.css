@@ -218,3 +218,14 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--gold); outline-
 .color-picker button:focus-visible { outline: 2px solid var(--gold); outline-offset: 4px; }
 
 .color-preview { display: block; width: 100%; aspect-ratio: 9/16; border-radius: 16px; background: #141517; border: 1px solid #ffffff24; margin-bottom: 24px; }
+
+.color-study-combined { max-width: 760px; }
+.color-study-media { display: grid; grid-template-columns: repeat(2, minmax(0, 340px)); gap: 40px; justify-content: center; margin-bottom: 32px; }
+.color-study-pair > .eyebrow { color: var(--gold); font-size: 10px; margin-bottom: 14px; }
+.color-study-combined .color-preview { margin-bottom: 18px; }
+.color-study-combined .compare-control { gap: 12px; font-size: 11px; flex-wrap: wrap; }
+.color-study-combined .color-media-note { font-size: 11px; }
+.color-study-combined .color-credit { font-size: 11px; color: #ffffff66; margin-top: 14px; }
+@media (max-width: 600px) {
+  .color-study-media { grid-template-columns: minmax(0, 340px); gap: 30px; }
+}
