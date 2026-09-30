@@ -1,6 +1,7 @@
 # Próximos ajustes
 
-- Acrescentar uma seção dedicada a color grading quando André tiver os exemplos de antes/depois.
+- A seção de color grading compara frames reais dos brutos e das edições finais. Novos exemplos devem usar o mesmo instante e enquadramento.
+- Acrescentar depoimentos somente depois de receber textos reais e autorização dos clientes.
 - Procurar a exportação final do anúncio de color grading. Por enquanto, o catálogo identifica claramente a gravação de tela como prévia.
-- Retrato do café criado com IA usando a selfie como referência; revisar semelhança com André.
-- Servidor Flash Point organizado com Estúdio, Comunidade e Gaming, canais de projetos/feedback e referências, cinema/anime e partidas; sala de edição e lobby de voz. Perfil atualizado com descrição e interesses. Canais originais preservados.
+- Retrato em preto e branco publicado; manter a identidade visual atual.
+- Servidor Flash Point organizado com Estúdio, Comunidade e Gaming, canais de projetos/feedback e referências, cinema/anime e partidas; sala de edição e lobby de voz. Canais originais preservados.

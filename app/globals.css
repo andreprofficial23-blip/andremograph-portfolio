@@ -209,3 +209,10 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--gold); outline-
 .project-modal video.video-portrait { width: auto; max-width: 100%; height: min(52vh, 520px); margin-inline: auto; }
 
 @media (hover: none) { .tile-arrow { opacity: 1; transform: none; width: 34px; height: 34px; } }
+
+.color-study-portrait { max-width: 460px; }
+
+.color-picker { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 28px; }
+.color-picker button { padding: 11px 18px; border-radius: 999px; border: 1px solid #ffffff25; background: #ffffff06; color: #ffffffb0; font-size: 13px; cursor: pointer; }
+.color-picker button[aria-pressed="true"] { background: var(--gold); color: #17120c; border-color: var(--gold); }
+.color-picker button:focus-visible { outline: 2px solid var(--gold); outline-offset: 4px; }
