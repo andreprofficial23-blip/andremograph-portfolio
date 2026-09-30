@@ -229,3 +229,5 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--gold); outline-
 @media (max-width: 600px) {
   .color-study-media { grid-template-columns: minmax(0, 340px); gap: 30px; }
 }
+
+.tile-media:hover img.poster-native { transform: none; }
