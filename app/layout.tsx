@@ -4,7 +4,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   metadataBase: new URL("https://andremograph.com"),
   title: "Andremograph — Motion Designer e Editor",
-  description: "Motion design, direção visual e edição por André. Conheça os trabalhos e entre em contato para seu projeto.",
+  description: "Edição e motion design para histórias feitas para sentir. Conheça os trabalhos de André e converse sobre seu projeto.",
   alternates: { canonical: "/" },
 
   icons: {
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 
   openGraph: {
     title: "Andremograph — Motion Designer e Editor",
-    description: "Motion design e edição com atenção ao ritmo, à atmosfera e aos detalhes.",
+    description: "Edição e motion design para histórias feitas para sentir. Conheça o portfólio de André.",
     url: "https://andremograph.com",
     siteName: "ANDREMOGRAPH",
     locale: "pt_BR",
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Andremograph — Motion Designer e Editor",
-    description: "Motion design e edição com atenção ao ritmo, à atmosfera e aos detalhes.",
+    description: "Edição e motion design para histórias feitas para sentir. Conheça o portfólio de André.",
     creator: "@andremograph",
     images: ["/background/hero-poster.jpg"],
   },

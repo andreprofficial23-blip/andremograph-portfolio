@@ -20,12 +20,11 @@ npm run build
 
 - `app/page.tsx` contém os projetos, textos e a estrutura da página.
 - `app/globals.css` contém o visual responsivo preto e dourado.
-- `public/videos-web/` contém os vídeos compactos exibidos sob demanda.
-- `public/thumbnails/` contém as capas dos vídeos locais.
-- Os demais trabalhos usam vídeos do YouTube, carregados apenas depois do clique.
+- `public/videos-web/` contém somente os vídeos selecionados da pasta local de André, compactados quando necessário.
+- `public/thumbnails/` contém as capas desses vídeos.
 
-Para adicionar um trabalho local, inclua o MP4 compacto e sua capa nas pastas acima e acrescente a entrada em `moreProjects` em `app/page.tsx`. Guarde os arquivos originais de alta resolução fora de `public`.
+Para adicionar um trabalho, inclua o MP4 compacto e sua capa nas pastas acima e acrescente a entrada em `featured` ou `moreProjects` em `app/page.tsx`. Guarde os arquivos originais de alta resolução fora de `public`. O arquivo original de José Otávio continua na pasta local do usuário; a versão web tem 1080p e cerca de 14 MB.
 
 ## Publicação
 
-O repositório GitHub é `andreprofficial23-blip/andremograph-portfolio`. A Vercel deve estar conectada à branch `main`. O domínio principal pretendido é `andremograph.com`; configure também `www.andremograph.com` como redirecionamento. Confira no painel da Vercel os registros DNS exigidos antes de alterar a zona DNS na Hostinger.
+O repositório GitHub é `andreprofficial23-blip/andremograph-portfolio`. A Vercel está conectada à branch `main`. O domínio principal é `andremograph.com`, com `www.andremograph.com` configurado para redirecionar a ele. O registro A na Hostinger já aponta para a Vercel; a emissão do certificado HTTPS pode levar algum tempo.
