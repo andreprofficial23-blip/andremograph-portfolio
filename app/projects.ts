@@ -12,12 +12,12 @@ export type Project = {
   note?: string;
 };
 
-export const featured: Project[] = [
+const primary: Project[] = [
   { id: "jose-otavio", title: "Sunvit — uma nova fase", category: "Edição", subtitle: "José Otávio · Filmmaker e publicitário", description: "José Otávio apresenta a Sunvit em um vídeo que aproxima a marca de quem está assistindo. Minha edição combina sua fala com títulos em movimento e um ritmo leve para deixar a mensagem clara, do começo ao fim.", coverTitle: "Uma nova fase.", coverLabel: "SUNVIT / JOSÉ OTÁVIO", video: "/videos-web/jose-otavio.mp4", poster: "/thumbnails/jose-otavio.jpg" },
   { id: "adapta", title: "Adapta — Doping de trabalho", category: "Edição", subtitle: "Inteligência artificial, explicada de outro jeito", description: "Assim como cada comprimido tem uma função, a IA também muda de papel conforme o que você precisa fazer. Uma edição que usa essa comparação, exemplos visuais e motion para tornar a ideia fácil de entender — e interessante de assistir.", coverTitle: "IA com propósito.", coverLabel: "ADAPTA / DOPING DE TRABALHO", video: "/videos-web/adapta.mp4", poster: "/thumbnails/adapta.jpg", format: "portrait" },
 ];
 
-export const moreProjects: Project[] = [
+const archive: Project[] = [
   { id: "sao-paulo", title: "São Paulo, em outro ritmo", category: "Edição", subtitle: "David · Filme urbano", description: "Um passeio por São Paulo, entre pontos da cidade e pequenos momentos do caminho. Uma edição de atmosfera urbana, com cortes e música que dão outro ritmo à viagem.", coverTitle: "São Paulo.", coverLabel: "UM OUTRO RITMO", video: "/videos-web/sao-paulo.mp4", poster: "/thumbnails/sao-paulo.jpg", format: "vertical" },
   { id: "edilane-marcos", title: "Edilane & Marcos", category: "Casamentos", subtitle: "Os detalhes antes do sim", description: "Sorrisos, preparativos e a expectativa de um dia importante. Um teaser de casamento que encontra emoção nos pequenos gestos e reúne esses momentos em uma lembrança para rever.", coverTitle: "Antes do sim.", coverLabel: "EDILANE & MARCOS", video: "/videos-web/edilane-marcos.mp4", poster: "/thumbnails/edilane-marcos.jpg" },
   { id: "lupulo", title: "Um dia para guardar", category: "Casamentos", subtitle: "Lúpulo · Teaser de casamento", description: "Da preparação à celebração, um teaser feito de encontros, abraços e emoção. A edição acompanha o clima de cada momento para contar esse dia com delicadeza.", coverTitle: "Para guardar.", coverLabel: "LÚPULO / WEDDING FILM", video: "/videos-web/lupulo.mp4", poster: "/thumbnails/lupulo.jpg" },
@@ -36,3 +36,6 @@ export function projectContact(project?: Project) {
   const message = project ? "Olá, André! Vi o projeto “" + project.title + "” no seu portfólio e queria conversar sobre um vídeo." : "Olá, André! Vi seu portfólio e queria conversar sobre um projeto.";
   return whatsapp + "?text=" + encodeURIComponent(message);
 }
+
+export const featured: Project[] = [...primary, ...["color-motion", "sao-paulo"].map(id => archive.find(p => p.id === id)!)];
+export const moreProjects = archive.filter(p => !["color-motion", "sao-paulo"].includes(p.id));
