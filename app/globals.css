@@ -253,3 +253,5 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--gold); outline-
   .oceanus-film figcaption { padding: 18px; flex-direction: column; align-items: start; }
   .oceanus-credit { padding-left: 18px; }
 }
+.oceanus-section .section-heading { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, .8fr); align-items: end; }
+@media(max-width: 900px) { .oceanus-section .section-heading { grid-template-columns: 1fr; } .oceanus-context { max-width: 600px; } }
