@@ -231,3 +231,25 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--gold); outline-
 }
 
 .tile-media:hover img.poster-native { transform: none; }
+
+.oceanus-section { padding-bottom: 30px; }
+.oceanus-context { max-width: 440px; }
+.oceanus-context p { color: #ffffff8c; font-size: 15px; line-height: 1.75; margin: 0; }
+.oceanus-context .text-button { margin-top: 16px; font-size: 13px; }
+.oceanus-film { margin: 0; border: 1px solid #ffffff24; border-radius: 16px; overflow: hidden; background: #111215; }
+.oceanus-film video { display: block; width: 100%; aspect-ratio: 16/9; object-fit: contain; background: #090a0c; }
+.oceanus-film figcaption { padding: 22px 26px; display: flex; gap: 10px; justify-content: space-between; align-items: center; }
+.oceanus-film figcaption strong { font-size: 17px; font-weight: 500; }
+.oceanus-film figcaption > span:not(.eyebrow) { color: #ffffff75; font-size: 12px; }
+.oceanus-credit { margin: 32px 0 52px; border-left: 2px solid var(--gold); padding: 3px 24px; }
+.oceanus-credit > p:last-child { margin: 10px 0; font-size: clamp(17px, 2vw, 24px); line-height: 1.5; }
+.oceanus-logos-heading { margin-bottom: 24px; }
+.oceanus-logos-heading h3 { font-size: clamp(25px, 3vw, 38px); font-weight: 400; letter-spacing: -.04em; margin: 0 0 12px; }
+.oceanus-logos-heading p { color: #ffffff75; font-size: 14px; }
+.oceanus-logos { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 24px; }
+.oceanus-logos figcaption { align-items: start; flex-direction: column; }
+@media(max-width: 600px) {
+  .oceanus-logos { grid-template-columns: 1fr; }
+  .oceanus-film figcaption { padding: 18px; flex-direction: column; align-items: start; }
+  .oceanus-credit { padding-left: 18px; }
+}

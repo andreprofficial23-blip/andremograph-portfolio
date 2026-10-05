@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import ColorGallery from "./color-gallery";
+import OceanusSection from "./oceanus";
 import { colorStudies } from "./color-studies";
 import { testimonials } from "./testimonials";
 import { ArrowDownRight, ArrowUpRight, Play, X } from "lucide-react";
@@ -56,7 +57,7 @@ export default function PortfolioPage() {
     <div className="site">
       <header className="site-header">
         <a className="brand" href="#top" aria-label="Andremograph, voltar ao início">ANDRÉ<span>MO</span>GRAPH<span className="brand-dot">.</span></a>
-        <nav aria-label="Navegação principal"><a href="#work">Trabalhos</a><a href="#projects" onClick={() => { setFilter("Casamentos"); setExpanded(false); }}>Casamentos</a><a href="#about">Sobre</a><a href="#services">Serviços</a>{colorStudies.length > 0 && <a href="#color">Color grading</a>}</nav>
+        <nav aria-label="Navegação principal"><a href="#work">Trabalhos</a><a href="#oceanus">Oceanus</a><a href="#projects" onClick={() => { setFilter("Casamentos"); setExpanded(false); }}>Casamentos</a><a href="#about">Sobre</a><a href="#services">Serviços</a>{colorStudies.length > 0 && <a href="#color">Color grading</a>}</nav>
         <a className="header-cta" href={projectContact()} target="_blank" rel="noopener noreferrer">Vamos conversar <ArrowUpRight size={16} aria-hidden="true" /></a>
       </header>
 
@@ -78,6 +79,8 @@ export default function PortfolioPage() {
 
         <section className="section other-section page-width" id="projects" aria-labelledby="projects-heading"><div className="section-heading"><div><p className="eyebrow">02 / Escolha seu estilo</p><h2 id="projects-heading">Mais trabalhos<span className="brand-dot">.</span></h2></div><p>Marcas, histórias reais e ideias que ganham movimento.</p></div><div className="project-filters" aria-label="Filtrar trabalhos">{["Todos", "Edição", "Motion", "Casamentos", "Gaming"].map(item => <button type="button" key={item} aria-pressed={filter === item} onClick={() => { setFilter(item); setExpanded(false); }}>{item}</button>)}</div><div className="project-grid">{visible.map((project) => <button type="button" className="project-tile project-button" key={project.id} onClick={() => setSelected(project)} aria-label={`Assistir ${project.title}`}><span className={`tile-media ${project.format === "vertical" ? "tile-vertical" : ""}`} style={project.posterAspectRatio ? { aspectRatio: project.posterAspectRatio } : undefined}><ProjectImage project={project} tile /><span className="cover-copy"><small>{project.coverLabel}</small></span><span className="tile-arrow"><Play fill="currentColor" size={17} aria-hidden="true" /></span></span><span className="tile-info"><span>{project.category}</span><strong>{project.title}</strong></span></button>)}</div>{filtered.length > 6 && <button className="button button-outline show-more" type="button" onClick={() => setExpanded(!expanded)}>{expanded ? "Mostrar menos" : "Ver todos os trabalhos"}</button>}</section>
 
+        <OceanusSection />
+
         {colorStudies.length > 0 && <section className="section page-width color-section" id="color" aria-labelledby="color-heading"><div className="section-heading"><div><p className="eyebrow">Color grading</p><h2 id="color-heading">Cor que cria atmosfera.<br /><em>Motion que dá presença.</em></h2></div><p>Compare o bruto com a edição final. Depois, dê play para ver a abertura com cor e motion.</p></div><ColorGallery studies={colorStudies} /></section>}
 
         <section className="about-section" id="about" aria-labelledby="about-heading"><div className="about-inner page-width"><div className="portrait"><Image src="/about/andre-portrait-bw.jpg" alt="André, motion designer" fill sizes="(max-width: 600px) 100vw, 40vw" /></div><div className="about-copy"><p className="eyebrow">03 / Por trás da imagem</p><h2 id="about-heading">Prazer, André.<br /><em>Arte é meu ponto de partida.</em></h2><p>Animes, séries e cinema sempre fizeram parte da minha vida. Gosto de um bom drama, de uma cena de ação e daqueles detalhes que fazem a gente sentir alguma coisa.</p><p>É desse lugar que vem meu olhar: combinar imagem, música e movimento para encontrar a personalidade de cada vídeo. Quero conhecer a sua ideia e dar forma a ela.</p><a className="text-button" href="#contact">Vamos criar algo juntos <ArrowUpRight size={18} aria-hidden="true" /></a></div></div></section>
@@ -97,5 +100,6 @@ export default function PortfolioPage() {
     </div>
   );
 }
+
 
 
