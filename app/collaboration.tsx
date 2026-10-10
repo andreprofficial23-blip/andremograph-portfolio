@@ -15,7 +15,7 @@ export default function Collaboration({ onWatch }: { onWatch: (project: Project)
     <div className="collaboration-panel">
       <div className="collaboration-intro">
         <a href={joseInstagram} target="_blank" rel="noopener noreferrer" aria-label="Conhecer José Otávio no Instagram" className="collaboration-portrait">
-          <Image src="/thumbnails/jose-otavio-hq.jpg" alt="José Otávio" fill sizes="(max-width: 600px) 96px, 152px" />
+          <Image src="/about/jose-otavio-portrait-4k.jpg" alt="José Otávio" fill sizes="(max-width: 600px) 96px, 152px" quality={90} />
         </a>
         <div><p className="eyebrow">Captação + pós-produção</p><h2 id="collaboration-heading">Vídeos em colaboração<br />com José Otávio.</h2><a className="collaboration-name" href={joseInstagram} target="_blank" rel="noopener noreferrer">Filmmaker & publicitário <ArrowUpRight size={14} aria-hidden="true" /></a><p className="collaboration-description">O olhar dele na captação. O meu na edição, cor e motion.</p></div>
       </div>
