@@ -18,6 +18,7 @@ function ProjectImage({ project, priority = false, tile = false }: { project: Pr
 
 export default function PortfolioPage() {
   const [selected, setSelected] = useState<Project | null>(null);
+  const [colorSelected, setColorSelected] = useState(colorStudies[0]?.id ?? "");
   const [filter, setFilter] = useState("Todos");
   const [expanded, setExpanded] = useState(false);
   const filtered = filter === "Todos" ? moreProjects : [...featured, ...moreProjects].filter(p => p.category === filter);
@@ -74,8 +75,6 @@ export default function PortfolioPage() {
           </div>
         </section>
 
-        <Collaboration onWatch={setSelected} />
-
         <section className="section page-width" id="work" aria-labelledby="work-heading">
           <div className="section-heading"><div><p className="eyebrow">01 / Em destaque</p><h2 id="work-heading">Seu próximo vídeo<br /><em>começa com uma ideia.</em></h2></div><p>Quatro projetos que mostram meu olhar. Assista e conheça o que podemos criar juntos.</p></div>
           <div className="featured-list">{featured.map((project, index) => <article className={`featured ${project.format ? "featured-portrait" : ""}`} key={project.id}><button type="button" className={"featured-media project-button " + (project.format === "vertical" ? "media-vertical" : "")} onClick={() => setSelected(project)} aria-label={`Assistir ${project.title}`}><ProjectImage project={project} priority={index === 0} /><span className="play-icon"><Play fill="currentColor" size={22} aria-hidden="true" /></span><span className="cover-copy"><small>{project.coverLabel}</small></span></button><div className="featured-copy"><span className="eyebrow">FILME {String(index + 1).padStart(2, "0")} / {project.category}</span><h3>{project.title}</h3><p>{project.subtitle}</p><button className="text-button" type="button" onClick={() => setSelected(project)}>Assistir projeto <ArrowUpRight size={18} aria-hidden="true" /></button></div></article>)}</div>
@@ -87,7 +86,9 @@ export default function PortfolioPage() {
 
 
 
-        {colorStudies.length > 0 && <section className="section page-width color-section" id="color" aria-labelledby="color-heading"><div className="section-heading"><div><p className="eyebrow">Color grading</p><h2 id="color-heading">Cor que cria atmosfera.<br /><em>Motion que dá presença.</em></h2></div><p>Compare o bruto com a edição final. Depois, dê play para ver a abertura com cor e motion.</p></div><ColorGallery studies={colorStudies} /></section>}
+        {colorStudies.length > 0 && <section className="section page-width color-section" id="color" aria-labelledby="color-heading"><div className="section-heading"><div><p className="eyebrow">Color grading</p><h2 id="color-heading">Cor que cria atmosfera.<br /><em>Motion que dá presença.</em></h2></div><p>Compare o bruto com a edição final. Depois, dê play para ver a abertura com cor e motion.</p></div><ColorGallery studies={colorStudies} selectedId={colorSelected} onChoose={setColorSelected} /></section>}
+
+        <Collaboration onChooseStudy={setColorSelected} />
 
         <section className="about-section" id="about" aria-labelledby="about-heading"><div className="about-inner page-width"><div className="portrait"><Image src="/about/andre-portrait-bw.jpg" alt="André, motion designer" fill sizes="(max-width: 600px) 100vw, 40vw" /></div><div className="about-copy"><p className="eyebrow">04 / Por trás da imagem</p><h2 id="about-heading">Prazer, André.<br /><em>Arte é meu ponto de partida.</em></h2><p>Animes, séries e cinema sempre fizeram parte da minha vida. Gosto de um bom drama, de uma cena de ação e daqueles detalhes que fazem a gente sentir alguma coisa.</p><p>É desse lugar que vem meu olhar: combinar imagem, música e movimento para encontrar a personalidade de cada vídeo. Quero conhecer a sua ideia e dar forma a ela.</p><a className="text-button" href="#contact">Vamos criar algo juntos <ArrowUpRight size={18} aria-hidden="true" /></a></div></div></section>
 
