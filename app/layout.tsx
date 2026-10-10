@@ -8,8 +8,9 @@ export const metadata: Metadata = {
   alternates: { canonical: "/" },
 
   icons: {
-    icon: "/favicon.png",
-    shortcut: "/favicon.png",
+    icon: [{ url: "/brand/icon-32.png", sizes: "32x32", type: "image/png" }, { url: "/brand/icon-192.png", sizes: "192x192", type: "image/png" }],
+    shortcut: "/brand/icon-32.png",
+    apple: "/brand/icon-192.png",
   },
 
   openGraph: {
@@ -19,7 +20,7 @@ export const metadata: Metadata = {
     siteName: "ANDREMOGRAPH",
     locale: "pt_BR",
     type: "website",
-    images: [{ url: "/background/hero-poster.jpg", width: 1280, height: 720, alt: "Andremograph — Motion Designer e Editor" }],
+    images: [{ url: "/brand/share-card.jpg", width: 1200, height: 630, alt: "Andremograph — Motion Designer e Editor" }],
   },
 
   twitter: {
@@ -27,7 +28,7 @@ export const metadata: Metadata = {
     title: "Andremograph — Motion Designer e Editor",
     description: "Vídeos que dão vontade de ver. Edição e motion design por André. Conheça os projetos e converse pelo WhatsApp.",
     creator: "@andremograph",
-    images: ["/background/hero-poster.jpg"],
+    images: ["/brand/share-card.jpg"],
   },
 };
 
