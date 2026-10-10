@@ -11,10 +11,11 @@ export type Project = {
   format?: "portrait" | "vertical";
   posterAspectRatio?: string;
   note?: string;
+  capturedByJose?: boolean;
 };
 
 const primary: Project[] = [
-  { id: "jose-otavio", title: "Sanvit — uma nova fase", category: "Edição", subtitle: "José Otávio · Filmmaker e publicitário", description: "José Otávio apresenta a Sanvit em um vídeo que aproxima a marca de quem está assistindo. Minha edição combina sua fala com títulos em movimento e um ritmo leve para deixar a mensagem clara, do começo ao fim.", coverTitle: "Uma nova fase.", coverLabel: "SANVIT / JOSÉ OTÁVIO", video: "/videos-web/jose-otavio.mp4", poster: "/thumbnails/jose-otavio-hq.jpg" },
+  { id: "jose-otavio", title: "Sanvit — uma nova fase", category: "Edição", subtitle: "José Otávio · Filmmaker e publicitário", description: "José Otávio apresenta a Sanvit em um vídeo que aproxima a marca de quem está assistindo. Minha edição combina sua fala com títulos em movimento e um ritmo leve para deixar a mensagem clara, do começo ao fim.", coverTitle: "Uma nova fase.", coverLabel: "SANVIT / JOSÉ OTÁVIO", video: "/videos-web/jose-otavio.mp4", poster: "/thumbnails/jose-otavio-hq.jpg", capturedByJose: true },
   { id: "adapta", title: "Adapta — Doping de trabalho", category: "Edição", subtitle: "Inteligência artificial, explicada de outro jeito", description: "Assim como cada comprimido tem uma função, a IA também muda de papel conforme o que você precisa fazer. Uma edição que usa essa comparação, exemplos visuais e motion para tornar a ideia fácil de entender — e interessante de assistir.", coverTitle: "IA com propósito.", coverLabel: "ADAPTA / DOPING DE TRABALHO", video: "/videos-web/adapta.mp4", poster: "/thumbnails/adapta-hq.jpg", format: "portrait" },
 ];
 

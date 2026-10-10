@@ -2,6 +2,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import type { ColorStudy } from "./color-studies";
+import { CaptureCredit } from "./collaboration";
 
 export default function ColorComparison({ study }: { study: ColorStudy }) {
   const [position, setPosition] = useState(50);
@@ -24,6 +25,6 @@ export default function ColorComparison({ study }: { study: ColorStudy }) {
       </div>
     </div>
     <h3>{study.title}</h3><p>{study.description}</p>
-    <p className="color-credit">Captação de terceiros. Pós-produção por André. A imagem final também inclui os elementos da edição.</p>
+    <p className="color-credit">{study.capturedByJose ? <CaptureCredit /> : "Captação de terceiros."} Pós-produção por André. A imagem final também inclui os elementos da edição.</p>
   </article>;
 }
