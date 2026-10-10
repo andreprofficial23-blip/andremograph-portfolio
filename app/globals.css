@@ -87,6 +87,14 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--gold); outline-
 .collaboration-name { display: inline-flex; align-items: center; gap: 6px; color: var(--gold); text-decoration: none; font-size: 12px; }
 .collaboration-name:hover, .capture-credit a:hover { color: var(--gold); }
 .collaboration-description { color: #ffffff8f; margin: 14px 0 0; max-width: 280px; font-size: 13px; line-height: 1.6; }
+.collaboration-oceanus { display: block; color: #f4f1e9; text-decoration: none; }
+.collaboration-oceanus-cover { position: relative; display: block; aspect-ratio: 16/9; overflow: hidden; border-radius: 12px; border: 1px solid #ffffff20; }
+.collaboration-oceanus-cover img { object-fit: cover; transition: transform .25s; }
+.collaboration-oceanus-cover > span { position: absolute; right: 14px; bottom: 14px; width: 38px; height: 38px; display: grid; place-items: center; border-radius: 50%; background: #090a0bb0; border: 1px solid #ffffff50; }
+.collaboration-oceanus:hover img { transform: scale(1.035); }
+.collaboration-oceanus-caption { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 13px; }
+.collaboration-oceanus-caption small { display: block; font-size: 9px; letter-spacing: .13em; color: var(--gold); }
+.collaboration-oceanus-caption strong { display: block; margin-top: 5px; font-weight: 500; font-size: 21px; }
 .collaboration-clients { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
 .collaboration-clients button { border: 0; padding: 0; color: #f4f1e9; text-align: left; background: transparent; }
 .collaboration-thumbnail { position: relative; display: block; aspect-ratio: 4/5; border-radius: 10px; overflow: hidden; border: 1px solid #ffffff20; }
@@ -94,7 +102,7 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--gold); outline-
 .collaboration-thumbnail > span { position: absolute; bottom: 10px; right: 10px; width: 30px; height: 30px; display: grid; place-items: center; border-radius: 50%; background: #090a0bb0; border: 1px solid #ffffff50; }
 .collaboration-clients button:hover img { transform: scale(1.04); }
 .collaboration-clients strong { display: block; margin-top: 9px; font-size: 12px; font-weight: 450; }
-.collaboration-more { display: flex; gap: 20px; margin-top: 14px; }
+.collaboration-more { display: flex; flex-wrap: wrap; gap: 20px; margin-top: 18px; }
 .collaboration-more a, .collaboration-more button { display: inline-flex; gap: 6px; align-items: center; background: none; border: 0; padding: 0; color: #ffffff9c; text-decoration: none; font-size: 11px; }
 .collaboration-more a:hover, .collaboration-more button:hover { color: var(--gold); }
 @media (max-width: 1000px) { .collaboration-panel { gap: 26px; grid-template-columns: 1fr; } .collaboration-projects { max-width: 460px; } }
